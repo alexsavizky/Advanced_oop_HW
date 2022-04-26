@@ -36,18 +36,7 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 	private String[] swims = {"Fish","Jellyfish"};  
 	private String[] colors = {"Black","Red","Blue","Green","Cyan","Orange", "Yellow", "Magneta", "Pink"};
 	private AquaPanel pan;
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		try {
-//			AddAnimalDialog dialog = new AddAnimalDialog();
-//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//			dialog.setVisible(true);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
+
 
 	/**
 	 * Create the dialog.
@@ -136,10 +125,10 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 	{
 		if (e.getSource() == cancelButton)
 			dispose();
-		else 
-		{
+		else if (e.getSource() == confirmButton){
 			
 		}
+
 		
 	}
 

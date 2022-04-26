@@ -1,16 +1,17 @@
 
 package Q1;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.concurrent.CyclicBarrier;
 
 public class Jellyfish extends Swimmable {
 	private int E_DISTANCE;						//Amount of food a jellyfish can eat 
 	private int size;							//Size of jellyfish
-	private int col;							//Color of jellyfish
+	private Color col;							//Color of jellyfish
 	private int eatCount;						//Eat count of jellyfish
 	private int x_front, y_front, x_dir, y_dir;	//Position of jellyfish
-	
+	private AquaPanel panel;
 	/***
 	 * Constructor
 	 * @param size - Size of jellyfish 
@@ -20,9 +21,10 @@ public class Jellyfish extends Swimmable {
 	 * @param verSpeed - Position parameter
 	 * @param col - Color of jellyfish
 	 */
-	public Jellyfish(int size, int x_front, int y_front, int horSpeed, int verSpeed, int col)
+	public Jellyfish(AquaPanel panel,int size, int x_front, int y_front, int horSpeed, int verSpeed, Color col)
 	{
 		super(horSpeed, verSpeed);
+		this.panel = panel;
 		this.size = size;
 		this.x_front = x_front;
 		this.y_front = y_front;
@@ -64,7 +66,7 @@ public class Jellyfish extends Swimmable {
 		this.size = 0;
 		this.x_front = 0;
 		this.y_front = 0;
-		this.col = 0;
+		this.col = Color.black;
 		
 		//E_DISTANCE = 4 for checks
 		this.E_DISTANCE = 4;
@@ -84,29 +86,30 @@ public class Jellyfish extends Swimmable {
 	public int getY_front() {return this.y_front;}
 	public int getX_dir() {return this.x_dir;}
 	public int getY_dir() {return this.y_dir;}
-	public int getCol() {return this.col;}
+	public Color getCol() {return this.col;}
 	public String getColor()
 	{
-		switch(this.col) {
-		case 1:
+		if(col == Color.black)
 			return "Black";
-		case 2:
+		else if(col == Color.red)
 			return "Red";
-		case 3:
+		else if(col == Color.blue)
 			return "Blue";
-		case 4:
+		else if(col == Color.green)
 			return "Green";
-		case 5:
+		else if(col == Color.cyan)
 			return "Cyan";
-		case 6:
+		else if(col == Color.orange)
 			return "Orange";
-		case 7:
+		else if(col == Color.yellow)
 			return "Yellow";
-		case 8:
+		else if(col == Color.magenta)
 			return "Magneta";
-		default:
+		else if(col == Color.pink)
 			return "Pink";
-		}
+		else 
+			return "Uninitialized";
+		
 	}
 	
 	
@@ -162,10 +165,23 @@ public class Jellyfish extends Swimmable {
 		return false;
 	}
 	@Override
-	public void drawAnimal(Graphics g) {
-		// TODO Auto-generated method stub
-		
+	public void drawAnimal(Graphics g)
+	{
+	   int numLegs;
+	   if(size<40)
+	    	numLegs = 5;
+	   else if(size<80)
+	    	numLegs = 9;
+	   else
+	    	numLegs = 12;
+
+	   g.setColor(col);
+	   g.fillArc(x_front - size/2, y_front - size/4, size, size/2, 0, 180);
+			
+	   for(int i=0; i<numLegs; i++)
+		g.drawLine(x_front - size/2 + size/numLegs + size*i/(numLegs+1), y_front, x_front - size/2 + size/numLegs + size*i/(numLegs+1), y_front+size/3);
 	}
+
 	@Override
 	public void setSuspend() {
 		// TODO Auto-generated method stub
@@ -178,6 +194,16 @@ public class Jellyfish extends Swimmable {
 	}
 	@Override
 	public void setBarrier(CyclicBarrier b) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected void addObserver(AquaPanel aquaPanel) {
 		// TODO Auto-generated method stub
 		
 	}

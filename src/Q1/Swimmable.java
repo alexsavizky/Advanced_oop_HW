@@ -70,5 +70,8 @@ public abstract class Swimmable extends Thread{
 	abstract public void eatInc();
 	abstract public int getEatCount();
 	abstract public String getColor();
+	abstract public void run();
+
+	protected abstract void addObserver(AquaPanel aquaPanel);
 
 }

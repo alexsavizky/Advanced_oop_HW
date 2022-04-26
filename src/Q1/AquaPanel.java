@@ -9,9 +9,12 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
+import java.util.*;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+
 
 public class AquaPanel extends JPanel implements ActionListener
 {
@@ -31,7 +34,6 @@ public class AquaPanel extends JPanel implements ActionListener
 		setLayout(new BorderLayout());
 		setBackground(Color.white);
 		MakeButtons();
-
 
 	}
 	
@@ -61,6 +63,7 @@ public class AquaPanel extends JPanel implements ActionListener
 		b5.addActionListener(this);
 		b6.addActionListener(this);
 		b7.addActionListener(this);
+
 		
 	}
 	
@@ -70,17 +73,46 @@ public class AquaPanel extends JPanel implements ActionListener
 		{
 			aad = new AddAnimalDialog(this);
 			aad.setVisible(true);
+			//addAnimal(new Fish(this,100,200,100,10,10,Color.magenta));
 		}
 		else if (e.getSource() == b7)
 			System.exit(0);
+
 	}
 
 	public void paintComponent(Graphics g) 
 	{
+		
 		super.paintComponent(g);
         Graphics2D G = (Graphics2D) g;
         G.drawImage(this.background,0,0,getWidth(),getHeight(),this);
 	}
+	
+	
+	public void addAnimal(Swimmable swim) {
+		//swim.addObserver(this);
+		swimSet.add(swim);
+		repaint();
+		swim.start();
+	}
+	
+	
+			
+			//Fish new_fish = new Fish(this,100,200,100,10,10,Color.magenta);
+			
+			//new_fish.drawAnimal(getGraphics());
+			//new_fish.start();
+			//for(int i =0; i<10 ; i++)
+			//{
+				//new_fish.drawAnimal(getGraphics());
+				
+				//new_fish.start();
+					
+				
+				//this.repaint();
+			//}
+		
+	
 
 
 }
