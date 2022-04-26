@@ -6,18 +6,22 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.imageio.ImageIO;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.border.TitledBorder;
 
 import java.io.File;
 import java.io.IOException;
 
 public class AquaFrame extends JFrame implements ActionListener 
 {
+	private ImageIcon img = new ImageIcon("src/aquarium.png");
 	private static final long serialVersionUID = 1L;
 	private AquaPanel ap;
 	private JMenuBar ElMenu;
@@ -46,10 +50,12 @@ public class AquaFrame extends JFrame implements ActionListener
 	 */
 	public AquaFrame() 
 	{
-		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(850, 600);
-		
+		this.setTitle("Alex & Bar's Aquarium");
+		this.setIconImage(img.getImage());
+		setLocationRelativeTo(null);
+
 		//Adding AquaPanel
 		ap = new AquaPanel();
 		add(ap);
