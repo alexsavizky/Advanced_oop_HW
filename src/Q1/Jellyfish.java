@@ -11,7 +11,7 @@ public class Jellyfish extends Swimmable {
 	private Color col;							//Color of jellyfish
 	private int eatCount;						//Eat count of jellyfish
 	private int x_front, y_front, x_dir, y_dir;	//Position of jellyfish
-	
+	private AquaPanel panel;
 	/***
 	 * Constructor
 	 * @param size - Size of jellyfish 
@@ -21,9 +21,10 @@ public class Jellyfish extends Swimmable {
 	 * @param verSpeed - Position parameter
 	 * @param col - Color of jellyfish
 	 */
-	public Jellyfish(int size, int x_front, int y_front, int horSpeed, int verSpeed, Color col)
+	public Jellyfish(AquaPanel panel,int size, int x_front, int y_front, int horSpeed, int verSpeed, Color col)
 	{
 		super(horSpeed, verSpeed);
+		this.panel = panel;
 		this.size = size;
 		this.x_front = x_front;
 		this.y_front = y_front;
