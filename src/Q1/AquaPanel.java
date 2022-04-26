@@ -2,21 +2,20 @@ package Q1;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.util.HashSet;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class AquaPanel extends JPanel 
 {
-	private static final long serialVersionUID = 1L;
 	private JPanel buttons;
 	private JButton b1, b2, b3, b4, b5, b6, b7;
-	protected Image background = null;
+	protected Image background;
 	private HashSet<Swimmable> swimSet = new HashSet<Swimmable>();
 	
 	/**
@@ -51,13 +50,6 @@ public class AquaPanel extends JPanel
 		buttons.add(b6);
 		buttons.add(b7);
 		add(buttons,BorderLayout.SOUTH);
-	}
-
-	public void paintComponent(Graphics g) 
-	{
-		super.paintComponent(g);
-        Graphics2D G = (Graphics2D) g;
-        G.drawImage(this.background,0,0,getWidth(),getHeight(),this);
 	}
 
 

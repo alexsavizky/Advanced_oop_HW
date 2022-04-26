@@ -1,30 +1,35 @@
 package Q1;
 
 import java.awt.*;  
+import java.awt.event.*;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import java.io.File;
 import java.io.IOException;
 
-public class AquaFrame extends JFrame implements ActionListener 
-{
-	private static final long serialVersionUID = 1L;
+public class AquaFrame extends JFrame implements ActionListener {
+
 	private AquaPanel ap;
 	private JMenuBar ElMenu;
 	private JMenu file ,background ,help;
 	private JMenuItem exit, image, blue, none, helpz;
+	private BufferedImage img = null;
 
-	
 	/**
 	 * Launch the application.
 	 */
@@ -92,16 +97,22 @@ public class AquaFrame extends JFrame implements ActionListener
 	}
 
 	
-	public void LoadImage()
+	public void loadImage()
     {
-        FileDialog fd = new FileDialog(new Frame(),"Please choose a file:",FileDialog.LOAD);
+//        if(lb_background!=null)
+//            panel.removeAll();
+ 
+        FileDialog fd=new FileDialog(new Frame(),"please choose a file:",FileDialog.LOAD);
         fd.setVisible(true);
-        if(fd.getFile() != null)
+        File f;
+        if(fd.getFile()!=null)
         {
+            f=new File(fd.getDirectory(),fd.getFile());
             try{
-            	File f = new File(fd.getDirectory(),fd.getFile());
+               // ImageIcon a=new ImageIcon(ImageIO.read(f));
                 ap.background = ImageIO.read(f);
                 ap.repaint();
+              
                 setVisible(true);
             }
             catch(IOException e)
@@ -109,36 +120,24 @@ public class AquaFrame extends JFrame implements ActionListener
                 e.printStackTrace();
             }
         }
+       
     }
 	
 	
+	//This is an override
 	public void actionPerformed(ActionEvent e) 
 	{
 		if (e.getSource() == exit)
 			System.exit(0);
 		
 		else if (e.getSource() == image)
-			LoadImage();
+			loadImage();
 		
-		else if (e.getSource() == none) 
-		{
-			if (ap.background != null)
-			{
-				ap.background = null;
-				ap.repaint();
-			}
+		else if (e.getSource() == none)
 			ap.setBackground(Color.white);
-		}
 		
-		else if (e.getSource() == blue) 
-		{
-			if (ap.background != null)
-			{
-				ap.background = null;
-				ap.repaint();
-			}
+		else if (e.getSource() == blue)
 			ap.setBackground(Color.blue);
-		}
 		
 		else if (e.getSource() == helpz)
 			JOptionPane.showMessageDialog(null, "Home Work 3\n GUI @ Threads");
