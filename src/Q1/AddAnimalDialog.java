@@ -1,6 +1,7 @@
 package Q1;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -34,25 +35,26 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 	
 	private String[] swims = {"Fish","Jellyfish"};  
 	private String[] colors = {"Black","Red","Blue","Green","Cyan","Orange", "Yellow", "Magneta", "Pink"};
-
+	private AquaPanel pan;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			AddAnimalDialog dialog = new AddAnimalDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			AddAnimalDialog dialog = new AddAnimalDialog();
+//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//			dialog.setVisible(true);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public AddAnimalDialog() 
+	public AddAnimalDialog(AquaPanel pan) 
 	{
+		this.pan = pan;
 		setSize(450, 245);
 		setLayout(new BorderLayout());
 		setLocationRelativeTo(null);
@@ -63,26 +65,9 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 		MakeButtons();
 		confirmButton.addActionListener(this);
 		cancelButton.addActionListener(this);
-		
-     
+		  
         add(contentPane, BorderLayout.NORTH);
         add(controls, BorderLayout.SOUTH);
-		
-//		
-//		add(controls);
-		
-		
-//		getContentPane().setLayout(new BorderLayout());
-
-
-//				JButton okButton = new JButton("OK");
-//				okButton.setActionCommand("OK");
-//				GridLayout experimentLayout = new GridLayout(0,2);
-//				JButton cancelButton = new JButton("Cancel");
-//				cancelButton.setActionCommand("Cancel");
-		
-			
-		
 	}
 	
 	public void MakeButtons() 
@@ -135,7 +120,18 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
         experimentLayout2.setHgap(0);
 	}
 
-	@Override
+//	public void GetInfoFromDialog() 
+//	{
+//		Color color;
+//		int size, h, v;
+//		String fishorjelly, colorname;
+//		try 
+//		{
+//			fishorjelly = animalBox.getItemAt(animalBox.getSelectedIndex());
+//			
+//		}
+//	}
+	
 	public void actionPerformed(ActionEvent e) 
 	{
 		if (e.getSource() == cancelButton)

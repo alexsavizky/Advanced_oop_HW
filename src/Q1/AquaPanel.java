@@ -68,7 +68,7 @@ public class AquaPanel extends JPanel implements ActionListener
 	{
 		if (e.getSource() == b1) 
 		{
-			aad = new AddAnimalDialog();
+			aad = new AddAnimalDialog(this);
 			aad.setVisible(true);
 		}
 		else if (e.getSource() == b7)
