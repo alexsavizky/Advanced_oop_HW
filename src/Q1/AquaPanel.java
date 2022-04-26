@@ -6,16 +6,20 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashSet;
-
+import java.util.*;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class AquaPanel extends JPanel 
+public class AquaPanel extends JPanel  implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
 	private JPanel buttons;
-	private JButton b1, b2, b3, b4, b5, b6, b7;
+	protected JButton b1, b2, b3, b4, b5, b6, b7;
 	protected Image background = null;
 	private HashSet<Swimmable> swimSet = new HashSet<Swimmable>();
 	
@@ -28,7 +32,6 @@ public class AquaPanel extends JPanel
 		setLayout(new BorderLayout());
 		setBackground(Color.white);
 		MakeButtons();
-
 
 	}
 	
@@ -51,13 +54,49 @@ public class AquaPanel extends JPanel
 		buttons.add(b6);
 		buttons.add(b7);
 		add(buttons,BorderLayout.SOUTH);
+		b1.addActionListener(this);
+		b2.addActionListener(this);
+		b3.addActionListener(this);
+		b4.addActionListener(this);
+		b5.addActionListener(this);
+		b6.addActionListener(this);
+		b7.addActionListener(this);
 	}
 
 	public void paintComponent(Graphics g) 
 	{
+		
 		super.paintComponent(g);
         Graphics2D G = (Graphics2D) g;
         G.drawImage(this.background,0,0,getWidth(),getHeight(),this);
+	}
+	
+	
+	public void addAnimal(Swimmable swim) {
+		//swim.addObserver(this);
+		swimSet.add(swim);
+		repaint();
+		swim.start();
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()== b1)
+		{
+			addAnimal(new Fish(this,100,200,100,10,10,Color.magenta));
+			//Fish new_fish = new Fish(this,100,200,100,10,10,Color.magenta);
+			
+			//new_fish.drawAnimal(getGraphics());
+			//new_fish.start();
+			//for(int i =0; i<10 ; i++)
+			//{
+				//new_fish.drawAnimal(getGraphics());
+				
+				//new_fish.start();
+					
+				
+				//this.repaint();
+			//}
+		}
 	}
 
 

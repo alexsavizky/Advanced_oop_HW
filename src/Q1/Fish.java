@@ -14,6 +14,7 @@ public class Fish extends Swimmable {
 	private Color col;							//Color of fish
 	private int eatCount;						//Eat count of fish
 	private int x_front, y_front, x_dir, y_dir;	//Position of fish
+	private AquaPanel panel;
 	
 	/***
 	 * Constructor
@@ -24,9 +25,10 @@ public class Fish extends Swimmable {
 	 * @param verSpeed - Position parameter
 	 * @param col - Color of fish
 	 */
-	public Fish(int size, int x_front, int y_front, int horSpeed, int verSpeed, Color col)
+	public Fish(AquaPanel panel,int size, int x_front, int y_front, int horSpeed, int verSpeed, Color col)
 	{
 		super(horSpeed, verSpeed);
+		this.panel = panel;
 		this.size = size;
 		this.x_front = x_front;
 		this.y_front = y_front;
@@ -235,7 +237,29 @@ public class Fish extends Swimmable {
 	   }
 	}
 
-
+	public void run() {
+		drawAnimal(panel.getGraphics());
+		while(true) {
+			try {
+				drawAnimal(panel.getGraphics());
+				sleep(15);
+				if(this.x_front > panel.getWidth()&& x_dir ==1 )
+				{
+					x_dir =-1;
+				}
+				else if (this.x_front < 0 && x_dir ==-1 )
+				{
+					x_dir =1;
+				}
+				this.x_front += this.horSpeed*this.x_dir;
+				sleep(15);
+				panel.repaint();
+				sleep(15);
+				//drawAnimal(panel.getGraphics());
+				//this.drawAnimal(g);
+			}catch(InterruptedException e) {}
+		}
+	}
 	@Override
 	public void setSuspend() {
 		// TODO Auto-generated method stub
@@ -250,6 +274,12 @@ public class Fish extends Swimmable {
 
 	@Override
 	public void setBarrier(CyclicBarrier b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void addObserver(AquaPanel aquaPanel) {
 		// TODO Auto-generated method stub
 		
 	}

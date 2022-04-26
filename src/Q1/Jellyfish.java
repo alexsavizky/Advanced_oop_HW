@@ -196,5 +196,15 @@ public class Jellyfish extends Swimmable {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected void addObserver(AquaPanel aquaPanel) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
