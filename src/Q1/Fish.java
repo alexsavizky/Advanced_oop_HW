@@ -251,7 +251,17 @@ public class Fish extends Swimmable {
 				{
 					x_dir =1;
 				}
+				if(this.y_front > panel.getHeight()&& y_dir ==1 )
+				{
+					x_dir =-1;
+				}
+				else if (this.y_front < 0 && y_dir ==-1 )
+				{
+					x_dir =1;
+				}
+				
 				this.x_front += this.horSpeed*this.x_dir;
+				this.y_front += this.verSpeed*this.y_dir;
 				sleep(15);
 				panel.repaint();
 				sleep(15);

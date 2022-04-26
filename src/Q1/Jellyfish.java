@@ -212,6 +212,15 @@ public class Jellyfish extends Swimmable {
 				{
 					x_dir =1;
 				}
+				if(this.y_front > panel.getHeight() && y_dir ==1 )
+				{
+					y_dir =-1;
+				}
+				else if (this.y_front < 0 && y_dir ==-1 )
+				{
+					y_dir =1;
+				}
+				this.y_front += this.verSpeed*this.y_dir;
 				this.x_front += this.horSpeed*this.x_dir;
 				sleep(15);
 				panel.repaint();

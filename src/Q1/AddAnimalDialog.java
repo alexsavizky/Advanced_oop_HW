@@ -1,6 +1,7 @@
 package Q1;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -143,7 +144,8 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 		if (e.getSource() == cancelButton)
 			dispose();
 		else if (e.getSource() == confirmButton){
-			
+			this.pan.addAnimal(new Jellyfish(pan,100,200,100,10,10,Color.magenta));
+			dispose();
 		}
 
 		
