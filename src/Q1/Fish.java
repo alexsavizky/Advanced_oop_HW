@@ -242,7 +242,7 @@ public class Fish extends Swimmable {
 			try
 			{
 				sleep(10);
-				if(this.barrier == null) {
+				if(!panel.is_worm()) {
 					
 					if(this.is_moving == true) {	
 						moveRandom();
@@ -289,7 +289,7 @@ public class Fish extends Swimmable {
 		
 	}
 	public void movetoFood() {
-		if(x_front != panel.getWidth()/2) {
+		if(!(Math.abs(panel.getWidth()/2-x_front)<=5)) {
 			if(this.x_front > panel.getWidth()/2-this.size/2&& x_dir ==1 )
 			{
 				x_dir =-1;
@@ -302,7 +302,8 @@ public class Fish extends Swimmable {
 			this.x_front += this.horSpeed*this.x_dir;
 		}
 		
-		if(y_front != panel.getHeight()/2) {
+		if(!(Math.abs(panel.getHeight()/2-y_front)<=5)) {
+			
 			if(this.y_front > panel.getHeight()/2-this.size/2&& y_dir ==1 )
 			{
 				y_dir =-1;
@@ -312,6 +313,10 @@ public class Fish extends Swimmable {
 				y_dir =1;
 			}
 			this.y_front += this.verSpeed*this.y_dir;
+		}
+		if((Math.abs(panel.getWidth()/2-x_front)<=5) || (Math.abs(panel.getHeight()/2-y_front)<=5))
+		{
+			panel.eatworm();
 		}
 		
 	}

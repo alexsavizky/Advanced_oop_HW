@@ -105,20 +105,13 @@ public class AquaPanel extends JPanel implements ActionListener
 
 		
 		else if(e.getSource() == b5) {
-			CyclicBarrier barrier=new CyclicBarrier(swimSet.size());
-			itrAnimals= swimSet.iterator(); 
-			while(itrAnimals.hasNext()){
-		 		itrAnimals.next().setBarrier(barrier); 
-		 	}
+//			CyclicBarrier barrier=new CyclicBarrier(swimSet.size());
+//			itrAnimals= swimSet.iterator(); 
+//			while(itrAnimals.hasNext()){
+//		 		itrAnimals.next().setBarrier(barrier); 
+//		 	}
 			worm = true;
-			try {
-				picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("src/Caterpie-icon.png"))));
-				add(picLabel);
-				this.validate();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+
 		}
 		
 		else if(e.getSource() == b6) 
@@ -173,6 +166,17 @@ public class AquaPanel extends JPanel implements ActionListener
         while(itrAnimals.hasNext()){
 	 		itrAnimals.next().drawAnimal(g);
         }
+        if(worm == true)
+        {
+			try {
+				picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("src/Caterpie-icon.png"))));
+				add(picLabel);
+				this.validate();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        }
 	}
 	
 	
@@ -182,7 +186,12 @@ public class AquaPanel extends JPanel implements ActionListener
 		repaint();
 		swim.start();
 	}
-	
+	public void eatworm() {
+		this.worm = false;
+	}
+	public Boolean is_worm() {
+		return worm;
+	}
 	
 
 
