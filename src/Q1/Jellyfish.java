@@ -105,11 +105,8 @@ public class Jellyfish extends Swimmable {
 			return "Yellow";
 		else if(col == Color.magenta)
 			return "Magneta";
-		else if(col == Color.pink)
+		else
 			return "Pink";
-		else 
-			return "Uninitialized";
-		
 	}
 	
 	
