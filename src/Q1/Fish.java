@@ -129,7 +129,7 @@ public class Fish extends Swimmable {
 		this.eatCount+=1;
 		if (this.eatCount==this.E_DISTANCE)
 		{
-			this.changeFish(this.size + 50);
+			this.changeFish(this.size + 30);
 			this.eatCount = 0;
 		}
 	}
@@ -339,11 +339,11 @@ public class Fish extends Swimmable {
 		{
 			x_dir =1;
 		}
-		if(this.y_front > panel.getHeight() && y_dir ==1 )
+		if(this.y_front > panel.getHeight() - this.size/2 && y_dir ==1 )
 		{
 			y_dir =-1;
 		}
-		else if (this.y_front < 0 && y_dir ==-1 )
+		else if (this.y_front < this.size/4 && y_dir ==-1 )
 		{
 			y_dir =1;
 		}

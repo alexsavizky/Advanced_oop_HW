@@ -121,7 +121,7 @@ public class Jellyfish extends Swimmable {
 		this.eatCount+=1;
 		if (this.eatCount==this.E_DISTANCE)
 		{
-			this.changeJellyfish(this.size + 1);
+			this.changeJellyfish(this.size + 30);
 			this.eatCount = 0;
 		}
 	}

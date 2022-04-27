@@ -109,13 +109,14 @@ public class AquaPanel extends JPanel implements ActionListener
 		 	}
 		}
 		
-		else if (e.getSource() == b4) {
-			swimSet = new HashSet<Swimmable>();
-			infoFlag = false;
-		}
+
 
 		else if(e.getSource() == b4) {
 			swimSet = new HashSet<Swimmable>();
+			if(worm == true)
+				eatworm();
+			infoFlag = false;
+			repaint();
 		}
 		else if(e.getSource() == b5) {
 
