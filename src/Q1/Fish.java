@@ -295,7 +295,7 @@ public class Fish extends Swimmable {
 		{
 			panel.eatworm();
 			this.eatInc();
-
+		}
 
 		
 		else {
