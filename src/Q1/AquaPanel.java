@@ -157,7 +157,7 @@ public class AquaPanel extends JPanel implements ActionListener
 					v = s.getVerSpeed();
 					
 					//ADD THE getFood() IN "1"
-					food = 1;
+					food = s.getEatCount();
 					
 					all += food;
 					model.addRow(new Object[]{name, color, String.valueOf(size), String.valueOf(h),
