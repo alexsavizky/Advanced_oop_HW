@@ -207,8 +207,17 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 		if (e.getSource() == cancelButton)
 			dispose();
 		else if (e.getSource() == confirmButton)
-			this.GetFromDialog();
-
+		{
+			try
+			{
+				if(ap.getSwimSetSize()>4)
+					throw new Exception("The maximum number of animals is 5");
+				this.GetFromDialog();
+			}
+			catch(Exception e1){
+				JOptionPane.showMessageDialog(null, e1.getMessage());
+				}
+		}
 	}
     
     void addCompForBorder(Border border,

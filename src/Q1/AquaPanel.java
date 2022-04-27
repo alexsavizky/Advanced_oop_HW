@@ -57,6 +57,7 @@ public class AquaPanel extends JPanel implements ActionListener
 		MakeButtons();
 
 	}
+	public int getSwimSetSize() {return swimSet.size();}
 	
 	public void MakeButtons() 
 	{
