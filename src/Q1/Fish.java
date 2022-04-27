@@ -266,7 +266,6 @@ public class Fish extends Swimmable {
 		
 			notify();
 		}
-		
 	}
 
 	@Override
