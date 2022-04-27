@@ -149,13 +149,7 @@ public class AquaFrame extends JFrame implements ActionListener
 			}
 			ap.setBackground(Color.blue);
 		}
-//		else if(e.getSource() == ap.b1) {
-//			Fish new_fish = new Fish(100,100,100,100,100,Color.magenta);
-//			new_fish.drawAnimal(getGraphics());
-//			ap.repaint();
-//		}
-//		else if (e.getSource() == ap.b2)
-//			System.exit(0);
+
 		else if (e.getSource() == helpz)
 			JOptionPane.showMessageDialog(null, "Home Work 3\n GUI @ Threads");
 	}

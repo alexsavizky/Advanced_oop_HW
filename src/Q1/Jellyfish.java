@@ -3,6 +3,7 @@ package Q1;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
 public class Jellyfish extends Swimmable {
@@ -198,7 +199,7 @@ public class Jellyfish extends Swimmable {
 	}
 	@Override
 	public void setBarrier(CyclicBarrier b) {
-		this.barrier=barrier;
+		this.barrier=b;
 		
 	}
 	@Override
@@ -219,7 +220,8 @@ public class Jellyfish extends Swimmable {
 					}
 				}
 				else {
-					if(this.is_moving == true) {	
+					if(this.is_moving == true) {
+						barrier.await();
 						movetoFood();
 						
 					}
@@ -229,7 +231,7 @@ public class Jellyfish extends Swimmable {
 						}
 					}
 				}
-			}catch(InterruptedException e) {}
+			}catch( InterruptedException | BrokenBarrierException  e) {}
 			panel.repaint();
 		}
 	}
