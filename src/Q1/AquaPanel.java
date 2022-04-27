@@ -36,15 +36,11 @@ public class AquaPanel extends JPanel implements ActionListener
 	private JLabel picLabel;
 	
 	private Boolean worm = false;
+	private Boolean infoFlag = false;
 	
-	protected Boolean infoFlag = false;
-	
-//	private String[] columnNames = { "Animal", "Color", "Size", "Hor. Speed", "Ver. Speed", "Eat counter"};
-//	private String[][] data = new String[6][6];
-//	private JTable jt = null;
 	
 	private JTable table;
-	JScrollPane jsc;
+	private JScrollPane jsc;
 	
 	/**
 	 * Create the panel.
@@ -111,12 +107,12 @@ public class AquaPanel extends JPanel implements ActionListener
 		
 		else if (e.getSource() == b4) {
 			swimSet = new HashSet<Swimmable>();
+			worm = false;
+			revalidate();
+			repaint();
 			infoFlag = false;
 		}
 
-		else if(e.getSource() == b4) {
-			swimSet = new HashSet<Swimmable>();
-		}
 		else if(e.getSource() == b5) {
 
 			try {
@@ -124,7 +120,6 @@ public class AquaPanel extends JPanel implements ActionListener
 				add(picLabel,BorderLayout.CENTER);
 				this.validate();
 				} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
         
@@ -155,9 +150,7 @@ public class AquaPanel extends JPanel implements ActionListener
 					size = s.getSize();
 					h = s.getHorSpeed();
 					v = s.getVerSpeed();
-					
-					//ADD THE getFood() IN "1"
-					food = 1;
+					food = s.getEatCount();
 					
 					all += food;
 					model.addRow(new Object[]{name, color, String.valueOf(size), String.valueOf(h),
@@ -173,10 +166,10 @@ public class AquaPanel extends JPanel implements ActionListener
 			}
 			else 
 			{
-				if (jsc.isVisible() == true)
-					jsc.setVisible(false);
-				else
-					jsc.setVisible(true);
+				remove(jsc);
+				validate();
+				repaint();
+				infoFlag = false;
 			}
 		}
 		
@@ -193,22 +186,9 @@ public class AquaPanel extends JPanel implements ActionListener
         Graphics2D G = (Graphics2D) g;
         G.drawImage(this.background,0,0,getWidth(),getHeight(),this);
         itrAnimals= swimSet.iterator(); //intialzie iterator 
-        while(itrAnimals.hasNext()){
+        while(itrAnimals.hasNext())
 	 		itrAnimals.next().drawAnimal(g);
-        }
-//        if(worm == true)
-//        {
-//			try {
-//				picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("src/Caterpie-icon.png"))));
-//				add(picLabel,BorderLayout.CENTER);
-//				this.validate();
-//			} catch (IOException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-//        }
 	}
-	
 	
 	public void addAnimal(Swimmable swim) {
 		swim.addObserver(this);
@@ -225,7 +205,4 @@ public class AquaPanel extends JPanel implements ActionListener
 	public Boolean is_worm() {
 		return worm;
 	}
-	
-
-
 }

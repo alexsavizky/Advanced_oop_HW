@@ -189,11 +189,9 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 			
 			if (fishorjelly == "Fish") {
 				ap.addAnimal(new Fish(ap, size, 200, 100, h, v, color));
-				ap.infoFlag = false;
 			}
 			else if (fishorjelly == "Jellyfish") {
 				ap.addAnimal(new Jellyfish(ap, size, 200, 100, h, v, color));
-				ap.infoFlag = false;
 			}
 			dispose();
 		}
