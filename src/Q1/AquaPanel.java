@@ -18,7 +18,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 
 
@@ -32,11 +34,17 @@ public class AquaPanel extends JPanel implements ActionListener
 	private HashSet<Swimmable> swimSet = new HashSet<Swimmable>();
 	private Iterator <Swimmable>itrAnimals;
 	private JLabel picLabel;
+	
 	private Boolean worm = false;
 	
-	private String[] columnNames = { "Animal", "Color", "Size", "Hor. Speed", "Ver. Speed", "Eat counter"};
-	private String[][] data = new String[6][6];
-	private JTable jt;
+	protected Boolean infoFlag = false;
+	
+//	private String[] columnNames = { "Animal", "Color", "Size", "Hor. Speed", "Ver. Speed", "Eat counter"};
+//	private String[][] data = new String[6][6];
+//	private JTable jt = null;
+	
+	private JTable table;
+	JScrollPane jsc;
 	
 	/**
 	 * Create the panel.
@@ -100,6 +108,11 @@ public class AquaPanel extends JPanel implements ActionListener
 		 		itrAnimals.next().setResume(); 
 		 	}
 		}
+		
+		else if (e.getSource() == b4) {
+			swimSet = new HashSet<Swimmable>();
+			infoFlag = false;
+		}
 
 		
 		else if(e.getSource() == b5) {
@@ -116,38 +129,49 @@ public class AquaPanel extends JPanel implements ActionListener
 		
 		else if(e.getSource() == b6) 
 		{
-			String name, color;
-			int size, h, v, food, i = 0, all = 0;
-			itrAnimals = swimSet.iterator();
-			Swimmable s;
 			
-			while(itrAnimals.hasNext()){
-//		 		name = itrAnimals.next().getAnimalName();
-//		 		color = itrAnimals.next().getColor();
-//		 		size = itrAnimals.next().getSize();
-//		 		h = itrAnimals.next().getHorSpeed();
-//		 		v = itrAnimals.next().getVerSpeed();
-//		 		food = 0;
-//		 		data += {name, color, size, h, v, food};
-				s = itrAnimals.next();
-		 		data[i][0] = s.getAnimalName();
-		 		data[i][1] = s.getColor();
-		 		data[i][2] = String.valueOf(s.getSize());
-		 		data[i][3] = String.valueOf(s.getHorSpeed());
-		 		data[i][4] = String.valueOf(s.getVerSpeed());
-		 		data[i][5] = String.valueOf(0);
-		 		all += s.getEatCount();
-		 		i++;
-		 		
-	        }
-			data[i][0] = "Total";
-			data[i][5] = String.valueOf(all);
-			
-			jt = new JTable(data, columnNames);
-			jt.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			add(jt);
-			this.validate();
-			//jt.setVisible(true);
+			if (infoFlag == false) 
+			{
+				String name, color;
+				int size, h, v, food, all = 0;
+				itrAnimals = swimSet.iterator();
+				Swimmable s;
+				
+				table = new JTable(new DefaultTableModel(new Object[]{ "Animal", "Color", "Size", "Hor. Speed",
+						"Ver. Speed", "Eat counter"}, 0));
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+				
+				while(itrAnimals.hasNext()) 
+				{
+					s = itrAnimals.next();
+		
+					name = s.getAnimalName();
+					color = s.getColor();
+					size = s.getSize();
+					h = s.getHorSpeed();
+					v = s.getVerSpeed();
+					
+					//ADD THE getFood() IN "1"
+					food = 1;
+					
+					all += food;
+					model.addRow(new Object[]{name, color, size, h, v, food});
+				}
+				
+				model.addRow(new Object[]{"Total", "", "", "", "", all});
+				table.setAutoCreateRowSorter(true);
+				jsc = new JScrollPane(table);
+				add(jsc);
+				validate();
+				infoFlag = true;
+			}
+			else 
+			{
+				if (jsc.isVisible() == true)
+					jsc.setVisible(false);
+				else
+					jsc.setVisible(true);
+			}
 		}
 		
 		else if (e.getSource() == b7)
@@ -174,6 +198,7 @@ public class AquaPanel extends JPanel implements ActionListener
 		repaint();
 		swim.start();
 	}
+
 	
 	
 			

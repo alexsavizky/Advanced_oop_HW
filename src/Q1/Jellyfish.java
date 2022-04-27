@@ -79,7 +79,7 @@ public class Jellyfish extends Swimmable {
 	}
 	
 	//get functions
-	public String getAnimalName() {return getClass().getName();}
+	public String getAnimalName() {return "Jellyfish";}
 	public int getEatCount() {return this.eatCount;}
 	public int getSize() {return this.size;}
 	public int getE_DISTANCE() {return this.E_DISTANCE;}
