@@ -59,7 +59,6 @@ public abstract class Swimmable extends Thread{
 			return false;
 	}
 	
-	
 	//Functions for Fish & Jellyfish classes
 	abstract public String getAnimalName();
 	abstract public void drawAnimal(Graphics g);
@@ -71,7 +70,4 @@ public abstract class Swimmable extends Thread{
 	abstract public int getEatCount();
 	abstract public String getColor();
 	abstract public void run();
-
-	protected abstract void addObserver(AquaPanel aquaPanel);
-
 }

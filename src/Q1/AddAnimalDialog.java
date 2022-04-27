@@ -6,11 +6,10 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 
-import java.awt.FlowLayout;
-
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -25,40 +24,32 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
-public class AddAnimalDialog extends JDialog implements ActionListener {
-	private static final long serialVersionUID = 1L;
 
+public class AddAnimalDialog extends JDialog implements ActionListener {
+	
+	private static final long serialVersionUID = 1L;
 	private ImageIcon img2 = new ImageIcon("src/whale.png");
 
 	private final JPanel contentPane = new JPanel();
 	private final JPanel controls = new JPanel();
 	private final JPanel head = new JPanel();
-	private GridLayout experimentLayout, experimentLayout2, experimentLayout3;
-	
-	private JButton confirmButton, cancelButton;
-	
 	private JComboBox<String> animalBox;
 	private JComboBox<String> colorBox;
-	
+	private JButton confirmButton, cancelButton;
 	private JLabel animalLabel, sizeLabel, horSpeedLabel, verSpeedLabel , colorLabel;
-	
 	private JTextField sizetxt, verSpeedtxt, horSpeedtxt;
+	
+	private GridLayout experimentLayout, experimentLayout2, experimentLayout3;
 	
 	private String[] swims = {"Fish","Jellyfish"};  
 	private String[] colors = {"Black","Red","Blue","Green","Cyan","Orange", "Yellow", "Magneta", "Pink"};
+	
 	private AquaPanel ap;
-
 	
-
 	
-
-	/**
-	 * Create the dialog.
-	 */
 	public AddAnimalDialog(AquaPanel ap) 
 	{
 		this.ap = ap;
-		//setSize(450, 245);
 		setSize(450, 305);
 		setLayout(new BorderLayout());
 		this.setTitle("Add Animal Dialog");
@@ -85,9 +76,7 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 		experimentLayout3 = new GridLayout();
 		head.setLayout(experimentLayout3);
 		
-//		int c = 8594;
 		int c = 9728;
-//		int c = 10031;
 		
 		JPanel matteBorders = new JPanel();
 		TitledBorder titled = BorderFactory.createTitledBorder("Add a new animal");
@@ -104,7 +93,6 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 		animalLabel = new JLabel(" " + s + "   Choose an animal:");
 		animalBox = new JComboBox<String>(swims);
   		
-		
 		sizeLabel = new JLabel(" " + s + "   Animal's size (20-320):");
 		sizetxt = new JTextField();
 		
@@ -116,8 +104,6 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 		
 		colorLabel = new JLabel(" " + s + "   Pick a color:");
 		colorBox = new JComboBox<String>(colors);
-		
-		
 		
 		contentPane.add(animalLabel);
 		contentPane.add(animalBox);
@@ -134,16 +120,12 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 		contentPane.add(colorLabel);
 		contentPane.add(colorBox);
 		
-		//contentPane.setBorder(title);
-		
 		confirmButton = new JButton("Confirm");
 		cancelButton = new JButton("Cancel");
 		
 		controls.add(confirmButton);
 		controls.add(cancelButton);
-		
-		
-		//controls.add(titledBorders);
+
 		head.add(matteBorders);
 		
         experimentLayout.setHgap(2);
@@ -187,12 +169,14 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 			else if(colorname == "Pink")
 				color = Color.pink;
 			
-			if (fishorjelly == "Fish") {
-				ap.addAnimal(new Fish(ap, size, 200, 100, h, v, color));
-			}
-			else if (fishorjelly == "Jellyfish") {
-				ap.addAnimal(new Jellyfish(ap, size, 200, 100, h, v, color));
-			}
+	        Random rand = new Random();
+	        int xx = rand.nextInt(ap.getWidth());
+	        int yy = rand.nextInt(ap.getHeight());
+			
+			if (fishorjelly == "Fish")
+				ap.addAnimal(new Fish(ap, size, xx, yy, h, v, color));
+			else if (fishorjelly == "Jellyfish")
+				ap.addAnimal(new Jellyfish(ap, size, xx, yy, h, v, color));
 			dispose();
 		}
 		catch(Exception e1){
@@ -206,7 +190,6 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 			dispose();
 		else if (e.getSource() == confirmButton)
 			this.GetFromDialog();
-
 	}
     
     void addCompForBorder(Border border,

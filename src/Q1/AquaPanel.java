@@ -23,35 +23,31 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 
-
 public class AquaPanel extends JPanel implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
-	private JPanel buttons;
 	private AddAnimalDialog aad;
-	private JButton b1, b2, b3, b4, b5, b6, b7;
 	protected Image background = null;
-	private HashSet<Swimmable> swimSet = new HashSet<Swimmable>();
-	private Iterator <Swimmable>itrAnimals;
+	
+	private JButton b1, b2, b3, b4, b5, b6, b7;
+	private JPanel buttons;
 	private JLabel picLabel;
-	
-	private Boolean worm = false;
-	private Boolean infoFlag = false;
-	
-	
 	private JTable table;
 	private JScrollPane jsc;
 	
-	/**
-	 * Create the panel.
-	 */
+	private HashSet<Swimmable> swimSet = new HashSet<Swimmable>();
+	private Iterator <Swimmable>itrAnimals;
+
+	private Boolean worm = false;
+	private Boolean infoFlag = false;
+	
+
 	public AquaPanel() 
 	{
 		super();
 		setLayout(new BorderLayout());
 		setBackground(Color.white);
 		MakeButtons();
-
 	}
 	
 	public void MakeButtons() 
@@ -80,40 +76,35 @@ public class AquaPanel extends JPanel implements ActionListener
 		b5.addActionListener(this);
 		b6.addActionListener(this);
 		b7.addActionListener(this);
-
-		
 	}
 	
 	public void actionPerformed(ActionEvent e) 
 	{
-		if (e.getSource() == b1) 
+		if (e.getSource() == b1) 						//CLICK ON "Add Animal" - B1
 		{
 			aad = new AddAnimalDialog(this);
 			aad.setVisible(true);
-			//addAnimal(new Jellyfish(this,100,200,100,10,10,Color.magenta));
 		}
-		else if(e.getSource()== b2) {
+		else if(e.getSource()== b2) {					//CLICK ON "Sleep" - B2
 			itrAnimals= swimSet.iterator(); 
 		 	while(itrAnimals.hasNext()){
 		 		itrAnimals.next().setSuspend(); 
 		 	}
 		}
-		else if(e.getSource()== b3) {
+		else if(e.getSource()== b3) {					//CLICK ON "Wake up" - B3
 			itrAnimals= swimSet.iterator(); 
 		 	while(itrAnimals.hasNext()){
 		 		itrAnimals.next().setResume(); 
 		 	}
 		}
-		
-		else if (e.getSource() == b4) {
+		else if (e.getSource() == b4) {					//CLICK ON "Reset" - B4
 			swimSet = new HashSet<Swimmable>();
 			worm = false;
 			revalidate();
 			repaint();
 			infoFlag = false;
 		}
-
-		else if(e.getSource() == b5) {
+		else if(e.getSource() == b5) {					//CLICK ON "Food" - B5
 
 			try {
 				picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("src/Caterpie-icon.png"))));
@@ -126,8 +117,7 @@ public class AquaPanel extends JPanel implements ActionListener
 			worm = true;
 
 		}
-		
-		else if(e.getSource() == b6) 
+		else if(e.getSource() == b6) 					//CLICK ON "Info" - B6
 		{
 			
 			if (infoFlag == false) 
@@ -139,6 +129,7 @@ public class AquaPanel extends JPanel implements ActionListener
 				
 				table = new JTable(new DefaultTableModel(new Object[]{ "Animal", "Color", "Size", "Hor. Speed",
 						"Ver. Speed", "Eat counter"}, 0));
+				table.setAutoCreateRowSorter(true);
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
 				
 				while(itrAnimals.hasNext()) 
@@ -157,7 +148,7 @@ public class AquaPanel extends JPanel implements ActionListener
 				}
 				
 				model.addRow(new Object[]{"Total", "", "", "", "", String.valueOf(all)});
-				table.setAutoCreateRowSorter(true);
+				
 				jsc = new JScrollPane(table);
 				add(jsc);
 				validate();
@@ -171,16 +162,12 @@ public class AquaPanel extends JPanel implements ActionListener
 				infoFlag = false;
 			}
 		}
-		
-
-		else if (e.getSource() == b7)
+		else if (e.getSource() == b7)				//CLICK ON "Exit" - B7
 			System.exit(0);
-
 	}
 
 	public void paintComponent(Graphics g) 
 	{
-		
 		super.paintComponent(g);
         Graphics2D G = (Graphics2D) g;
         G.drawImage(this.background,0,0,getWidth(),getHeight(),this);
@@ -189,19 +176,22 @@ public class AquaPanel extends JPanel implements ActionListener
 	 		itrAnimals.next().drawAnimal(g);
 	}
 	
-	public void addAnimal(Swimmable swim) {
-		swim.addObserver(this);
+	public void addAnimal(Swimmable swim) 
+	{
 		swimSet.add(swim);
 		repaint();
 		swim.start();
 	}
-	public void eatworm() {
+	
+	public void eatworm() 
+	{
 		this.worm = false;
 		this.remove(picLabel);
 		this.revalidate();
 		this.repaint();
 	}
-	public Boolean is_worm() {
+	public Boolean is_worm() 
+	{
 		return worm;
 	}
 }
