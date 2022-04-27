@@ -184,6 +184,7 @@ public class Jellyfish extends Swimmable {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	@Override
 	public void setResume() {
 		// TODO Auto-generated method stub
@@ -221,6 +222,7 @@ public class Jellyfish extends Swimmable {
 				this.x_front += this.horSpeed*this.x_dir;
 				sleep(15);
 				panel.repaint();
+				sleep(15);
 				sleep(15);
 				//drawAnimal(panel.getGraphics());
 				//this.drawAnimal(g);
