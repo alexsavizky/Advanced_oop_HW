@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.concurrent.CyclicBarrier;
 import java.util.*;
 
 import javax.imageio.ImageIO;
@@ -155,10 +154,11 @@ public class AquaPanel extends JPanel implements ActionListener
 					food = 1;
 					
 					all += food;
-					model.addRow(new Object[]{name, color, size, h, v, food});
+					model.addRow(new Object[]{name, color, String.valueOf(size), String.valueOf(h),
+							String.valueOf(v), String.valueOf(food)});
 				}
 				
-				model.addRow(new Object[]{"Total", "", "", "", "", all});
+				model.addRow(new Object[]{"Total", "", "", "", "", String.valueOf(all)});
 				table.setAutoCreateRowSorter(true);
 				jsc = new JScrollPane(table);
 				add(jsc);

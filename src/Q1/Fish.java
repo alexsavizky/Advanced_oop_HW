@@ -289,36 +289,40 @@ public class Fish extends Swimmable {
 		
 	}
 	public void movetoFood() {
-		if(!(Math.abs(panel.getWidth()/2-x_front)<=5)) {
-			if(this.x_front > panel.getWidth()/2-this.size/2&& x_dir ==1 )
-			{
-				x_dir =-1;
-			}
-			if(this.x_front < panel.getWidth()/2-this.size/2&& x_dir ==-1 )
-			{
-				x_dir =1;
-			}
-			
-			this.x_front += this.horSpeed*this.x_dir;
-		}
-		
-		if(!(Math.abs(panel.getHeight()/2-y_front)<=5)) {
-			
-			if(this.y_front > panel.getHeight()/2-this.size/2&& y_dir ==1 )
-			{
-				y_dir =-1;
-			}
-			if(this.y_front < panel.getHeight()/2-this.size/2&& y_dir ==-1 )
-			{
-				y_dir =1;
-			}
-			this.y_front += this.verSpeed*this.y_dir;
-		}
-		if((Math.abs(panel.getWidth()/2-x_front)<=5) || (Math.abs(panel.getHeight()/2-y_front)<=5))
+//		System.out.println("x_front = "+ x_front);
+//		System.out.println("y_front = "+ y_front);
+//		System.out.println("midle x"+ (panel.getWidth()/2-x_front));
+//		System.out.println("midle y"+ (panel.getHeight()/2-y_front));
+//		System.out.println("midle y"+ panel.is_worm());
+		if((Math.abs(panel.getWidth()/2-x_front)<=5) && (Math.abs(panel.getHeight()/2-y_front)<=5))
 		{
 			panel.eatworm();
 		}
 		
+		else {
+			
+			if(this.x_front > panel.getWidth()/2&& x_dir ==1 )
+			{
+				x_dir =-1;
+				
+			}
+			if(this.x_front < panel.getWidth()/2&& x_dir ==-1 )
+			{
+				x_dir =1;
+			}
+
+			if(this.y_front > panel.getHeight()/2&& y_dir ==1 )
+			{
+				y_dir =-1;
+			}
+			if(this.y_front < panel.getHeight()/2&& y_dir ==-1 )
+			{
+				y_dir =1;
+			}
+			this.y_front += this.verSpeed*this.y_dir;
+			this.x_front += this.horSpeed*this.x_dir;
+		}
+
 	}
 	public void moveRandom() {
 		if(this.x_front > panel.getWidth()-this.size/2&& x_dir ==1 )

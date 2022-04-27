@@ -85,8 +85,8 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 		experimentLayout3 = new GridLayout();
 		head.setLayout(experimentLayout3);
 		
-		int c = 8594;
-		//int c = 9728;
+//		int c = 8594;
+		int c = 9728;
 //		int c = 10031;
 		
 		JPanel matteBorders = new JPanel();
