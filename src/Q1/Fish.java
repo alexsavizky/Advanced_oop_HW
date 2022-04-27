@@ -290,7 +290,6 @@ public class Fish extends Swimmable {
 		
 	}
 	public void movetoFood() {
-
 		if((Math.abs(panel.getWidth()/2-x_front)<=5) && (Math.abs(panel.getHeight()/2-y_front)<=5))
 		{
 			panel.eatworm();
@@ -318,7 +317,6 @@ public class Fish extends Swimmable {
 			{
 				y_dir =1;
 			}
-
 			if(!(Math.abs(panel.getWidth()/2-x_front)<=5))
 			{
 				this.x_front += this.horSpeed*this.x_dir;
@@ -326,7 +324,6 @@ public class Fish extends Swimmable {
 			if(!(Math.abs(panel.getHeight()/2-y_front)<=5))
 				this.y_front += this.verSpeed*this.y_dir;
 			
-
 		}
 
 	}
