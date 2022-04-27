@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.concurrent.CyclicBarrier;
 import java.util.*;
 
 import javax.imageio.ImageIO;
@@ -124,7 +125,11 @@ public class AquaPanel extends JPanel implements ActionListener
 				} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-        
+			CyclicBarrier barrier = new CyclicBarrier(swimSet.size());
+			itrAnimals= swimSet.iterator(); 
+		 	while(itrAnimals.hasNext()){
+		 		itrAnimals.next().setBarrier(barrier); 
+		 	}
 			worm = true;
 
 		}

@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
 public class Fish extends Swimmable {
@@ -254,7 +255,9 @@ public class Fish extends Swimmable {
 					}
 				}
 				else {
-					if(this.is_moving == true) {	
+					
+					if(this.is_moving == true) {
+						barrier.await();
 						movetoFood();
 						
 					}
@@ -264,7 +267,7 @@ public class Fish extends Swimmable {
 						}
 					}
 				}
-			}catch(InterruptedException e) {}
+			}catch( InterruptedException | BrokenBarrierException  e) {}
 			panel.repaint();
 		}
 	}
@@ -295,8 +298,6 @@ public class Fish extends Swimmable {
 			panel.eatworm();
 			this.eatInc();
 		}
-
-		
 		else {
 			
 			if(this.x_front > panel.getWidth()/2&& x_dir ==1 )
