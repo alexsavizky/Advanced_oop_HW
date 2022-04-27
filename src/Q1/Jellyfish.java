@@ -87,6 +87,7 @@ public class Jellyfish extends Swimmable {
 	public int getX_dir() {return this.x_dir;}
 	public int getY_dir() {return this.y_dir;}
 	public Color getCol() {return this.col;}
+	
 	public String getColor()
 	{
 		if(col == Color.black)
@@ -118,7 +119,7 @@ public class Jellyfish extends Swimmable {
 		this.eatCount+=1;
 		if (this.eatCount==this.E_DISTANCE)
 		{
-			this.changeJellyfish(this.size + 1);
+			this.changeJellyfish(this.size + 30);
 			this.eatCount = 0;
 		}
 	}

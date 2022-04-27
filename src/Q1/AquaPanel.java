@@ -49,6 +49,7 @@ public class AquaPanel extends JPanel implements ActionListener
 		setBackground(Color.white);
 		MakeButtons();
 	}
+	public int getSwimSetSize() {return swimSet.size();}
 	
 	public void MakeButtons() 
 	{
@@ -97,14 +98,17 @@ public class AquaPanel extends JPanel implements ActionListener
 		 		itrAnimals.next().setResume(); 
 		 	}
 		}
-		else if (e.getSource() == b4) {					//CLICK ON "Reset" - B4
+		
+
+
+		else if(e.getSource() == b4) {
 			swimSet = new HashSet<Swimmable>();
-			worm = false;
-			revalidate();
-			repaint();
+			if(worm == true)
+				eatworm();
 			infoFlag = false;
+			repaint();
 		}
-		else if(e.getSource() == b5) {					//CLICK ON "Food" - B5
+		else if(e.getSource() == b5) {
 
 			try {
 				picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("src/Caterpie-icon.png"))));
@@ -140,6 +144,7 @@ public class AquaPanel extends JPanel implements ActionListener
 					size = s.getSize();
 					h = s.getHorSpeed();
 					v = s.getVerSpeed();
+
 					food = s.getEatCount();
 					
 					all += food;

@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.concurrent.CyclicBarrier;
 
 public abstract class Swimmable extends Thread{
-	private static int counter = 0; 
+	protected static int counter = 0; 
 	private int id;
 	protected int horSpeed; //Horizontal speed
 	protected int verSpeed; //Vertical speed
