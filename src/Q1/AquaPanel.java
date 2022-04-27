@@ -8,12 +8,18 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.concurrent.CyclicBarrier;
 import java.util.*;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 
 
 
@@ -26,6 +32,12 @@ public class AquaPanel extends JPanel implements ActionListener
 	protected Image background = null;
 	private HashSet<Swimmable> swimSet = new HashSet<Swimmable>();
 	private Iterator <Swimmable>itrAnimals;
+	private JLabel picLabel;
+	private Boolean worm = false;
+	
+	private String[] columnNames = { "Animal", "Color", "Size", "Hor. Speed", "Ver. Speed", "Eat counter"};
+	private String[][] data = new String[6][6];
+	private JTable jt;
 	
 	/**
 	 * Create the panel.
@@ -77,27 +89,75 @@ public class AquaPanel extends JPanel implements ActionListener
 			aad.setVisible(true);
 			//addAnimal(new Jellyfish(this,100,200,100,10,10,Color.magenta));
 		}
-		if(e.getSource()== b2) {
+		else if(e.getSource()== b2) {
 			itrAnimals= swimSet.iterator(); 
 		 	while(itrAnimals.hasNext()){
 		 		itrAnimals.next().setSuspend(); 
 		 	}
 		}
-		if(e.getSource()== b3) {
+		else if(e.getSource()== b3) {
 			itrAnimals= swimSet.iterator(); 
 		 	while(itrAnimals.hasNext()){
 		 		itrAnimals.next().setResume(); 
 		 	}
 		}
-		if(e.getSource()== b5) {
+
+
 		
+		else if(e.getSource() == b5) {
 			CyclicBarrier barrier=new CyclicBarrier(swimSet.size());
 			itrAnimals= swimSet.iterator(); 
 			while(itrAnimals.hasNext()){
 		 		itrAnimals.next().setBarrier(barrier); 
 		 	}
-			
+			worm = true;
+			try {
+				picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("src/Caterpie-icon.png"))));
+				add(picLabel);
+				this.validate();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
+		
+		else if(e.getSource() == b6) 
+		{
+			String name, color;
+			int size, h, v, food, i = 0, all = 0;
+			itrAnimals = swimSet.iterator();
+			Swimmable s;
+			
+			while(itrAnimals.hasNext()){
+//		 		name = itrAnimals.next().getAnimalName();
+//		 		color = itrAnimals.next().getColor();
+//		 		size = itrAnimals.next().getSize();
+//		 		h = itrAnimals.next().getHorSpeed();
+//		 		v = itrAnimals.next().getVerSpeed();
+//		 		food = 0;
+//		 		data += {name, color, size, h, v, food};
+				s = itrAnimals.next();
+		 		data[i][0] = s.getAnimalName();
+		 		data[i][1] = s.getColor();
+		 		data[i][2] = String.valueOf(s.getSize());
+		 		data[i][3] = String.valueOf(s.getHorSpeed());
+		 		data[i][4] = String.valueOf(s.getVerSpeed());
+		 		data[i][5] = String.valueOf(0);
+		 		all += s.getEatCount();
+		 		i++;
+		 		
+	        }
+			data[i][0] = "Total";
+			data[i][5] = String.valueOf(all);
+			
+			jt = new JTable(data, columnNames);
+			jt.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			add(jt);
+			this.validate();
+			//jt.setVisible(true);
+		}
+		
+
 		else if (e.getSource() == b7)
 			System.exit(0);
 
