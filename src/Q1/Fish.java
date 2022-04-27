@@ -16,6 +16,7 @@ public class Fish extends Swimmable {
 	private int x_front, y_front, x_dir, y_dir;	//Position of fish
 	private AquaPanel panel;
 	private Boolean is_moving = true;
+	private CyclicBarrier barrier=null;
 	
 	/***
 	 * Constructor
@@ -241,12 +242,25 @@ public class Fish extends Swimmable {
 			try
 			{
 				sleep(10);
-				if(this.is_moving == true) {	
-					moveRandom();
+				if(this.barrier == null) {
+					
+					if(this.is_moving == true) {	
+						moveRandom();
+					}
+					else {
+						synchronized(this){
+							wait();
+						}
+					}
 				}
 				else {
-					synchronized(this){
-						wait();
+					if(this.is_moving == true) {	
+						movetoFood();
+					}
+					else {
+						synchronized(this){
+							wait();
+						}
 					}
 				}
 			}catch(InterruptedException e) {}
@@ -268,10 +282,38 @@ public class Fish extends Swimmable {
 		}
 		
 	}
+	
 
 	@Override
 	public void setBarrier(CyclicBarrier b) {
-		// TODO Auto-generated method stub
+		this.barrier=b;
+		
+	}
+	public void movetoFood() {
+		if(x_front != panel.getWidth()/2) {
+			if(this.x_front > panel.getWidth()/2-this.size/2&& x_dir ==1 )
+			{
+				x_dir =-1;
+			}
+			if(this.x_front < panel.getWidth()/2-this.size/2&& x_dir ==-1 )
+			{
+				x_dir =1;
+			}
+			
+			this.x_front += this.horSpeed*this.x_dir;
+		}
+		
+		if(y_front != panel.getHeight()/2) {
+			if(this.y_front > panel.getHeight()/2-this.size/2&& y_dir ==1 )
+			{
+				y_dir =-1;
+			}
+			if(this.y_front < panel.getHeight()/2-this.size/2&& y_dir ==-1 )
+			{
+				y_dir =1;
+			}
+			this.y_front += this.verSpeed*this.y_dir;
+		}
 		
 	}
 	public void moveRandom() {
@@ -279,7 +321,7 @@ public class Fish extends Swimmable {
 		{
 			x_dir =-1;
 		}
-		else if (this.x_front < 0 && x_dir ==-1 )
+		else if (this.x_front < this.size/2 && x_dir ==-1 )
 		{
 			x_dir =1;
 		}
@@ -300,5 +342,6 @@ public class Fish extends Swimmable {
 		// TODO Auto-generated method stub
 		
 	}
+
 }
 

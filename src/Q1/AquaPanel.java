@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
+import java.util.concurrent.CyclicBarrier;
 import java.util.*;
 
 import javax.swing.JButton;
@@ -88,6 +89,15 @@ public class AquaPanel extends JPanel implements ActionListener
 		 		itrAnimals.next().setResume(); 
 		 	}
 		}
+		if(e.getSource()== b5) {
+		
+			CyclicBarrier barrier=new CyclicBarrier(swimSet.size());
+			itrAnimals= swimSet.iterator(); 
+			while(itrAnimals.hasNext()){
+		 		itrAnimals.next().setBarrier(barrier); 
+		 	}
+			
+		}
 		else if (e.getSource() == b7)
 			System.exit(0);
 
@@ -107,28 +117,12 @@ public class AquaPanel extends JPanel implements ActionListener
 	
 	
 	public void addAnimal(Swimmable swim) {
-		//swim.addObserver(this);
+		swim.addObserver(this);
 		swimSet.add(swim);
 		repaint();
 		swim.start();
 	}
 	
-	
-			
-			//Fish new_fish = new Fish(this,100,200,100,10,10,Color.magenta);
-			
-			//new_fish.drawAnimal(getGraphics());
-			//new_fish.start();
-			//for(int i =0; i<10 ; i++)
-			//{
-				//new_fish.drawAnimal(getGraphics());
-				
-				//new_fish.start();
-					
-				
-				//this.repaint();
-			//}
-		
 	
 
 
