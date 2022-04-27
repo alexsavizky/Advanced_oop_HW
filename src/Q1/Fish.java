@@ -89,7 +89,7 @@ public class Fish extends Swimmable {
 	}
 	
 	//get functions
-	public String getAnimalName() {return getClass().getName();}
+	public String getAnimalName() {return "Fish";}
 	public int getEatCount() {return this.eatCount;}
 	public int getSize() {return this.size;}
 	public int getE_DISTANCE() {return this.E_DISTANCE;}
