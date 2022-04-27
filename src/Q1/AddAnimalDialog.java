@@ -2,8 +2,12 @@ package Q1;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+
 import java.awt.Container;
 import java.awt.Dimension;
+
+import java.awt.FlowLayout;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -200,6 +204,7 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 			dispose();
 		else if (e.getSource() == confirmButton)
 			this.GetFromDialog();
+
 	}
     
     void addCompForBorder(Border border,
@@ -223,7 +228,4 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 				addCompForBorder(border, description,
 				     container);
     }
-	
-	
-
 }
