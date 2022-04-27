@@ -102,14 +102,20 @@ public class AquaPanel extends JPanel implements ActionListener
 		 	}
 		}
 
-
-		
+		else if(e.getSource() == b4) {
+			swimSet = new HashSet<Swimmable>();
+		}
 		else if(e.getSource() == b5) {
-//			CyclicBarrier barrier=new CyclicBarrier(swimSet.size());
-//			itrAnimals= swimSet.iterator(); 
-//			while(itrAnimals.hasNext()){
-//		 		itrAnimals.next().setBarrier(barrier); 
-//		 	}
+
+			try {
+				picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("src/Caterpie-icon.png"))));
+				add(picLabel,BorderLayout.CENTER);
+				this.validate();
+				} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        
 			worm = true;
 
 		}
@@ -166,17 +172,17 @@ public class AquaPanel extends JPanel implements ActionListener
         while(itrAnimals.hasNext()){
 	 		itrAnimals.next().drawAnimal(g);
         }
-        if(worm == true)
-        {
-			try {
-				picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("src/Caterpie-icon.png"))));
-				add(picLabel);
-				this.validate();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-        }
+//        if(worm == true)
+//        {
+//			try {
+//				picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("src/Caterpie-icon.png"))));
+//				add(picLabel,BorderLayout.CENTER);
+//				this.validate();
+//			} catch (IOException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
+//        }
 	}
 	
 	
@@ -188,6 +194,9 @@ public class AquaPanel extends JPanel implements ActionListener
 	}
 	public void eatworm() {
 		this.worm = false;
+		this.remove(picLabel);
+		this.revalidate();
+		this.repaint();
 	}
 	public Boolean is_worm() {
 		return worm;
