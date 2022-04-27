@@ -127,9 +127,9 @@ public class Fish extends Swimmable {
 	public void eatInc() 
 	{
 		this.eatCount+=1;
-		if (this.eatCount==4)
+		if (this.eatCount==this.E_DISTANCE)
 		{
-			this.changeFish(this.size + 1);
+			this.changeFish(this.size + 50);
 			this.eatCount = 0;
 		}
 	}
@@ -256,6 +256,7 @@ public class Fish extends Swimmable {
 				else {
 					if(this.is_moving == true) {	
 						movetoFood();
+						
 					}
 					else {
 						synchronized(this){
@@ -289,14 +290,10 @@ public class Fish extends Swimmable {
 		
 	}
 	public void movetoFood() {
-//		System.out.println("x_front = "+ x_front);
-//		System.out.println("y_front = "+ y_front);
-//		System.out.println("midle x"+ (panel.getWidth()/2-x_front));
-//		System.out.println("midle y"+ (panel.getHeight()/2-y_front));
-//		System.out.println("midle y"+ panel.is_worm());
 		if((Math.abs(panel.getWidth()/2-x_front)<=5) && (Math.abs(panel.getHeight()/2-y_front)<=5))
 		{
 			panel.eatworm();
+			this.eatInc();
 		}
 		
 		else {
@@ -319,8 +316,13 @@ public class Fish extends Swimmable {
 			{
 				y_dir =1;
 			}
-			this.y_front += this.verSpeed*this.y_dir;
-			this.x_front += this.horSpeed*this.x_dir;
+			if(!(Math.abs(panel.getWidth()/2-x_front)<=5))
+			{
+				this.x_front += this.horSpeed*this.x_dir;
+			}
+			if(!(Math.abs(panel.getHeight()/2-y_front)<=5))
+				this.y_front += this.verSpeed*this.y_dir;
+			
 		}
 
 	}

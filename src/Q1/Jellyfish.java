@@ -119,7 +119,7 @@ public class Jellyfish extends Swimmable {
 	public void eatInc() 
 	{
 		this.eatCount+=1;
-		if (this.eatCount==4)
+		if (this.eatCount==this.E_DISTANCE)
 		{
 			this.changeJellyfish(this.size + 1);
 			this.eatCount = 0;
@@ -206,12 +206,26 @@ public class Jellyfish extends Swimmable {
 			try
 			{
 				sleep(10);
-				if(this.is_moving == true) {	
-					moveRandom();
+				if(!panel.is_worm()) {
+					
+					if(this.is_moving == true) {	
+						moveRandom();
+					}
+					else {
+						synchronized(this){
+							wait();
+						}
+					}
 				}
 				else {
-					synchronized(this){
-						wait();
+					if(this.is_moving == true) {	
+						movetoFood();
+						
+					}
+					else {
+						synchronized(this){
+							wait();
+						}
 					}
 				}
 			}catch(InterruptedException e) {}
@@ -223,12 +237,49 @@ public class Jellyfish extends Swimmable {
 		// TODO Auto-generated method stub
 		
 	}
+	public void movetoFood() {
+		if((Math.abs(panel.getWidth()/2-x_front)<=5) && (Math.abs(panel.getHeight()/2-y_front)<=5))
+		{
+			panel.eatworm();
+			this.eatInc();
+		}
+		
+		else {
+			
+			if(this.x_front > panel.getWidth()/2&& x_dir ==1 )
+			{
+				x_dir =-1;
+				
+			}
+			if(this.x_front < panel.getWidth()/2&& x_dir ==-1 )
+			{
+				x_dir =1;
+			}
+
+			if(this.y_front > panel.getHeight()/2&& y_dir ==1 )
+			{
+				y_dir =-1;
+			}
+			if(this.y_front < panel.getHeight()/2&& y_dir ==-1 )
+			{
+				y_dir =1;
+			}
+			if(!(Math.abs(panel.getWidth()/2-x_front)<=5))
+			{
+				this.x_front += this.horSpeed*this.x_dir;
+			}
+			if(!(Math.abs(panel.getHeight()/2-y_front)<=5))
+				this.y_front += this.verSpeed*this.y_dir;
+			
+		}
+
+	}
 	public void moveRandom() {
-		if(this.x_front > panel.getWidth()&& x_dir ==1 )
+		if(this.x_front > panel.getWidth()-this.size/2&& x_dir ==1 )
 		{
 			x_dir =-1;
 		}
-		else if (this.x_front < 0 && x_dir ==-1 )
+		else if (this.x_front < this.size/2 && x_dir ==-1 )
 		{
 			x_dir =1;
 		}
