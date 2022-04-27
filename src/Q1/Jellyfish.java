@@ -13,6 +13,7 @@ public class Jellyfish extends Swimmable {
 	private int x_front, y_front, x_dir, y_dir;	//Position of jellyfish
 	private AquaPanel panel;
 	private Boolean is_moving = true;
+	private CyclicBarrier barrier=null;
 	/***
 	 * Constructor
 	 * @param size - Size of jellyfish 
@@ -196,7 +197,7 @@ public class Jellyfish extends Swimmable {
 	}
 	@Override
 	public void setBarrier(CyclicBarrier b) {
-		// TODO Auto-generated method stub
+		this.barrier=barrier;
 		
 	}
 	@Override

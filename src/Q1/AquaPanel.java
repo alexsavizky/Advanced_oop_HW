@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.concurrent.CyclicBarrier;
 import java.util.*;
 
 import javax.imageio.ImageIO;
@@ -114,17 +115,16 @@ public class AquaPanel extends JPanel implements ActionListener
 			infoFlag = false;
 		}
 
+
 		
 		else if(e.getSource() == b5) {
+//			CyclicBarrier barrier=new CyclicBarrier(swimSet.size());
+//			itrAnimals= swimSet.iterator(); 
+//			while(itrAnimals.hasNext()){
+//		 		itrAnimals.next().setBarrier(barrier); 
+//		 	}
 			worm = true;
-			try {
-				picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("src/Caterpie-icon.png"))));
-				add(picLabel);
-				this.validate();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+
 		}
 		
 		else if(e.getSource() == b6) 
@@ -174,6 +174,7 @@ public class AquaPanel extends JPanel implements ActionListener
 			}
 		}
 		
+
 		else if (e.getSource() == b7)
 			System.exit(0);
 
@@ -189,33 +190,32 @@ public class AquaPanel extends JPanel implements ActionListener
         while(itrAnimals.hasNext()){
 	 		itrAnimals.next().drawAnimal(g);
         }
+        if(worm == true)
+        {
+			try {
+				picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("src/Caterpie-icon.png"))));
+				add(picLabel);
+				this.validate();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        }
 	}
 	
 	
 	public void addAnimal(Swimmable swim) {
-		//swim.addObserver(this);
+		swim.addObserver(this);
 		swimSet.add(swim);
 		repaint();
 		swim.start();
 	}
-
-	
-	
-			
-			//Fish new_fish = new Fish(this,100,200,100,10,10,Color.magenta);
-			
-			//new_fish.drawAnimal(getGraphics());
-			//new_fish.start();
-			//for(int i =0; i<10 ; i++)
-			//{
-				//new_fish.drawAnimal(getGraphics());
-				
-				//new_fish.start();
-					
-				
-				//this.repaint();
-			//}
-		
+	public void eatworm() {
+		this.worm = false;
+	}
+	public Boolean is_worm() {
+		return worm;
+	}
 	
 
 
