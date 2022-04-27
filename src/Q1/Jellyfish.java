@@ -184,6 +184,7 @@ public class Jellyfish extends Swimmable {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	@Override
 	public void setResume() {
 		// TODO Auto-generated method stub
@@ -196,7 +197,37 @@ public class Jellyfish extends Swimmable {
 	}
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		drawAnimal(panel.getGraphics());
+		while(true) {
+			try {
+				drawAnimal(panel.getGraphics());
+				sleep(15);
+				if(this.x_front > panel.getWidth()&& x_dir ==1 )
+				{
+					x_dir =-1;
+				}
+				else if (this.x_front < 0 && x_dir ==-1 )
+				{
+					x_dir =1;
+				}
+				if(this.y_front > panel.getHeight() && y_dir ==1 )
+				{
+					y_dir =-1;
+				}
+				else if (this.y_front < 0 && y_dir ==-1 )
+				{
+					y_dir =1;
+				}
+				this.y_front += this.verSpeed*this.y_dir;
+				this.x_front += this.horSpeed*this.x_dir;
+				sleep(15);
+				panel.repaint();
+				sleep(15);
+				sleep(15);
+				//drawAnimal(panel.getGraphics());
+				//this.drawAnimal(g);
+			}catch(InterruptedException e) {}
+		}
 		
 	}
 	@Override
