@@ -144,7 +144,6 @@ public class AquaPanel extends JPanel implements ActionListener
 				while(itrAnimals.hasNext()) 
 				{
 					s = itrAnimals.next();
-		
 					name = s.getAnimalName();
 					color = s.getColor();
 					size = s.getSize();
