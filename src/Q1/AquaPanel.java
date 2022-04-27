@@ -24,6 +24,7 @@ public class AquaPanel extends JPanel implements ActionListener
 	private JButton b1, b2, b3, b4, b5, b6, b7;
 	protected Image background = null;
 	private HashSet<Swimmable> swimSet = new HashSet<Swimmable>();
+	private Iterator <Swimmable>itrAnimals;
 	
 	/**
 	 * Create the panel.
@@ -75,6 +76,18 @@ public class AquaPanel extends JPanel implements ActionListener
 			aad.setVisible(true);
 			//addAnimal(new Jellyfish(this,100,200,100,10,10,Color.magenta));
 		}
+		if(e.getSource()== b2) {
+			itrAnimals= swimSet.iterator(); 
+		 	while(itrAnimals.hasNext()){
+		 		itrAnimals.next().setSuspend(); 
+		 	}
+		}
+		if(e.getSource()== b3) {
+			itrAnimals= swimSet.iterator(); 
+		 	while(itrAnimals.hasNext()){
+		 		itrAnimals.next().setResume(); 
+		 	}
+		}
 		else if (e.getSource() == b7)
 			System.exit(0);
 
@@ -86,6 +99,10 @@ public class AquaPanel extends JPanel implements ActionListener
 		super.paintComponent(g);
         Graphics2D G = (Graphics2D) g;
         G.drawImage(this.background,0,0,getWidth(),getHeight(),this);
+        itrAnimals= swimSet.iterator(); //intialzie iterator 
+        while(itrAnimals.hasNext()){
+	 		itrAnimals.next().drawAnimal(g);
+        }
 	}
 	
 	
