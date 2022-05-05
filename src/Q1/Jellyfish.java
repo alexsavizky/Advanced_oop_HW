@@ -235,11 +235,7 @@ public class Jellyfish extends Swimmable {
 			panel.repaint();
 		}
 	}
-	@Override
-	protected void addObserver(AquaPanel aquaPanel) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	public void movetoFood() {
 		if((Math.abs(panel.getWidth()/2-x_front)<=5) && (Math.abs(panel.getHeight()/2-y_front)<=5))
 		{

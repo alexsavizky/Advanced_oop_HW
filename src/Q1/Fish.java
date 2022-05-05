@@ -138,13 +138,7 @@ public class Fish extends Swimmable {
 	//Change the fish's size
 	public void changeFish(int a) {this.size = a;}
 	
-	//Change the fish's color
-//	public void changeColor(){
-//		if (this.col < 9)
-//			this.col += 1;
-//		else
-//			this.col = 1;
-//	}
+
 	
 	
 	//Compare a fish for size with: Fish, Jellyfish, UnusualFish
@@ -349,11 +343,7 @@ public class Fish extends Swimmable {
 		this.y_front += this.verSpeed*this.y_dir;
 	}
 
-	@Override
-	protected void addObserver(AquaPanel aquaPanel) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }
 

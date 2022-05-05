@@ -198,7 +198,6 @@ public class AquaPanel extends JPanel implements ActionListener
 	}
 	
 	public void addAnimal(Swimmable swim) {
-		swim.addObserver(this);
 		swimSet.add(swim);
 		repaint();
 		swim.start();
