@@ -53,11 +53,9 @@ public class Jellyfish extends Swimmable {
 		this.y_front = other.getY_front();
 		this.col = other.getCol();
 		this.E_DISTANCE = other.getE_DISTANCE();
-		
 		this.eatCount = other.getEatCount();
 		this.x_dir = other.getX_dir();
 		this.y_dir = other.getY_dir();
-		
 	}
 	
 	/***
@@ -113,7 +111,6 @@ public class Jellyfish extends Swimmable {
 			return "Pink";
 	}
 	
-	
 	/***
 	 * Feeding jellyfish func
 	 * if the fish is full -> jellyfish's eatCount = 0 & jellyfish's size = size+1 
@@ -131,8 +128,7 @@ public class Jellyfish extends Swimmable {
 	//Change the jellyfish's size
 	public void changeJellyfish(int a) {this.size = a;}
 	
-	
-	//Compare a jellyfish for size with: Jellyfish, Fish, UnusualFish
+	//Compare a jellyfish for size with: Jellyfish, Fish
 	public int comparsize(Object other) {
 		if(other instanceof Jellyfish) {
 			if(((Jellyfish)other).getSize() > this.getSize())
@@ -183,13 +179,10 @@ public class Jellyfish extends Swimmable {
 		g.drawLine(x_front - size/2 + size/numLegs + size*i/(numLegs+1), y_front, x_front - size/2 + size/numLegs + size*i/(numLegs+1), y_front+size/3);
 	}
 
-	@Override
 	public void setSuspend() {
 		this.is_moving = false;
-		
 	}
 	
-	@Override
 	public void setResume() {
 		synchronized(this){
 			this.is_moving = true;
@@ -197,19 +190,18 @@ public class Jellyfish extends Swimmable {
 			notify();
 		}
 	}
-	@Override
+
 	public void setBarrier(CyclicBarrier b) {
 		this.barrier=b;
 		
 	}
-	@Override
+
 	public void run() {
 		while(true) {
 			try
 			{
 				sleep(10);
 				if(!panel.is_worm()) {
-					
 					if(this.is_moving == true) {	
 						moveRandom();
 					}
@@ -223,7 +215,6 @@ public class Jellyfish extends Swimmable {
 					if(this.is_moving == true) {
 						barrier.await();
 						movetoFood();
-						
 					}
 					else {
 						synchronized(this){
@@ -235,20 +226,17 @@ public class Jellyfish extends Swimmable {
 			panel.repaint();
 		}
 	}
-
+	
 	public void movetoFood() {
 		if((Math.abs(panel.getWidth()/2-x_front)<=5) && (Math.abs(panel.getHeight()/2-y_front)<=5))
 		{
 			panel.eatworm();
 			this.eatInc();
 		}
-		
 		else {
-			
 			if(this.x_front > panel.getWidth()/2&& x_dir ==1 )
 			{
 				x_dir =-1;
-				
 			}
 			if(this.x_front < panel.getWidth()/2&& x_dir ==-1 )
 			{
@@ -269,10 +257,9 @@ public class Jellyfish extends Swimmable {
 			}
 			if(!(Math.abs(panel.getHeight()/2-y_front)<=5))
 				this.y_front += this.verSpeed*this.y_dir;
-			
 		}
-
 	}
+	
 	public void moveRandom() {
 		if(this.x_front > panel.getWidth()-this.size/2&& x_dir ==1 )
 		{
@@ -293,5 +280,4 @@ public class Jellyfish extends Swimmable {
 		this.x_front += this.horSpeed*this.x_dir;
 		this.y_front += this.verSpeed*this.y_dir;
 	}
-
 }

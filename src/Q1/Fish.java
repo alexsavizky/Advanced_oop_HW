@@ -138,10 +138,7 @@ public class Fish extends Swimmable {
 	//Change the fish's size
 	public void changeFish(int a) {this.size = a;}
 	
-
-	
-	
-	//Compare a fish for size with: Fish, Jellyfish, UnusualFish
+	//Compare a fish for size with: Fish, Jellyfish
 	public int comparsize(Object other) {
 		if(other instanceof Fish) {
 			if(((Fish)other).getSize() > this.getSize())
@@ -265,26 +262,21 @@ public class Fish extends Swimmable {
 			panel.repaint();
 		}
 	}
-	@Override
+	
 	public void setSuspend() {
 		this.is_moving = false;
 		
 	}
-
-	@Override
+	
 	public void setResume() {
 		synchronized(this){
 			this.is_moving = true;
-		
 			notify();
 		}
 	}
 	
-
-	@Override
 	public void setBarrier(CyclicBarrier b) {
 		this.barrier=b;
-		
 	}
 	public void movetoFood() {
 		if((Math.abs(panel.getWidth()/2-x_front)<=5) && (Math.abs(panel.getHeight()/2-y_front)<=5))
@@ -292,8 +284,10 @@ public class Fish extends Swimmable {
 			panel.eatworm();
 			this.eatInc();
 		}
-		else {
-			
+
+		
+		else 
+		{
 			if(this.x_front > panel.getWidth()/2&& x_dir ==1 )
 			{
 				x_dir =-1;
@@ -318,10 +312,9 @@ public class Fish extends Swimmable {
 			}
 			if(!(Math.abs(panel.getHeight()/2-y_front)<=5))
 				this.y_front += this.verSpeed*this.y_dir;
-			
 		}
-
 	}
+	
 	public void moveRandom() {
 		if(this.x_front > panel.getWidth()-this.size/2&& x_dir ==1 )
 		{
@@ -342,8 +335,4 @@ public class Fish extends Swimmable {
 		this.x_front += this.horSpeed*this.x_dir;
 		this.y_front += this.verSpeed*this.y_dir;
 	}
-
-
-
 }
-

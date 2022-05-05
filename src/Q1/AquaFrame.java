@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.imageio.ImageIO;
@@ -14,26 +13,22 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.border.TitledBorder;
 
 import java.io.File;
 import java.io.IOException;
-import Q1.*;
 
 
 public class AquaFrame extends JFrame implements ActionListener 
 {
 	private ImageIcon img = new ImageIcon("src/aquarium.png");
 	private static final long serialVersionUID = 1L;
+	
 	private AquaPanel ap;
+	
 	private JMenuBar ElMenu;
 	private JMenu file ,background ,help;
 	private JMenuItem exit, image, blue, none, helpz;
 
-	
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -47,9 +42,6 @@ public class AquaFrame extends JFrame implements ActionListener
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public AquaFrame() 
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,7 +62,6 @@ public class AquaFrame extends JFrame implements ActionListener
 		blue.addActionListener(this);
 		helpz.addActionListener(this);
 		none.addActionListener(this);
-
 	}
 	
 	public void MakeMenu() 
@@ -126,10 +117,8 @@ public class AquaFrame extends JFrame implements ActionListener
 			System.exit(0);
 		
 		else if (e.getSource() == image)
-		{
-			
 			LoadImage();
-		}
+		
 		else if (e.getSource() == none) 
 		{
 			if (ap.background != null)
@@ -153,5 +142,4 @@ public class AquaFrame extends JFrame implements ActionListener
 		else if (e.getSource() == helpz)
 			JOptionPane.showMessageDialog(null, "Home Work 3\n GUI @ Threads");
 	}
-
 }
