@@ -119,7 +119,7 @@ public class Jellyfish extends Swimmable {
 		this.eatCount+=1;
 		if (this.eatCount==this.E_DISTANCE)
 		{
-			this.changeJellyfish(this.size + 30);
+			this.changeJellyfish(this.size + 1);
 			this.eatCount = 0;
 		}
 	}
@@ -178,6 +178,13 @@ public class Jellyfish extends Swimmable {
 		g.drawLine(x_front - size/2 + size/numLegs + size*i/(numLegs+1), y_front, x_front - size/2 + size/numLegs + size*i/(numLegs+1), y_front+size/3);
 	}
 
+<<<<<<< Updated upstream
+=======
+	
+	/***
+	 * stop the moving of the jellyfish
+	 */
+>>>>>>> Stashed changes
 	public void setSuspend() {
 		this.is_moving = false;
 	}
@@ -190,11 +197,23 @@ public class Jellyfish extends Swimmable {
 		}
 	}
 
+<<<<<<< Updated upstream
+=======
+	/***
+	 * set cyclic barrier
+	 */
+>>>>>>> Stashed changes
 	public void setBarrier(CyclicBarrier b) {
 		this.barrier=b;
 		
 	}
 
+<<<<<<< Updated upstream
+=======
+	/***
+	 * run overide function 
+	 */
+>>>>>>> Stashed changes
 	public void run() {
 		while(true) {
 			try

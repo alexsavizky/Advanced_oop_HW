@@ -171,6 +171,12 @@ public class Fish extends Swimmable {
 		return false;
 	}
 
+<<<<<<< Updated upstream
+=======
+	/***
+	 * drawing the fish
+	 */
+>>>>>>> Stashed changes
 	public void drawAnimal(Graphics g)
 	{
 	   g.setColor(col);
@@ -312,6 +318,12 @@ public class Fish extends Swimmable {
 		}
 	}
 	
+<<<<<<< Updated upstream
+=======
+	/***
+	 * moving of the fish without a food 
+	 */
+>>>>>>> Stashed changes
 	public void moveRandom() {
 		if(this.x_front > panel.getWidth()-this.size/2&& x_dir ==1 )
 		{

@@ -20,11 +20,15 @@ import java.io.IOException;
 
 public class AquaFrame extends JFrame implements ActionListener 
 {
-	private ImageIcon img = new ImageIcon("src/aquarium.png");
 	private static final long serialVersionUID = 1L;
 	
+	//Icon for frame
+	private ImageIcon img = new ImageIcon("src/aquarium.png");
+	
+	//Panel for use
 	private AquaPanel ap;
 	
+	//Parts of menu
 	private JMenuBar ElMenu;
 	private JMenu file ,background ,help;
 	private JMenuItem exit, image, blue, none, helpz;
@@ -42,8 +46,11 @@ public class AquaFrame extends JFrame implements ActionListener
 		});
 	}
 
+	//Default constructor
 	public AquaFrame() 
 	{
+		
+		//Starting the frame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(850, 600);
 		this.setTitle("Alex & Bar's Aquarium");
@@ -57,6 +64,7 @@ public class AquaFrame extends JFrame implements ActionListener
 		//Making the menu
 		MakeMenu();
 		
+		//Adding action listeners
 		exit.addActionListener(this);
 		image.addActionListener(this);
 		blue.addActionListener(this);
@@ -64,8 +72,10 @@ public class AquaFrame extends JFrame implements ActionListener
 		none.addActionListener(this);
 	}
 	
+	//Make the menu function
 	public void MakeMenu() 
 	{
+		//Creating choices and menu items
 		ElMenu = new JMenuBar();
 		file = new JMenu("File");
 		background = new JMenu("Background");
@@ -83,6 +93,7 @@ public class AquaFrame extends JFrame implements ActionListener
 		background.add(none);
 		help.add(helpz);
 		
+		//Adding choices to menu
 		ElMenu.add(file);
 		ElMenu.add(background);
 		ElMenu.add(help);
@@ -90,7 +101,7 @@ public class AquaFrame extends JFrame implements ActionListener
 		setJMenuBar(ElMenu);
 	}
 
-	
+	//Load an image for background
 	public void LoadImage()
     {
         FileDialog fd = new FileDialog(new Frame(),"Please choose a file:",FileDialog.LOAD);
@@ -110,15 +121,18 @@ public class AquaFrame extends JFrame implements ActionListener
         }
     }
 	
-	
+	//Frame menu functionality
 	public void actionPerformed(ActionEvent e) 
 	{
+		//CLICK "Exit"
 		if (e.getSource() == exit)
 			System.exit(0);
 		
+		//CLICK "Image"
 		else if (e.getSource() == image)
 			LoadImage();
 		
+		//CLICK "None"
 		else if (e.getSource() == none) 
 		{
 			if (ap.background != null)
@@ -129,6 +143,7 @@ public class AquaFrame extends JFrame implements ActionListener
 			ap.setBackground(Color.white);
 		}
 		
+		//CLICK "Blue"
 		else if (e.getSource() == blue) 
 		{
 			if (ap.background != null)
@@ -139,6 +154,7 @@ public class AquaFrame extends JFrame implements ActionListener
 			ap.setBackground(Color.blue);
 		}
 
+		//CLICK "Help"
 		else if (e.getSource() == helpz)
 			JOptionPane.showMessageDialog(null, "Home Work 3\n GUI @ Threads");
 	}
