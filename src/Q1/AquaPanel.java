@@ -123,17 +123,23 @@ public class AquaPanel extends JPanel implements ActionListener
 		 		itrAnimals.next().setResume(); 
 		 	}
 		}
-		
 
 
-		else if(e.getSource() == b4) {					//CLICK ON "Reset" - B3
+
+		else if(e.getSource() == b4) {					//CLICK ON "Reset" - B4
+			Iterator<Swimmable> iterator = swimSet.iterator();
+			if (iterator.hasNext()){
+				iterator.next().setSuspend();
+				iterator.remove();
+			}
 			swimSet = new HashSet<Swimmable>();
+			repaint();
 			if(worm == true)
 				eatworm();
 			infoFlag = false;
-			repaint();
+
 		}
-		else if(e.getSource() == b5) {					//CLICK ON "Food" - B3
+		else if(e.getSource() == b5) {					//CLICK ON "Food" - B5
 
 			if (worm == false) 
 			{
@@ -211,7 +217,7 @@ public class AquaPanel extends JPanel implements ActionListener
         G.drawImage(this.background,0,0,getWidth(),getHeight(),this);
         itrAnimals= swimSet.iterator(); //intialzie iterator 
         while(itrAnimals.hasNext())
-	 		itrAnimals.next().drawAnimal(g);
+	 		itrAnimals.next().drawCreature(g);
 	}
 	
 	//Add an animal to the swimset

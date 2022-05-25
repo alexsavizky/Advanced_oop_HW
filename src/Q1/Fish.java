@@ -178,7 +178,7 @@ public class Fish extends Swimmable {
 	/***
 	 * drawing the fish
 	 */
-	public void drawAnimal(Graphics g)
+	public void drawCreature(Graphics g)
 	{
 	   g.setColor(col);
 	   if(x_dir==1) // fish swims to right side
