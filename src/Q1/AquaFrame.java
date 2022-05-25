@@ -20,7 +20,7 @@ public class AquaFrame extends JFrame implements ActionListener
 	private static final long serialVersionUID = 1L;
 	
 	//Icon for frame
-	private ImageIcon img = new ImageIcon("src/aquarium.png");
+//	private ImageIcon img = new ImageIcon("src/aquarium.png");
 	
 	//Panel for use
 	private AquaPanel ap;
