@@ -234,10 +234,6 @@ public class AquaPanel extends JPanel implements ActionListener
 	{
 		return wormsingle!=null;
 	}
-	public void setWormInstance()
-	{
-		Singleton.set();
-		wormsingle=null;
-	}
+
 	public Singleton getWormInstance(){return wormsingle;}
 }
