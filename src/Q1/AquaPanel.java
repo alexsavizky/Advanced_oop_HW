@@ -117,11 +117,21 @@ public class AquaPanel extends JPanel implements ActionListener
 
 
 		else if(e.getSource() == b4) {					//CLICK ON "Reset" - B3
+
+			System.out.println(swimSet.size());
+			Iterator<Swimmable> iterator = swimSet.iterator();
+			if (iterator.hasNext()) {
+				iterator.next().setSuspend();
+				iterator.remove();
+			}
 			swimSet = new HashSet<Swimmable>();
+			System.out.println(swimSet.size());
+			repaint();
 			if(worm == true)
 				eatworm();
+
 			infoFlag = false;
-			repaint();
+
 		}
 		else if(e.getSource() == b5) {					//CLICK ON "Food" - B3
 
@@ -132,6 +142,7 @@ public class AquaPanel extends JPanel implements ActionListener
 					picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("Caterpie-icon.png"))));
 					add(picLabel,BorderLayout.CENTER);
 					this.validate();
+					//repaint();
 					} catch (IOException e1) {
 					e1.printStackTrace();
 				}

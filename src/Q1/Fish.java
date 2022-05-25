@@ -231,6 +231,7 @@ public class Fish extends Swimmable {
 	 */
 	public void run() {
 		while(true) {
+			//System.out.println(this.x_front);
 			try
 			{
 				sleep(10);
