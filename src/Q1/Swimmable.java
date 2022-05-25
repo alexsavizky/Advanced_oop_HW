@@ -8,7 +8,7 @@ package Q1;
 import java.awt.*;
 import java.util.concurrent.CyclicBarrier;
 
-public abstract class Swimmable extends Thread implements SeaCreature
+public abstract class Swimmable extends Thread implements SeaCreature,Cloneable
 {
 	protected static int counter = 0; 
 	private int id;
@@ -75,4 +75,5 @@ public abstract class Swimmable extends Thread implements SeaCreature
 	abstract public int getEatCount();
 	abstract public String getColor();
 	abstract public void run();
+	abstract  public  Swimmable clone();
 }

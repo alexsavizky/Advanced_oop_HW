@@ -299,4 +299,7 @@ public class Jellyfish extends Swimmable {
 		this.x_front += this.horSpeed*this.x_dir;
 		this.y_front += this.verSpeed*this.y_dir;
 	}
+	public Jellyfish clone(){
+		return new Jellyfish(panel,size,x_front,y_front,horSpeed,verSpeed,col);
+	}
 }

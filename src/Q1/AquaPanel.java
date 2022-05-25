@@ -24,12 +24,13 @@ public class AquaPanel extends JPanel implements ActionListener
 	
 	//AddAnimalDialog for use
 	private AddAnimalDialog aad;
+	private DuplicateAnimalDialog dad;
 	
 	//Background image for panel
 	protected Image background = null;
 	
 	//Buttons, labels, tables for panel
-	private JButton b1, b2, b3, b4, b5, b6, b7;
+	private JButton b1, b2, b3, b4, b5, b6, b7,b8;
 	private JPanel buttons;
 	private JLabel picLabel;
 	private JTable table;
@@ -62,7 +63,7 @@ public class AquaPanel extends JPanel implements ActionListener
 	public void MakeButtons() 
 	{
 		buttons = new JPanel();
-		buttons.setLayout(new GridLayout(0,7,0,0));
+		buttons.setLayout(new GridLayout(0,8,0,0));
 		b1 = new JButton("Add Animal");
         b2 = new JButton("Sleep");
         b3 = new JButton("Wake up");
@@ -70,6 +71,7 @@ public class AquaPanel extends JPanel implements ActionListener
         b5 = new JButton("Food");
         b6 = new JButton("Info");
         b7 = new JButton("Exit");
+		b8 = new JButton("Duplicate Animal");
         
         //Adding to buttons
 		buttons.add(b1);
@@ -79,6 +81,7 @@ public class AquaPanel extends JPanel implements ActionListener
 		buttons.add(b5);
 		buttons.add(b6);
 		buttons.add(b7);
+		buttons.add(b8);
 		
 		//Placing in south of the screen
 		add(buttons,BorderLayout.SOUTH);
@@ -91,6 +94,7 @@ public class AquaPanel extends JPanel implements ActionListener
 		b5.addActionListener(this);
 		b6.addActionListener(this);
 		b7.addActionListener(this);
+		b8.addActionListener(this);
 	}
 	
 	//Functionality for buttons
@@ -118,7 +122,7 @@ public class AquaPanel extends JPanel implements ActionListener
 
 		else if(e.getSource() == b4) {					//CLICK ON "Reset" - B4
 			Iterator<Swimmable> iterator = swimSet.iterator();
-			if (iterator.hasNext()){
+			while (iterator.hasNext()){
 				iterator.next().setSuspend();
 				iterator.remove();
 			}
@@ -135,7 +139,7 @@ public class AquaPanel extends JPanel implements ActionListener
 			{
 				try {
 					//Adding a picture of a worm
-					picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("src/Caterpie-icon.png"))));
+					picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("Caterpie-icon.png"))));
 					add(picLabel,BorderLayout.CENTER);
 					this.validate();
 					//repaint();
@@ -199,6 +203,13 @@ public class AquaPanel extends JPanel implements ActionListener
 		}
 		else if (e.getSource() == b7)				//CLICK ON "Exit" - B7
 			System.exit(0);
+		else if(e.getSource() ==b8)					//CLICK ON "Duplicate Animal" - B8
+		{
+			dad = new DuplicateAnimalDialog(this);
+			dad.setVisible(true);
+			//choose animal to duplicate
+			//set size speed
+		}
 	}
 
 	//Paint component function
@@ -228,6 +239,7 @@ public class AquaPanel extends JPanel implements ActionListener
 		this.revalidate();
 		this.repaint();
 	}
+	public HashSet<Swimmable> getSwimSet(){return swimSet;}
 	
 	//Get function for flag of worm
 	public Boolean is_worm() 
