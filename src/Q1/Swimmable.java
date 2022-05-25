@@ -1,3 +1,8 @@
+/*	 Authors:
+ *   Bar Shwartz - 313162265
+ *   Alex Savitzky - 316611409
+ */
+
 package Q1;
 
 import java.awt.*;
@@ -70,6 +75,4 @@ public abstract class Swimmable extends Thread{
 	abstract public int getEatCount();
 	abstract public String getColor();
 	abstract public void run();
-
-
 }
