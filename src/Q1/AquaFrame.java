@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class AquaFrame extends JFrame implements ActionListener 
 {
-	private ImageIcon img = new ImageIcon("aquarium.png");
+	private ImageIcon img = new ImageIcon("src/aquarium.png");
 	private static final long serialVersionUID = 1L;
 	
 	//Icon for frame

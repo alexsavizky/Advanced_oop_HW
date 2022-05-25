@@ -40,7 +40,7 @@ public class AquaPanel extends JPanel implements ActionListener
 	private Iterator <Swimmable>itrAnimals;
 
 	//Flags for worm and info
-	private Singleton wormsingle=null;
+	private Singleton wormsingle = null;
 	private Boolean infoFlag = false;
 	
 
@@ -135,7 +135,7 @@ public class AquaPanel extends JPanel implements ActionListener
 			{
 				try {
 					//Adding a picture of a worm
-					picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("Caterpie-icon.png"))));
+					picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("src/Caterpie-icon.png"))));
 					add(picLabel,BorderLayout.CENTER);
 					this.validate();
 					//repaint();

@@ -7,7 +7,8 @@ public class PlantFactory implements AbstractSeaFactory
     int size,x,y;
     AquaPanel panel;
     Color col;
-    public PlantFactory(AquaPanel panel,int size,int x,int y){
+    public PlantFactory(AquaPanel panel,int size,int x,int y)
+    {
         this.panel=panel;
         this.size=size;
         this.x=x;

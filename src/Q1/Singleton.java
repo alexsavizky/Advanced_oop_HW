@@ -14,7 +14,8 @@ public class Singleton {
 
     //intialize the instance to null after the thread ate the instance - worm
     public static void set(){
-        if(instance!=null){
+        if(instance!=null)
+        {
             instance=null;
         }
     }

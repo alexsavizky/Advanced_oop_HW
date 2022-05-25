@@ -56,6 +56,9 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 	private String[] colors = {"Black","Red","Blue","Green","Cyan","Orange", "Yellow", "Magneta", "Pink"};
 	
 	private AquaPanel ap;
+
+	private AbstractSeaFactory asf;
+	private SeaCreature creature;
 	
 	
 	//Constructor
@@ -204,9 +207,17 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 			
 	        //Adding an animal
 			if (fishorjelly == "Fish")
-				ap.addAnimal(new Fish(ap, size, xx, yy, h, v, color));
+			{
+				asf = new AnimalFactory(ap, size, xx, yy, h, v, color);
+				creature = asf.produceSeaCreature("Fish");
+				ap.addAnimal((Swimmable)creature);
+			}
 			else if (fishorjelly == "Jellyfish")
-				ap.addAnimal(new Jellyfish(ap, size, xx, yy, h, v, color));
+			{
+				asf = new AnimalFactory(ap, size, xx, yy, h, v, color);
+				creature = asf.produceSeaCreature("Jellyfish");
+				ap.addAnimal((Swimmable)creature);
+			}
 			dispose();
 		}
 		catch(Exception e1){
