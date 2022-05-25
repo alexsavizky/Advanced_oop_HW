@@ -1,3 +1,7 @@
+/*	 Authors:
+ *   Bar Shwartz - 313162265
+ *   Alex Savitzky - 316611409
+ */
 
 package Q1;
 
@@ -129,7 +133,7 @@ public class Fish extends Swimmable {
 		this.eatCount+=1;
 		if (this.eatCount==this.E_DISTANCE)
 		{
-			this.changeFish(this.size + 30);
+			this.changeFish(this.size + 1);
 			this.eatCount = 0;
 		}
 	}
@@ -171,12 +175,9 @@ public class Fish extends Swimmable {
 		return false;
 	}
 
-<<<<<<< Updated upstream
-=======
 	/***
 	 * drawing the fish
 	 */
->>>>>>> Stashed changes
 	public void drawAnimal(Graphics g)
 	{
 	   g.setColor(col);
@@ -233,7 +234,9 @@ public class Fish extends Swimmable {
 	      g2.setStroke(new BasicStroke(1));
 	   }
 	}
-
+	/***
+	 * run overide function 
+	 */
 	public void run() {
 		while(true) {
 			try
@@ -265,22 +268,31 @@ public class Fish extends Swimmable {
 			panel.repaint();
 		}
 	}
-	
+	/***
+	 * stop the moving of the fish
+	 */
 	public void setSuspend() {
 		this.is_moving = false;
 		
 	}
-	
+	/***
+	 * restart the move of the fish
+	 */
 	public void setResume() {
 		synchronized(this){
 			this.is_moving = true;
 			notify();
 		}
 	}
-	
+	/***
+	 * set cyclic barrier
+	 */
 	public void setBarrier(CyclicBarrier b) {
 		this.barrier=b;
 	}
+	/***
+	 * move to the center to eat the worm
+	 */
 	public void movetoFood() {
 		if((Math.abs(panel.getWidth()/2-x_front)<=5) && (Math.abs(panel.getHeight()/2-y_front)<=5))
 		{
@@ -318,12 +330,9 @@ public class Fish extends Swimmable {
 		}
 	}
 	
-<<<<<<< Updated upstream
-=======
 	/***
 	 * moving of the fish without a food 
 	 */
->>>>>>> Stashed changes
 	public void moveRandom() {
 		if(this.x_front > panel.getWidth()-this.size/2&& x_dir ==1 )
 		{

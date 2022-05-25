@@ -1,3 +1,8 @@
+/*	 Authors:
+ *   Bar Shwartz - 313162265
+ *   Alex Savitzky - 316611409
+ */
+
 package Q1;
 
 import java.awt.BorderLayout;
@@ -143,11 +148,6 @@ public class AquaPanel extends JPanel implements ActionListener
 	        
 				worm = true;
 			}
-<<<<<<< Updated upstream
-        
-			worm = true;
-=======
->>>>>>> Stashed changes
 
 		}
 		else if(e.getSource() == b6) 					//CLICK ON "Info" - B6

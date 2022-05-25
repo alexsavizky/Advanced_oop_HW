@@ -1,3 +1,7 @@
+/*	 Authors:
+ *   Bar Shwartz - 313162265
+ *   Alex Savitzky - 316611409
+ */
 
 package Q1;
 
@@ -178,17 +182,17 @@ public class Jellyfish extends Swimmable {
 		g.drawLine(x_front - size/2 + size/numLegs + size*i/(numLegs+1), y_front, x_front - size/2 + size/numLegs + size*i/(numLegs+1), y_front+size/3);
 	}
 
-<<<<<<< Updated upstream
-=======
 	
 	/***
 	 * stop the moving of the jellyfish
 	 */
->>>>>>> Stashed changes
 	public void setSuspend() {
 		this.is_moving = false;
 	}
 	
+	/***
+	 * restart the move of the jellyfish
+	 */
 	public void setResume() {
 		synchronized(this){
 			this.is_moving = true;
@@ -197,23 +201,17 @@ public class Jellyfish extends Swimmable {
 		}
 	}
 
-<<<<<<< Updated upstream
-=======
 	/***
 	 * set cyclic barrier
 	 */
->>>>>>> Stashed changes
 	public void setBarrier(CyclicBarrier b) {
 		this.barrier=b;
 		
 	}
 
-<<<<<<< Updated upstream
-=======
 	/***
 	 * run overide function 
 	 */
->>>>>>> Stashed changes
 	public void run() {
 		while(true) {
 			try
@@ -243,7 +241,9 @@ public class Jellyfish extends Swimmable {
 			panel.repaint();
 		}
 	}
-	
+	/***
+	 * move to the center to eat the worm
+	 */
 	public void movetoFood() {
 		if((Math.abs(panel.getWidth()/2-x_front)<=5) && (Math.abs(panel.getHeight()/2-y_front)<=5))
 		{
@@ -276,7 +276,9 @@ public class Jellyfish extends Swimmable {
 				this.y_front += this.verSpeed*this.y_dir;
 		}
 	}
-	
+	/***
+	 * moving of the jellyfish without a food 
+	 */
 	public void moveRandom() {
 		if(this.x_front > panel.getWidth()-this.size/2&& x_dir ==1 )
 		{
