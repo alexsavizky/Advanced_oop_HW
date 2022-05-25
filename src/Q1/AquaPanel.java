@@ -130,7 +130,7 @@ public class AquaPanel extends JPanel implements ActionListener
 			infoFlag = false;
 
 		}
-		else if(e.getSource() == b5) {					//CLICK ON "Food" - B3
+		else if(e.getSource() == b5) {					//CLICK ON "Food" - B5
 			if (wormsingle == null)
 			{
 				try {
