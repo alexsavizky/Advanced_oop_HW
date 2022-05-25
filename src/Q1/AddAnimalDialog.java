@@ -1,3 +1,8 @@
+/*	 Authors:
+ *   Bar Shwartz - 313162265
+ *   Alex Savitzky - 316611409
+ */
+
 package Q1;
 
 import java.awt.BorderLayout;
@@ -28,8 +33,12 @@ import javax.swing.border.TitledBorder;
 public class AddAnimalDialog extends JDialog implements ActionListener {
 	
 	private static final long serialVersionUID = 1L;
+	
+	//Icon for dialog
 	private ImageIcon img2 = new ImageIcon("src/whale.png");
 
+	
+	//Adding buttons, labels and boxes
 	private final JPanel contentPane = new JPanel();
 	private final JPanel controls = new JPanel();
 	private final JPanel head = new JPanel();
@@ -39,16 +48,20 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 	private JLabel animalLabel, sizeLabel, horSpeedLabel, verSpeedLabel , colorLabel;
 	private JTextField sizetxt, verSpeedtxt, horSpeedtxt;
 	
+	//Gridlayouts for dialog
 	private GridLayout experimentLayout, experimentLayout2, experimentLayout3;
 	
+	//List of choices for ComboBoxes
 	private String[] swims = {"Fish","Jellyfish"};  
 	private String[] colors = {"Black","Red","Blue","Green","Cyan","Orange", "Yellow", "Magneta", "Pink"};
 	
 	private AquaPanel ap;
 	
 	
+	//Constructor
 	public AddAnimalDialog(AquaPanel ap) 
 	{
+		//Starting the dialog
 		this.ap = ap;
 		setSize(450, 305);
 		setLayout(new BorderLayout());
@@ -56,15 +69,20 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 		this.setIconImage(img2.getImage());
 		this.setLocationRelativeTo(null);
 		
+		//Create buttons
 		MakeButtons();
+		
+		//Adding action listeners
 		confirmButton.addActionListener(this);
 		cancelButton.addActionListener(this);
 		
+		//Locating the panels
 		add(head, BorderLayout.NORTH);
         add(contentPane, BorderLayout.CENTER);
         add(controls, BorderLayout.SOUTH);
 	}
 	
+	//Create buttons and details of add animal dialog
 	public void MakeButtons() 
 	{
 		experimentLayout = new GridLayout(0,2);
@@ -79,9 +97,10 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 		int c = 9728;
 		
 		JPanel matteBorders = new JPanel();
+		
+		//Titled border header
 		TitledBorder titled = BorderFactory.createTitledBorder("Add a new animal");
 		titled.setTitleFont(getFont());
-		
         addCompForTitledBorder(titled,
                 "You can add animals to your aquarium",
                 TitledBorder.CENTER,
@@ -90,6 +109,8 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 		
 		String s = Character.toString((char)c);
 		
+		
+		//Adding Labels and creating a field for each one
 		animalLabel = new JLabel(" " + s + "   Choose an animal:");
 		animalBox = new JComboBox<String>(swims);
   		
@@ -105,6 +126,7 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 		colorLabel = new JLabel(" " + s + "   Pick a color:");
 		colorBox = new JComboBox<String>(colors);
 		
+		//Adding the labels and fields to contentPane
 		contentPane.add(animalLabel);
 		contentPane.add(animalBox);
 		
@@ -120,18 +142,23 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 		contentPane.add(colorLabel);
 		contentPane.add(colorBox);
 		
+		//Creating Confirm and Cancel buttons
 		confirmButton = new JButton("Confirm");
 		cancelButton = new JButton("Cancel");
 		
+		//Adding the buttons to controls
 		controls.add(confirmButton);
 		controls.add(cancelButton);
 
+		//Adding the titled border
 		head.add(matteBorders);
 		
+		//Setting gaps
         experimentLayout.setHgap(2);
         experimentLayout.setVgap(10);
 	}
 
+	//Getting information for the dialog after confirm
 	public void GetFromDialog() 
 	{
 		Color color = Color.black;
@@ -145,6 +172,7 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 			h = Integer.parseInt(horSpeedtxt.getText());
 			v = Integer.parseInt(verSpeedtxt.getText());
 			
+			//Checking for legit parameters
 			if (size>320 || size<20)
 				throw new Exception("Size must be between 20-320");
 			if (h<1 || v<1 || h>10 || v>10)
@@ -169,10 +197,12 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 			else if(colorname == "Pink")
 				color = Color.pink;
 			
+			//Random spawn for animals
 	        Random rand = new Random();
 	        int xx = rand.nextInt(ap.getWidth());
 	        int yy = rand.nextInt(ap.getHeight());
 			
+	        //Adding an animal
 			if (fishorjelly == "Fish")
 				ap.addAnimal(new Fish(ap, size, xx, yy, h, v, color));
 			else if (fishorjelly == "Jellyfish")
@@ -184,6 +214,7 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 			}
 	}
 	
+	//Confirm and cancel buttons actions
 	public void actionPerformed(ActionEvent e) 
 	{
 		if (e.getSource() == cancelButton)
@@ -202,6 +233,7 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 		}
 	}
     
+	//Titled border function
     void addCompForBorder(Border border,
             String description,
             Container container) {
@@ -212,7 +244,6 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 		container.add(Box.createRigidArea(new Dimension(0, 10)));
 		container.add(comp);
     }
-	
     void addCompForTitledBorder(TitledBorder border,
             String description,
             int justification,

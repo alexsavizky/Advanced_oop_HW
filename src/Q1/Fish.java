@@ -1,3 +1,7 @@
+/*	 Authors:
+ *   Bar Shwartz - 313162265
+ *   Alex Savitzky - 316611409
+ */
 
 package Q1;
 
@@ -6,7 +10,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
-import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
 public class Fish extends Swimmable {
@@ -122,7 +125,7 @@ public class Fish extends Swimmable {
 		this.eatCount+=1;
 		if (this.eatCount==this.E_DISTANCE)
 		{
-			this.changeFish(this.size + 30);
+			this.changeFish(this.size + 1);
 			this.eatCount = 0;
 		}
 	}
@@ -163,7 +166,7 @@ public class Fish extends Swimmable {
 		}
 		return false;
 	}
-	
+
 	/***
 	 * drawing the fish
 	 */
@@ -243,9 +246,7 @@ public class Fish extends Swimmable {
 					}
 				}
 				else {
-					
-					if(this.is_moving == true) {
-						barrier.await();
+					if(this.is_moving == true) {	
 						movetoFood();
 						
 					}
@@ -255,7 +256,7 @@ public class Fish extends Swimmable {
 						}
 					}
 				}
-			}catch( InterruptedException | BrokenBarrierException  e) {}
+			}catch(InterruptedException e) {}
 			panel.repaint();
 		}
 	}
@@ -320,6 +321,7 @@ public class Fish extends Swimmable {
 				this.y_front += this.verSpeed*this.y_dir;
 		}
 	}
+	
 	/***
 	 * moving of the fish without a food 
 	 */
