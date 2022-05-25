@@ -115,14 +115,14 @@ public class AquaPanel extends JPanel implements ActionListener
 		}
 
 
-		else if(e.getSource() == b4) {					//CLICK ON "Reset" - B3
+
+		else if(e.getSource() == b4) {					//CLICK ON "Reset" - B4
 			Iterator<Swimmable> iterator = swimSet.iterator();
-			if (iterator.hasNext()) {
+			if (iterator.hasNext()){
 				iterator.next().setSuspend();
 				iterator.remove();
 			}
 			swimSet = new HashSet<Swimmable>();
-			System.out.println(swimSet.size());
 			repaint();
 			if(wormsingle != null)
 				eatworm();
