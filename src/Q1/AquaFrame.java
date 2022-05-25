@@ -18,7 +18,9 @@ public class AquaFrame extends JFrame implements ActionListener
 {
 	private ImageIcon img = new ImageIcon("src/aquarium.png");
 	private static final long serialVersionUID = 1L;
-	
+
+	Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+
 	//Icon for frame
 //	private ImageIcon img = new ImageIcon("src/aquarium.png");
 	
@@ -49,7 +51,8 @@ public class AquaFrame extends JFrame implements ActionListener
 		
 		//Starting the frame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(850, 600);
+//		setSize(850, 600);
+		setSize((int)size.getWidth() - 20, 600);
 		this.setTitle("Alex & Bar's Aquarium");
 		this.setIconImage(img.getImage());
 		setLocationRelativeTo(null);

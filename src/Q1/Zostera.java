@@ -13,6 +13,7 @@ public class Zostera extends Immobile
     {
         super(panel,size,"Zostera",x,y);
     }
+
     public void drawCreature(Graphics g)
     {
         Graphics2D g2 = (Graphics2D) g;
