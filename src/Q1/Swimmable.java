@@ -8,7 +8,8 @@ package Q1;
 import java.awt.*;
 import java.util.concurrent.CyclicBarrier;
 
-public abstract class Swimmable extends Thread{
+public abstract class Swimmable extends Thread implements SeaCreature
+{
 	protected static int counter = 0; 
 	private int id;
 	protected int horSpeed; //Horizontal speed
@@ -65,7 +66,7 @@ public abstract class Swimmable extends Thread{
 	
 	//Functions for Fish & Jellyfish classes
 	abstract public String getAnimalName();
-	abstract public void drawAnimal(Graphics g);
+	abstract public void drawCreature(Graphics g);
 	abstract public void setSuspend();
 	abstract public void setResume();
 	abstract public void setBarrier(CyclicBarrier b);

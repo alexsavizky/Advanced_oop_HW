@@ -165,7 +165,7 @@ public class Jellyfish extends Swimmable {
 		return false;
 	}
 	@Override
-	public void drawAnimal(Graphics g)
+	public void drawCreature(Graphics g)
 	{
 	   int numLegs;
 	   if(size<40)
