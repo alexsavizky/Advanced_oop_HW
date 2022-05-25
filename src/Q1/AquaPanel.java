@@ -40,7 +40,7 @@ public class AquaPanel extends JPanel implements ActionListener
 	private Iterator <Swimmable>itrAnimals;
 
 	//Flags for worm and info
-	private Boolean worm = false;
+	private Singleton wormsingle=null;
 	private Boolean infoFlag = false;
 	
 
@@ -117,8 +117,6 @@ public class AquaPanel extends JPanel implements ActionListener
 
 
 		else if(e.getSource() == b4) {					//CLICK ON "Reset" - B3
-
-			System.out.println(swimSet.size());
 			Iterator<Swimmable> iterator = swimSet.iterator();
 			if (iterator.hasNext()) {
 				iterator.next().setSuspend();
@@ -127,27 +125,27 @@ public class AquaPanel extends JPanel implements ActionListener
 			swimSet = new HashSet<Swimmable>();
 			System.out.println(swimSet.size());
 			repaint();
-			if(worm == true)
+			if(wormsingle != null)
 				eatworm();
 
 			infoFlag = false;
 
 		}
 		else if(e.getSource() == b5) {					//CLICK ON "Food" - B3
-
-			if (worm == false) 
+			if (wormsingle == null)
 			{
-			try {
+				try {
 					//Adding a picture of a worm
 					picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("Caterpie-icon.png"))));
 					add(picLabel,BorderLayout.CENTER);
 					this.validate();
 					//repaint();
-					} catch (IOException e1) {
+					}
+				catch (IOException e1) {
 					e1.printStackTrace();
 				}
-	        
-				worm = true;
+				Singleton.set();
+				wormsingle = Singleton.getInstance();
 			}
 
 		}
@@ -226,7 +224,7 @@ public class AquaPanel extends JPanel implements ActionListener
 	//Eat a worm function
 	public void eatworm() 
 	{
-		this.worm = false;
+		wormsingle = null;
 		this.remove(picLabel);
 		this.revalidate();
 		this.repaint();
@@ -235,6 +233,12 @@ public class AquaPanel extends JPanel implements ActionListener
 	//Get function for flag of worm
 	public Boolean is_worm() 
 	{
-		return worm;
+		return wormsingle!=null;
 	}
+	public void setWormInstance()
+	{
+		Singleton.set();
+		wormsingle=null;
+	}
+	public Singleton getWormInstance(){return wormsingle;}
 }
