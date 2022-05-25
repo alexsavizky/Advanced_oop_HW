@@ -1,27 +1,16 @@
 package Q1;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.awt.Image;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.concurrent.CyclicBarrier;
-import java.util.*;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 
 public class AquaPanel extends JPanel implements ActionListener
@@ -112,7 +101,7 @@ public class AquaPanel extends JPanel implements ActionListener
 		else if(e.getSource() == b5) {
 
 			try {
-				picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("src/Caterpie-icon.png"))));
+				picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("Caterpie-icon.png"))));
 				add(picLabel,BorderLayout.CENTER);
 				this.validate();
 				} catch (IOException e1) {

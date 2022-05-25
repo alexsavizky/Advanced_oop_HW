@@ -1,7 +1,6 @@
 package Q1;
 
 import java.awt.*;
-//import java.util.Observable;
 import java.util.concurrent.CyclicBarrier;
 
 public abstract class Swimmable extends Thread{
