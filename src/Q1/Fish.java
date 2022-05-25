@@ -49,15 +49,7 @@ public class Fish extends Swimmable {
 		this.y_dir = 1;
 	}
 	
-	/***
-	 * Default constructor
-	 * @param size - Size of fish 
-	 * @param x_front - Position parameter
-	 * @param y_front - Position parameter
-	 * @param horSpeed - Position parameter
-	 * @param verSpeed - Position parameter
-	 * @param col - Color of fish
-	 */
+
 	public Fish()
 	{
 		super();
@@ -239,6 +231,7 @@ public class Fish extends Swimmable {
 	 */
 	public void run() {
 		while(true) {
+			//System.out.println(this.x_front);
 			try
 			{
 				sleep(10);

@@ -5,30 +5,22 @@
 
 package Q1;
 
-import java.awt.*;  
-import java.awt.event.ActionListener;
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.imageio.ImageIO;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
 
 public class AquaFrame extends JFrame implements ActionListener 
 {
+	private ImageIcon img = new ImageIcon("aquarium.png");
 	private static final long serialVersionUID = 1L;
 	
 	//Icon for frame
-	private ImageIcon img = new ImageIcon("src/aquarium.png");
+//	private ImageIcon img = new ImageIcon("src/aquarium.png");
 	
 	//Panel for use
 	private AquaPanel ap;
