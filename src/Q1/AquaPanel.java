@@ -197,18 +197,7 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 		else if(e.getSource() == b8) 					//CLICK ON "Decorator" - B8
 		{
 			decorator = new JPanelDecorator(this);
-
-
-			decoratorDialog = new JDialog();
-			decoratorDialog.setSize(450, 145);
-			decoratorDialog.setLayout(new BorderLayout());
-			decoratorDialog.setTitle("JPanel Decorator");
-			decoratorDialog.setLocationRelativeTo(null);
-
-			decoratorDialog.add(decorator);
-
-			decoratorDialog.setVisible(true);
-
+			repaint();
 		}
 
 		else if(e.getSource() == b9) 					//CLICK ON "Info" - B9
@@ -217,13 +206,13 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 			if (infoFlag == false) 
 			{
 				String name, color;
-				int size, h, v, food, id, all = 0;
+				int size, h, v, food, id, freq, all = 0;
 				itrAnimals = swimSet.iterator();
 				Swimmable s;
 				
 				//Info table columns
 				table = new JTable(new DefaultTableModel(new Object[]{ "ID", "Animal", "Color", "Size", "Hor. Speed",
-						"Ver. Speed", "Eat counter"}, 0));
+						"Ver. Speed", "Hunger Freq","Eat counter"}, 0));
 				table.setAutoCreateRowSorter(true);
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
 				
@@ -236,16 +225,20 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 					size = s.getSize();
 					h = s.getHorSpeed();
 					v = s.getVerSpeed();
+					if (name == "Fish")
+						freq = 20;
+					else
+						freq = 25;
 
 					food = s.getEatCount();
 					
 					all += food;
 					model.addRow(new Object[]{id, name, color, String.valueOf(size), String.valueOf(h),
-							String.valueOf(v), String.valueOf(food)});
+							String.valueOf(v), "Every " + String.valueOf(freq) + " seconds", String.valueOf(food)});
 				}
 				
 				//Adding a 'Total' row to table
-				model.addRow(new Object[]{"", "", "", "", "", "", "Total eat count: " + String.valueOf(all)});
+				model.addRow(new Object[]{"", "", "", "", "", "", "", "Total eat count: " + String.valueOf(all)});
 				
 				jsc = new JScrollPane(table);
 				add(jsc);
@@ -325,9 +318,16 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 				"Time to eat", JOptionPane.PLAIN_MESSAGE);
 	}*/
 
-	///////////////////
+	/////////////////////OBSERVER SHIT//////////////////////
 	public void actionHungryFish(Swimmable s)
 	{
-		System.out.println("123");
+		//s.setHungryState(new Hungry());
+		HungerState hs = new Hungry();
+		hs.ChangeState(s);
+
+		if (!is_worm())
+			JOptionPane.showMessageDialog(null, "Animal: " + s.getAnimalName() + "\nID:" +
+					s.getAnimalID() + "\nFeed it using the 'Food' button", "Your animal is hungry!",
+					JOptionPane.INFORMATION_MESSAGE);
 	}
 }

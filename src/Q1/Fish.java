@@ -24,6 +24,8 @@ public class Fish extends Swimmable implements MarineAnimal{
 	private Boolean is_moving = true;
 	private CyclicBarrier barrier=null;
 	private AquariumActionListener listen;
+	private HungerState myState;
+	protected Timer timer;
 	
 	/***
 	 * Constructor
@@ -51,32 +53,30 @@ public class Fish extends Swimmable implements MarineAnimal{
 		this.x_dir = 1;
 		this.y_dir = 1;
 
-		startTimer(5000L);
+		myState = new Satiated();
+		startTimer(20000L);
 	}
 
 	/////
 	public void startTimer(long time)
 	{
-//		TimerTask task = new TimerTask() {
-//			public void run() {
-////				System.out.println("Task performed on: " + new Date() + "n" +
-////						"Thread's name: " + Thread.currentThread().getName());
-//				iAmHungry();
-//
-//
-//			}
-//		};
-//		Timer timer = new Timer("Timer");
-//
-//		long delay = time;
-//		timer.schedule(task, delay);
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-			public void run()
-			{
+		TimerTask task = new TimerTask() {
+			public void run() {
+//				System.out.println("Task performed on: " + new Date() + "n" +
+//						"Thread's name: " + Thread.currentThread().getName());
 				iAmHungry();
 			}
-		}, 0, time);
+		};
+		timer = new Timer("Timer");
+		timer.schedule(task, time);
+
+//		timer = new Timer();
+//		timer.schedule(new TimerTask() {
+//			public void run()
+//			{
+//				iAmHungry();
+//			}
+//		}, 0, time);
 	}
 	
 
@@ -143,8 +143,10 @@ public class Fish extends Swimmable implements MarineAnimal{
 			return "Yellow";
 		else if(col == Color.magenta)
 			return "Magneta";
-		else
+		else if(col == Color.pink)
 			return "Pink";
+		else
+			return "R:" + col.getRed() + ", G:" + col.getGreen() + ", B:" + col.getBlue();
 	}
 	
 	/***
@@ -266,8 +268,8 @@ public class Fish extends Swimmable implements MarineAnimal{
 			try
 			{
 				sleep(10);
-				if(!panel.is_worm()) {
-					
+				if(!panel.is_worm())
+				{
 					if(this.is_moving == true) {	
 						moveRandom();
 					}
@@ -278,14 +280,19 @@ public class Fish extends Swimmable implements MarineAnimal{
 					}
 				}
 				else {
-					if(this.is_moving == true) {	
-						movetoFood();
-						
-					}
-					else {
+					if (this.is_moving == false)
+					{
 						synchronized(this){
 							wait();
 						}
+					}
+					else if((this.is_moving == true) && (myState instanceof Hungry))
+					{
+						movetoFood();
+					}
+					else
+					{
+						moveRandom();
 					}
 				}
 			}catch(InterruptedException e) {}
@@ -322,9 +329,9 @@ public class Fish extends Swimmable implements MarineAnimal{
 		{
 			panel.eatworm();
 			this.eatInc();
+			this.setHungryState(new Satiated());
+			this.startTimer(20000L);
 		}
-
-		
 		else 
 		{
 			if(this.x_front > panel.getWidth()/2&& x_dir ==1 )
@@ -412,4 +419,6 @@ public class Fish extends Swimmable implements MarineAnimal{
 
 	public void PaintFish(Color col){this.col = col;}
 
+	public void setHungryState(HungerState state) {this.myState = state;}
+	public HungerState getHungryState() {return this.myState;}
 }
