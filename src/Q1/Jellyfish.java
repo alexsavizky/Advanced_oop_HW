@@ -1,16 +1,31 @@
+/*	 Authors:
+ *   Bar Shwartz - 313162265
+ *   Alex Savitzky - 316611409
+ */
 
 package Q1;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.CyclicBarrier;
 
-public class Jellyfish extends Swimmable {
+public class Jellyfish extends Swimmable implements MarineAnimal{
 	private int E_DISTANCE;						//Amount of food a jellyfish can eat 
 	private int size;							//Size of jellyfish
-	private int col;							//Color of jellyfish
+	private Color col;							//Color of jellyfish
 	private int eatCount;						//Eat count of jellyfish
 	private int x_front, y_front, x_dir, y_dir;	//Position of jellyfish
-	
+	private AquaPanel panel;
+	private Boolean is_moving = true;
+	private CyclicBarrier barrier=null;
+	private AquariumActionListener listen;
+	private HungerState myState;
+	private Timer timer;
 	/***
 	 * Constructor
 	 * @param size - Size of jellyfish 
@@ -20,9 +35,10 @@ public class Jellyfish extends Swimmable {
 	 * @param verSpeed - Position parameter
 	 * @param col - Color of jellyfish
 	 */
-	public Jellyfish(int size, int x_front, int y_front, int horSpeed, int verSpeed, int col)
+	public Jellyfish(AquaPanel panel,int size, int x_front, int y_front, int horSpeed, int verSpeed, Color col)
 	{
 		super(horSpeed, verSpeed);
+		this.panel = panel;
 		this.size = size;
 		this.x_front = x_front;
 		this.y_front = y_front;
@@ -35,7 +51,12 @@ public class Jellyfish extends Swimmable {
 		//Starting position of the jellyfish
 		this.x_dir = 1;
 		this.y_dir = 1;
+
+		myState = new Satiated();
+		startTimer(25000L);
 	}
+
+
 	/***
 	 * copy constructor
 	 * @param other - Jellyfish object
@@ -48,11 +69,9 @@ public class Jellyfish extends Swimmable {
 		this.y_front = other.getY_front();
 		this.col = other.getCol();
 		this.E_DISTANCE = other.getE_DISTANCE();
-		
 		this.eatCount = other.getEatCount();
 		this.x_dir = other.getX_dir();
 		this.y_dir = other.getY_dir();
-		
 	}
 	
 	/***
@@ -64,7 +83,7 @@ public class Jellyfish extends Swimmable {
 		this.size = 0;
 		this.x_front = 0;
 		this.y_front = 0;
-		this.col = 0;
+		this.col = Color.black;
 		
 		//E_DISTANCE = 4 for checks
 		this.E_DISTANCE = 4;
@@ -72,11 +91,33 @@ public class Jellyfish extends Swimmable {
 		this.eatCount = 0;
 		this.x_dir = 1;
 		this.y_dir = 1;
-		
+
+	}
+
+	/////
+	public void startTimer(long time)
+	{
+		TimerTask task = new TimerTask() {
+			public void run() {
+//				System.out.println("Task performed on: " + new Date() + "n" +
+//						"Thread's name: " + Thread.currentThread().getName());
+				iAmHungry();
+			}
+		};
+		timer = new Timer("Timer");
+		timer.schedule(task, time);
+
+//		timer = new Timer();
+//		timer.schedule(new TimerTask() {
+//			public void run()
+//			{
+//				iAmHungry();
+//			}
+//		}, 0, time);
 	}
 	
 	//get functions
-	public String getAnimalName() {return getClass().getName();}
+	public String getAnimalName() {return "Jellyfish";}
 	public int getEatCount() {return this.eatCount;}
 	public int getSize() {return this.size;}
 	public int getE_DISTANCE() {return this.E_DISTANCE;}
@@ -84,31 +125,32 @@ public class Jellyfish extends Swimmable {
 	public int getY_front() {return this.y_front;}
 	public int getX_dir() {return this.x_dir;}
 	public int getY_dir() {return this.y_dir;}
-	public int getCol() {return this.col;}
+	public Color getCol() {return this.col;}
+	public int getAnimalID() {return this.id;}
+
 	public String getColor()
 	{
-		switch(this.col) {
-		case 1:
+		if(col == Color.black)
 			return "Black";
-		case 2:
+		else if(col == Color.red)
 			return "Red";
-		case 3:
+		else if(col == Color.blue)
 			return "Blue";
-		case 4:
+		else if(col == Color.green)
 			return "Green";
-		case 5:
+		else if(col == Color.cyan)
 			return "Cyan";
-		case 6:
+		else if(col == Color.orange)
 			return "Orange";
-		case 7:
+		else if(col == Color.yellow)
 			return "Yellow";
-		case 8:
+		else if(col == Color.magenta)
 			return "Magneta";
-		default:
+		else if(col == Color.pink)
 			return "Pink";
-		}
+		else
+			return "R:" + col.getRed() + ", G:" + col.getGreen() + ", B:" + col.getBlue();
 	}
-	
 	
 	/***
 	 * Feeding jellyfish func
@@ -117,7 +159,7 @@ public class Jellyfish extends Swimmable {
 	public void eatInc() 
 	{
 		this.eatCount+=1;
-		if (this.eatCount==4)
+		if (this.eatCount==this.E_DISTANCE)
 		{
 			this.changeJellyfish(this.size + 1);
 			this.eatCount = 0;
@@ -127,8 +169,7 @@ public class Jellyfish extends Swimmable {
 	//Change the jellyfish's size
 	public void changeJellyfish(int a) {this.size = a;}
 	
-	
-	//Compare a jellyfish for size with: Jellyfish, Fish, UnusualFish
+	//Compare a jellyfish for size with: Jellyfish, Fish
 	public int comparsize(Object other) {
 		if(other instanceof Jellyfish) {
 			if(((Jellyfish)other).getSize() > this.getSize())
@@ -162,24 +203,184 @@ public class Jellyfish extends Swimmable {
 		return false;
 	}
 	@Override
-	public void drawAnimal(Graphics g) {
-		// TODO Auto-generated method stub
-		
+	public void drawCreature(Graphics g)
+	{
+	   int numLegs;
+	   if(size<40)
+	    	numLegs = 5;
+	   else if(size<80)
+	    	numLegs = 9;
+	   else
+	    	numLegs = 12;
+
+	   g.setColor(col);
+	   g.fillArc(x_front - size/2, y_front - size/4, size, size/2, 0, 180);
+			
+	   for(int i=0; i<numLegs; i++)
+		g.drawLine(x_front - size/2 + size/numLegs + size*i/(numLegs+1), y_front, x_front - size/2 + size/numLegs + size*i/(numLegs+1), y_front+size/3);
 	}
-	@Override
+
+	
+	/***
+	 * stop the moving of the jellyfish
+	 */
 	public void setSuspend() {
-		// TODO Auto-generated method stub
-		
+		this.is_moving = false;
 	}
-	@Override
+	
+	/***
+	 * restart the move of the jellyfish
+	 */
 	public void setResume() {
-		// TODO Auto-generated method stub
+		synchronized(this){
+			this.is_moving = true;
 		
+			notify();
+		}
 	}
-	@Override
+
+	/***
+	 * set cyclic barrier
+	 */
 	public void setBarrier(CyclicBarrier b) {
-		// TODO Auto-generated method stub
+		this.barrier=b;
 		
 	}
 
+	/***
+	 * run overide function 
+	 */
+	public void run() {
+		while(true) {
+			//System.out.println(this.x_front);
+			try
+			{
+				sleep(10);
+				if(!panel.is_worm())
+				{
+					if(this.is_moving == true) {
+						moveRandom();
+					}
+					else {
+						synchronized(this){
+							wait();
+						}
+					}
+				}
+				else {
+					if (this.is_moving == false)
+					{
+						synchronized(this){
+							wait();
+						}
+					}
+					else if((this.is_moving == true) && (myState instanceof Hungry))
+					{
+						movetoFood();
+					}
+					else
+					{
+						moveRandom();
+					}
+				}
+			}catch(InterruptedException e) {}
+			panel.repaint();
+		}
+	}
+	/***
+	 * move to the center to eat the worm
+	 */
+	public void movetoFood() {
+		if((Math.abs(panel.getWidth()/2-x_front)<=5) && (Math.abs(panel.getHeight()/2-y_front)<=5))
+		{
+			panel.eatworm();
+			this.eatInc();
+			this.setHungryState(new Satiated());
+			this.startTimer(25000L);
+		}
+		else {
+			if(this.x_front > panel.getWidth()/2&& x_dir ==1 )
+			{
+				x_dir =-1;
+			}
+			if(this.x_front < panel.getWidth()/2&& x_dir ==-1 )
+			{
+				x_dir =1;
+			}
+
+			if(this.y_front > panel.getHeight()/2&& y_dir ==1 )
+			{
+				y_dir =-1;
+			}
+			if(this.y_front < panel.getHeight()/2&& y_dir ==-1 )
+			{
+				y_dir =1;
+			}
+			if(!(Math.abs(panel.getWidth()/2-x_front)<=5))
+			{
+				this.x_front += this.horSpeed*this.x_dir;
+			}
+			if(!(Math.abs(panel.getHeight()/2-y_front)<=5))
+				this.y_front += this.verSpeed*this.y_dir;
+		}
+	}
+	/***
+	 * moving of the jellyfish without a food 
+	 */
+	public void moveRandom() {
+		if(this.x_front > panel.getWidth()-this.size/2&& x_dir ==1 )
+		{
+			x_dir =-1;
+		}
+		else if (this.x_front < this.size/2 && x_dir ==-1 )
+		{
+			x_dir =1;
+		}
+		if(this.y_front > panel.getHeight() && y_dir ==1 )
+		{
+			y_dir =-1;
+		}
+		else if (this.y_front < 0 && y_dir ==-1 )
+		{
+			y_dir =1;
+		}
+		this.x_front += this.horSpeed*this.x_dir;
+		this.y_front += this.verSpeed*this.y_dir;
+	}
+	public Jellyfish clone(){
+		return new Jellyfish(panel,size,x_front,y_front,horSpeed,verSpeed,col);
+	}
+	public boolean SetClone(int size , int horspeed,int verspeed,Color color){
+		this.size = size;
+		this.horSpeed = horspeed;
+		this.verSpeed = verspeed;
+		this.col = color;
+		return true;
+	}
+
+	@Override
+	public boolean SetMementoState(MementoState state) {
+		this.col = state.color;
+		this.x_front = state.x;
+		this.y_front = state.y;
+		this.horSpeed =state.hor_speed;
+		this.verSpeed = state.ver_speed;
+		this.size = state.size;
+		return true;
+	}
+
+	public void iAmHungry()
+	{
+		listen.actionHungryFish(this);
+	}
+
+	public void addActionListener(AquariumActionListener aal)
+	{
+		this.listen = aal;
+	}
+
+	public void PaintFish(Color col){this.col = col;}
+
+	public void setHungryState(HungerState state) {this.myState = state;}
+	public HungerState getHungryState() {return this.myState;}
 }
