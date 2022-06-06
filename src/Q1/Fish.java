@@ -10,6 +10,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.CyclicBarrier;
 
 public class Fish extends Swimmable {
@@ -21,6 +23,7 @@ public class Fish extends Swimmable {
 	private AquaPanel panel;
 	private Boolean is_moving = true;
 	private CyclicBarrier barrier=null;
+	private AquariumActionListener listen;
 	
 	/***
 	 * Constructor
@@ -47,6 +50,26 @@ public class Fish extends Swimmable {
 		//Starting position of the fish
 		this.x_dir = 1;
 		this.y_dir = 1;
+
+		startTimer(5000L);
+	}
+
+	/////
+	public void startTimer(long time)
+	{
+		TimerTask task = new TimerTask() {
+			public void run() {
+//				System.out.println("Task performed on: " + new Date() + "n" +
+//						"Thread's name: " + Thread.currentThread().getName());
+				iAmHungry();
+
+
+			}
+		};
+		Timer timer = new Timer("Timer");
+
+		long delay = time;
+		timer.schedule(task, delay);
 	}
 	
 
@@ -346,5 +369,16 @@ public class Fish extends Swimmable {
 		}
 		this.x_front += this.horSpeed*this.x_dir;
 		this.y_front += this.verSpeed*this.y_dir;
+	}
+
+	public void iAmHungry()
+	{
+		//panel.actionHungryFish(null);
+		listen.actionHungryFish(this);
+	}
+
+	public void addActionListener(AquariumActionListener aal)
+	{
+		this.listen = aal;
 	}
 }

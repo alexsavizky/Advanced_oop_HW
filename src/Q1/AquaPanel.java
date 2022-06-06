@@ -13,12 +13,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.*;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.CyclicBarrier;
 
 
-public class AquaPanel extends JPanel implements ActionListener
+public class AquaPanel extends JPanel implements AquariumActionListener
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -251,6 +254,8 @@ public class AquaPanel extends JPanel implements ActionListener
 	//Add an animal to the swimset
 	public void addAnimal(Swimmable swim) 
 	{
+		//swim.addObserver(this);
+//		swim.addActionListener(this);
 		swimSet.add(swim);
 		repaint();
 		swim.start();
@@ -281,4 +286,16 @@ public class AquaPanel extends JPanel implements ActionListener
 		wormsingle=null;
 	}
 	public Singleton getWormInstance(){return wormsingle;}
+
+/*	public void update(Observable a, Object obj)
+	{
+		JOptionPane.showMessageDialog(null, obj + " is hungry!",
+				"Time to eat", JOptionPane.PLAIN_MESSAGE);
+	}*/
+
+	///////////////////
+	public void actionHungryFish(Swimmable s)
+	{
+		System.out.println("123");
+	}
 }

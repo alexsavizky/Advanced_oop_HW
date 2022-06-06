@@ -6,6 +6,9 @@
 package Q1;
 
 import java.awt.*;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.CyclicBarrier;
 
 public abstract class Swimmable extends Thread implements SeaCreature
@@ -14,6 +17,7 @@ public abstract class Swimmable extends Thread implements SeaCreature
 	protected int id;
 	protected int horSpeed; //Horizontal speed
 	protected int verSpeed; //Vertical speed
+
 	
 	/***
 	 * Default constructor
@@ -25,7 +29,7 @@ public abstract class Swimmable extends Thread implements SeaCreature
 		this.horSpeed = 0;
 		this.verSpeed = 0;
 	}
-	
+
 	/***
 	 * Constructor
 	 * @param a - Horizontal speed
@@ -37,12 +41,16 @@ public abstract class Swimmable extends Thread implements SeaCreature
 		this.id = counter;
 		this.horSpeed = a;
 		this.verSpeed = b;
+
+		//this.startTimer(5000L);
+
 	}
 	
 	//get functions
 	public int getHorSpeed() {return this.horSpeed;}
 	public int getVerSpeed() {return this.verSpeed;}
-	
+
+
 	
 	//set functions for horSpeed & verSpeed
 	public boolean setHorSpeed(int a) 
@@ -76,4 +84,5 @@ public abstract class Swimmable extends Thread implements SeaCreature
 	abstract public String getColor();
 	abstract public int getAnimalID();
 	abstract public void run();
+	abstract public void iAmHungry();
 }

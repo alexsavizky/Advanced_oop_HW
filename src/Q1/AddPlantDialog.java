@@ -150,8 +150,8 @@ public class AddPlantDialog extends JDialog implements ActionListener
 
             //Random spawn for plants
             Random rand = new Random();
-            int xx = rand.nextInt(ap.getWidth());
-            int yy = rand.nextInt(ap.getHeight());
+            int xx = rand.nextInt(ap.getWidth() - size);
+            int yy = rand.nextInt(ap.getHeight()) - size;
 
             //Adding a plant
             if (plantname == "Laminaria")
