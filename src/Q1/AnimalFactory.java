@@ -28,7 +28,7 @@ public class AnimalFactory implements AbstractSeaFactory {
         } else if (type.equalsIgnoreCase("Jellyfish"))
         {
             Jellyfish j = new Jellyfish(panel, size, x_front, y_front, horSpeed, verSpeed, col);
-            //j.addActionListener(panel);
+            j.addActionListener(panel);
             return j;
         }
         return null;

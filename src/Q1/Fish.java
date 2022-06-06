@@ -57,19 +57,26 @@ public class Fish extends Swimmable {
 	/////
 	public void startTimer(long time)
 	{
-		TimerTask task = new TimerTask() {
-			public void run() {
-//				System.out.println("Task performed on: " + new Date() + "n" +
-//						"Thread's name: " + Thread.currentThread().getName());
+//		TimerTask task = new TimerTask() {
+//			public void run() {
+////				System.out.println("Task performed on: " + new Date() + "n" +
+////						"Thread's name: " + Thread.currentThread().getName());
+//				iAmHungry();
+//
+//
+//			}
+//		};
+//		Timer timer = new Timer("Timer");
+//
+//		long delay = time;
+//		timer.schedule(task, delay);
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			public void run()
+			{
 				iAmHungry();
-
-
 			}
-		};
-		Timer timer = new Timer("Timer");
-
-		long delay = time;
-		timer.schedule(task, delay);
+		}, 0, time);
 	}
 	
 
