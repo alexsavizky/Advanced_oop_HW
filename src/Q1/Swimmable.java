@@ -10,8 +10,8 @@ import java.util.concurrent.CyclicBarrier;
 
 public abstract class Swimmable extends Thread implements SeaCreature,Cloneable
 {
-	protected static int counter = 0; 
-	private int id;
+	protected static int counter = 0;
+	protected int id;
 	protected int horSpeed; //Horizontal speed
 	protected int verSpeed; //Vertical speed
 	
@@ -74,6 +74,7 @@ public abstract class Swimmable extends Thread implements SeaCreature,Cloneable
 	abstract public void eatInc();
 	abstract public int getEatCount();
 	abstract public String getColor();
+	abstract public int getAnimalID();
 	abstract public void run();
 	abstract  public  Swimmable clone();
 }

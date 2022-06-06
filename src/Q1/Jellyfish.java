@@ -91,6 +91,7 @@ public class Jellyfish extends Swimmable {
 	public int getX_dir() {return this.x_dir;}
 	public int getY_dir() {return this.y_dir;}
 	public Color getCol() {return this.col;}
+	public int getAnimalID() {return this.id;}
 	
 	public String getColor()
 	{
