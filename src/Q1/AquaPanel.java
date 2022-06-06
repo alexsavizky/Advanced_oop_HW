@@ -321,6 +321,7 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 	/////////////////////OBSERVER SHIT//////////////////////
 	public void actionHungryFish(Swimmable s)
 	{
+		System.out.println(s.getAnimalName()+s.getAnimalID());
 		//s.setHungryState(new Hungry());
 		HungerState hs = new Hungry();
 		hs.ChangeState(s);

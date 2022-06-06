@@ -8,7 +8,7 @@ public class MementoState {
     protected String kind_of_animal;
     protected Color color;
     protected int size,x,y,hor_speed,ver_speed,id;
-    LocalDateTime myDateObj ;
+    protected LocalDateTime myDateObj ;
     public MementoState(Fish fish){
         this.kind_of_animal = "Fish";
         this.color = fish.getCol();

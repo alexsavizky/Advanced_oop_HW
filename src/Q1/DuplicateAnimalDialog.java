@@ -91,8 +91,11 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
 
                     for(Swimmable temp : ap.getSwimSet()){
                         if (temp.getAnimalID() == id_of_animal){
-                            ap.addAnimal(temp.clone());
-                            UpdateDuplicateAnimal a = new UpdateDuplicateAnimal(temp);
+//                            Aasf = new AnimalFactory(ap, size, xx, yy, h, v, color);
+//                            creature = asf.produceSeaCreature("Fish");
+                            Swimmable s = temp.clone();
+                            ap.addAnimal(s);
+                            UpdateDuplicateAnimal a = new UpdateDuplicateAnimal(s);
                             a.setVisible(true);
                             dispose();
                         }

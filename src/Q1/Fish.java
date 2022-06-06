@@ -25,7 +25,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 	private CyclicBarrier barrier=null;
 	private AquariumActionListener listen;
 	private HungerState myState;
-	protected Timer timer;
+	private Timer timer;
 	
 	/***
 	 * Constructor
@@ -55,6 +55,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 
 		myState = new Satiated();
 		startTimer(20000L);
+
 	}
 
 	/////
