@@ -35,6 +35,7 @@ public class AquaPanel extends JPanel implements ActionListener
 	private JLabel picLabel;
 	private JTable table;
 	private JScrollPane jsc;
+	private AddPlantDialog apd;
 	
 	//Swimmable hashset
 	private HashSet<Swimmable> swimSet = new HashSet<Swimmable>();
@@ -46,7 +47,7 @@ public class AquaPanel extends JPanel implements ActionListener
 	//Flags for worm and info
 	private Singleton wormsingle = null;
 	private Boolean infoFlag = false;
-	
+
 
 	//default constructor
 	public AquaPanel() 
@@ -230,7 +231,7 @@ public class AquaPanel extends JPanel implements ActionListener
 		}
 		else if (e.getSource() == b9)				//CLICK ON "Exit" - B9
 			System.exit(0);
-		else if(e.getSource() ==b8)					//CLICK ON "Duplicate Animal" - B8
+		else if(e.getSource() ==b2)					//CLICK ON "Duplicate Animal" - B8
 		{
 			dad = new DuplicateAnimalDialog(this);
 			dad.setVisible(true);
