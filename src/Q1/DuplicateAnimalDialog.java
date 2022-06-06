@@ -77,12 +77,13 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String animal= animalBox.getItemAt(animalBox.getSelectedIndex());
-        int id_of_animal = animal.charAt(animal.length()-1)-48;
+
         if (e.getSource() == b2)
             dispose();
         else if(e.getSource() ==b1){
             {
+                String animal= animalBox.getItemAt(animalBox.getSelectedIndex());
+                int id_of_animal = animal.charAt(animal.length()-1)-48;
                 try
                 {
                     if(ap.getSwimSetSize()>4)
