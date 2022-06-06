@@ -307,9 +307,15 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 				"Time to eat", JOptionPane.PLAIN_MESSAGE);
 	}*/
 
-	///////////////////
+	/////////////////////OBSERVER SHIT//////////////////////
 	public void actionHungryFish(Swimmable s)
 	{
-		System.out.println("123");
+		//s.setHungryState(new Hungry());
+		HungerState hs = new Hungry();
+		hs.ChangeState(s);
+
+		JOptionPane.showMessageDialog(null, "Animal: " + s.getAnimalName() + "\nID:" +
+				s.getAnimalID() + "\nFeed it using the 'Food' button", "Your animal is hungry!",
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 }

@@ -86,4 +86,7 @@ public abstract class Swimmable extends Thread implements SeaCreature
 	abstract public int getAnimalID();
 	abstract public void run();
 	abstract public void iAmHungry();
+	abstract void startTimer(long time);
+	abstract void setHungryState(HungerState state);
+	abstract HungerState getHungryState();
 }

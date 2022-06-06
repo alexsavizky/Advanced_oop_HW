@@ -52,6 +52,8 @@ public class AddPlantDialog extends JDialog implements ActionListener
     private AbstractSeaFactory asf;
     private SeaCreature creature;
 
+    protected Random rand;
+
     //Constructor
     public AddPlantDialog(AquaPanel ap)
     {
@@ -149,9 +151,13 @@ public class AddPlantDialog extends JDialog implements ActionListener
                 throw new Exception("Size must be between 20-320");
 
             //Random spawn for plants
-            Random rand = new Random();
-            int xx = rand.nextInt(ap.getWidth() - size);
-            int yy = rand.nextInt(ap.getHeight()) - size;
+//            Random rand = new Random();
+//            int xx = rand.nextInt(ap.getWidth());
+//            int yy = rand.nextInt(ap.getHeight());
+            rand = new Random();
+            int xx = rand.nextInt(ap.getWidth());
+            rand = new Random();
+            int yy = rand.nextInt(ap.getHeight());
 
             //Adding a plant
             if (plantname == "Laminaria")

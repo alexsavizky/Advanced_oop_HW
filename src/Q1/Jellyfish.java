@@ -24,6 +24,8 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 	private Boolean is_moving = true;
 	private CyclicBarrier barrier=null;
 	private AquariumActionListener listen;
+	private HungerState myState;
+	private Timer timer;
 	/***
 	 * Constructor
 	 * @param size - Size of jellyfish 
@@ -50,6 +52,7 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 		this.x_dir = 1;
 		this.y_dir = 1;
 
+		myState = new Satiated();
 		startTimer(5000L);
 	}
 
@@ -94,28 +97,23 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 	/////
 	public void startTimer(long time)
 	{
-//		TimerTask task = new TimerTask() {
-//			public void run() {
-////				System.out.println("Task performed on: " + new Date() + "n" +
-////						"Thread's name: " + Thread.currentThread().getName());
-//				iAmHungry();
-//
-//
-//			}
-//		};
-//		Timer timer = new Timer("Timer");
-//
-//		long delay = time;
-//		timer.schedule(task, delay);
-
-		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-			public void run()
-			{
+		TimerTask task = new TimerTask() {
+			public void run() {
+//				System.out.println("Task performed on: " + new Date() + "n" +
+//						"Thread's name: " + Thread.currentThread().getName());
 				iAmHungry();
 			}
-		}, 0, time);
+		};
+		timer = new Timer("Timer");
+		timer.schedule(task, time);
 
+//		timer = new Timer();
+//		timer.schedule(new TimerTask() {
+//			public void run()
+//			{
+//				iAmHungry();
+//			}
+//		}, 0, time);
 	}
 	
 	//get functions
@@ -254,11 +252,13 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 	 */
 	public void run() {
 		while(true) {
+			//System.out.println(this.x_front);
 			try
 			{
 				sleep(10);
-				if(!panel.is_worm()) {
-					if(this.is_moving == true) {	
+				if(!panel.is_worm())
+				{
+					if(this.is_moving == true) {
 						moveRandom();
 					}
 					else {
@@ -268,13 +268,19 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 					}
 				}
 				else {
-					if(this.is_moving == true) {	
-						movetoFood();
-					}
-					else {
+					if (this.is_moving == false)
+					{
 						synchronized(this){
 							wait();
 						}
+					}
+					else if((this.is_moving == true) && (myState instanceof Hungry))
+					{
+						movetoFood();
+					}
+					else
+					{
+						moveRandom();
 					}
 				}
 			}catch(InterruptedException e) {}
@@ -289,6 +295,8 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 		{
 			panel.eatworm();
 			this.eatInc();
+			this.setHungryState(new Satiated());
+			this.startTimer(5000L);
 		}
 		else {
 			if(this.x_front > panel.getWidth()/2&& x_dir ==1 )
@@ -351,4 +359,7 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 	}
 
 	public void PaintFish(Color col){this.col = col;}
+
+	public void setHungryState(HungerState state) {this.myState = state;}
+	public HungerState getHungryState() {return this.myState;}
 }

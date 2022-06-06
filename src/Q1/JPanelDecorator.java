@@ -27,6 +27,7 @@ public class JPanelDecorator extends JPanel implements ActionListener
 
     private AquaPanel ap;
 
+    private ImageIcon img3 = new ImageIcon("src/nicefish.png");
 
     public JPanelDecorator(AquaPanel ap)
     {
@@ -78,11 +79,11 @@ public class JPanelDecorator extends JPanel implements ActionListener
 
 
         decoratorDialog = new JDialog();
-        decoratorDialog.setSize(500, 145);
+        decoratorDialog.setSize(500, 105);
         decoratorDialog.setLayout(new BorderLayout());
         decoratorDialog.setTitle("JPanel Decorator");
         decoratorDialog.setLocationRelativeTo(null);
-
+        decoratorDialog.setIconImage(img3.getImage());
         decoratorDialog.add(this);
 
         decoratorDialog.setVisible(true);
