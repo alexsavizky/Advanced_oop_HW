@@ -14,7 +14,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CyclicBarrier;
 
-public class Jellyfish extends Swimmable {
+public class Jellyfish extends Swimmable implements MarineAnimal{
 	private int E_DISTANCE;						//Amount of food a jellyfish can eat 
 	private int size;							//Size of jellyfish
 	private Color col;							//Color of jellyfish
@@ -347,4 +347,6 @@ public class Jellyfish extends Swimmable {
 	{
 		this.listen = aal;
 	}
+
+	public void PaintFish(Color col){this.col = col;}
 }
