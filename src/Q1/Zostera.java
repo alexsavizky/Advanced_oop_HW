@@ -31,4 +31,8 @@ public class Zostera extends Immobile
         g2.setStroke(new BasicStroke(1));
     }
 
+    @Override
+    public int getPlantId() {
+        return this.id;
+    }
 }

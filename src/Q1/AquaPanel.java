@@ -70,6 +70,7 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 	
 	//Get function for swimset size
 	public int getSwimSetSize() {return swimSet.size();}
+	public HashSet<Immobile> getImmobileSet() {return immobileSet;}
 	public  int getImmobileSetSize() {return  immobileSet.size();}
 	public HashSet<Swimmable> getSwimSet(){return swimSet;}
 
@@ -308,7 +309,7 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 		this.revalidate();
 		this.repaint();
 	}
-	public HashSet<Swimmable> getSwimSet(){return swimSet;}
+
 	
 	//Get function for flag of worm
 	public Boolean is_worm() 

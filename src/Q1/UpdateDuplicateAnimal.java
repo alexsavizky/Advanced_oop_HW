@@ -75,9 +75,9 @@ public class UpdateDuplicateAnimal  extends JDialog implements ActionListener {
         if (e.getSource() == cancelButton)
             dispose();
         else if (e.getSource() == confirmButton)
-            changeduplicate();
+            changeDuplicate();
     }
-    public void changeduplicate()
+    public void changeDuplicate()
     {
         Color color = Color.black;
         int size, h, v;

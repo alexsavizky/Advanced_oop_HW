@@ -24,4 +24,9 @@ public class Laminaria extends Immobile
         g.drawLine(x,y,x-size/10,y-size/5);
         g.drawLine(x, y, x+size/10, y-size/5);
     }
+
+    @Override
+    public int getPlantId() {
+        return this.id;
+    }
 }

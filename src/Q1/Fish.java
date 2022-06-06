@@ -388,6 +388,17 @@ public class Fish extends Swimmable implements MarineAnimal{
 		return true;
 	}
 
+	@Override
+	public boolean SetMementoState(MementoState state) {
+		this.col = state.color;
+		this.x_front = state.x;
+		this.y_front = state.y;
+		this.horSpeed =state.hor_speed;
+		this.verSpeed = state.ver_speed;
+		this.size = state.size;
+		return true;
+	}
+
 	public void iAmHungry()
 	{
 		//panel.actionHungryFish(null);
@@ -400,4 +411,5 @@ public class Fish extends Swimmable implements MarineAnimal{
 	}
 
 	public void PaintFish(Color col){this.col = col;}
+
 }

@@ -4,38 +4,49 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashSet;
-import java.util.Iterator;
 
-public class DuplicateAnimalDialog extends JDialog implements ActionListener {
+public class SaveStateDialog extends JDialog implements ActionListener {
     private AquaPanel ap;
-    private String[] swims;
+    private String[] ceatures;
     private JLabel animalLabel;
     private JComboBox<String> animalBox;
     private GridLayout experimentLayout;
     private AquaPanel panel;
     private JPanel DialogPanel,buttonsPanel; // create panels to the dialog
     private JButton b1,b2;
+    private Caretaker caretaker;
+    private Originator originator ;
     private final JPanel contentPane = new JPanel();
-    public DuplicateAnimalDialog(AquaPanel ap)
-    {
+    public SaveStateDialog(AquaPanel ap,Caretaker caretaker,Originator originator){
         super();
         //Starting the dialog
         this.ap = ap;
+        this.caretaker =caretaker;
+        this.originator = originator;
         setSize(450, 305);
         setLayout(new BorderLayout());
-        this.setTitle("Duplicate Animal Dialog");
+        this.setTitle("Save State Dialog");
         this.setLocationRelativeTo(null);
         //init swims
         int i =0;
-        swims = new String[ap.getSwimSet().size()];
+        ceatures = new String[ap.getSwimSet().size()+ap.getImmobileSetSize()];
         for(Swimmable temp : ap.getSwimSet()){
             if(temp.getClass() ==Fish.class){
-                swims[i] = "Fish " + temp.getAnimalID();
+                ceatures[i] = "Fish " + temp.getAnimalID();
             }
 
-            else {
-                swims[i] = "Jellyfish " + temp.getAnimalID();
+            else if (temp.getClass() ==Jellyfish.class){
+                ceatures[i] = "Jellyfish " + temp.getAnimalID();
+            }
+            i++;
+        }
+        for (Immobile temp: ap.getImmobileSet()){
+            if(temp.getClass() ==Laminaria.class){
+                ceatures[i] = "Laminaria " + temp.getPlantId();
+            }
+
+            else if(temp.getClass() ==Zostera.class){
+                ceatures[i] = "Zostera " + temp.getPlantId();
             }
             i++;
         }
@@ -44,10 +55,9 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
 
         setPanel();
 
-        add(DialogPanel); // add the panel to the JDialog dialogTable 
+        add(DialogPanel); // add the panel to the JDialog dialogTable
         setVisible(true);// show the dialog
     }
-
     private void setPanel() {
         experimentLayout = new GridLayout(0,2);
         contentPane.setLayout(experimentLayout);
@@ -55,14 +65,14 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
         DialogPanel=new JPanel(new BorderLayout());
         buttonsPanel = new JPanel(new FlowLayout());
         animalLabel = new JLabel("Choose an animal:");
-        animalBox = new JComboBox<String>(swims);
+        animalBox = new JComboBox<String>(ceatures);
 
 
         contentPane.add(animalLabel);
         contentPane.add(animalBox);
         add(contentPane, BorderLayout.CENTER);
         contentPane.setLayout(experimentLayout);
-        b1=new JButton("Duplicate");
+        b1=new JButton("Save State");
         b2=new JButton("Cancel");
 
         buttonsPanel.add(b1);
@@ -77,35 +87,21 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String animal= animalBox.getItemAt(animalBox.getSelectedIndex());
-        int id_of_animal = animal.charAt(animal.length()-1)-48;
         if (e.getSource() == b2)
             dispose();
         else if(e.getSource() ==b1){
-            {
-                try
-                {
-                    if(ap.getSwimSetSize()>4)
-                        throw new Exception("The maximum number of animals is 5");
-
-                    for(Swimmable temp : ap.getSwimSet()){
-                        if (temp.getAnimalID() == id_of_animal){
-                            ap.addAnimal(temp.clone());
-                            UpdateDuplicateAnimal a = new UpdateDuplicateAnimal(temp);
-                            a.setVisible(true);
-                            dispose();
-                        }
+            String animal= animalBox.getItemAt(animalBox.getSelectedIndex());
+            int id_of_animal = animal.charAt(animal.length()-1)-48;
+            for(Swimmable temp : ap.getSwimSet()){
+                if (temp.getAnimalID() == id_of_animal){
+                    if(temp.getAnimalName()=="Fish") {
+                        originator.setState(new MementoState((Fish)temp));
+                        caretaker.addMemento(originator.save());
+                        dispose();
                     }
 
                 }
-                catch(Exception e1){
-                    if (e1.getMessage()!=null)
-                        JOptionPane.showMessageDialog(null, e1.getMessage());
-                }
             }
-
         }
     }
-
 }
-

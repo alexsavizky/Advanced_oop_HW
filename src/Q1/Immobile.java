@@ -10,7 +10,7 @@ import java.util.concurrent.CyclicBarrier;
 public abstract class Immobile implements SeaCreature
 {
     protected static int counter = 0;
-    private int id;
+    protected int id;
 
     protected String name;
     protected int size,x,y;
@@ -28,4 +28,5 @@ public abstract class Immobile implements SeaCreature
         this.y=y;
         this.colorr=Color.green;
     }
+    abstract public int getPlantId();
 }

@@ -137,7 +137,7 @@ public class AddPlantDialog extends JDialog implements ActionListener
     //Getting information for the dialog after confirm
     public void GetFromDialog()
     {
-        int size, h, v;
+        int size;
         String plantname;
         try
         {
