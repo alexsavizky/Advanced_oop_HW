@@ -18,8 +18,9 @@ public class JPanelDecorator extends JPanel implements ActionListener
     private JDialog decoratorDialog;
     private JComboBox<String> animalBox;
     private String animalFromBox;
+    private Color currCol;
 
-    private HashSet<Swimmable> swimSet = new HashSet<Swimmable>();
+    private HashSet<Swimmable> swimSet;
     private Iterator<Swimmable> itrAnimals;
 
     private String[] swims;
@@ -53,11 +54,10 @@ public class JPanelDecorator extends JPanel implements ActionListener
         contentPane.add(lbl);
 
         int i = 0;
-        Color currCol;
         swims = new String[ap.getSwimSet().size()];
         for(Swimmable temp : ap.getSwimSet())
         {
-            if(temp.getClass() ==Fish.class){
+            if(temp.getClass() == Fish.class){
                 swims[i] = "Fish  |  Color: " + temp.getColor() + "  |  ID: " + temp.getAnimalID();
             }
             else {
@@ -77,24 +77,15 @@ public class JPanelDecorator extends JPanel implements ActionListener
         add(contentPane,BorderLayout.CENTER);
 
 
+        decoratorDialog = new JDialog();
+        decoratorDialog.setSize(500, 145);
+        decoratorDialog.setLayout(new BorderLayout());
+        decoratorDialog.setTitle("JPanel Decorator");
+        decoratorDialog.setLocationRelativeTo(null);
 
-//        //Creating a JDialog to display the panel
-//        decoratorDialog = new JDialog();
-//        decoratorDialog.setSize(450, 255);
-//        decoratorDialog.setLayout(new BorderLayout());
-//        decoratorDialog.setTitle("JPanel Decorator");
-//        decoratorDialog.setLocationRelativeTo(null);
-//        decoratorDialog.add(this);
-//        decoratorDialog.setVisible(true);
+        decoratorDialog.add(this);
 
-
-
-
-//        setSize(450, 305);
-//        setLayout(new BorderLayout());
-//        this.setTitle("Add Animal Dialog");
-//        this.setIconImage(img2.getImage());
-//        this.setLocationRelativeTo(null);
+        decoratorDialog.setVisible(true);
 
 //        setLayout(new BorderLayout());
 //        setBackground(Color.white);
@@ -105,6 +96,7 @@ public class JPanelDecorator extends JPanel implements ActionListener
 
     public void actionPerformed(ActionEvent e)
     {
+
         if (e.getSource() == changeColorButton)
         {
             try
@@ -112,41 +104,62 @@ public class JPanelDecorator extends JPanel implements ActionListener
                 if (swimSet.size() == 0)
                     throw new Exception("Must choose an animal");
                 GetFromBox();
+                decoratorDialog.dispose();
             }
             catch(Exception e1){
                 JOptionPane.showMessageDialog(null, e1.getMessage());
             }
-
         }
-
     }
 
     public void GetFromBox()
     {
         animalFromBox = animalBox.getItemAt(animalBox.getSelectedIndex());
         int id_of_animal = animalFromBox.charAt(animalFromBox.length()-1)-48;
-        MarineAnimal s = getObjectById(id_of_animal, swimSet);
-        //s.PaintFish(Color.red);
+        MarineAnimal s = getTheID(id_of_animal, swimSet);
 
-        colorChooser = new JColorChooser();
-        Color col = JColorChooser.showDialog(null, "Choose a color", Color.black);
-        s.PaintFish(col);
+        currCol = getObjectCol(id_of_animal, swimSet);
+
+        System.out.println(currCol.toString());
+
+        try
+        {
+            colorChooser = new JColorChooser();
+            Color col = JColorChooser.showDialog(null, "Choose a color", currCol);
+            if (col!=null)
+                s.PaintFish(col);
+        }
+        catch(Exception e1){
+            JOptionPane.showMessageDialog(null, e1.getMessage());
+        }
 
     }
 
-    public MarineAnimal getObjectById(int idObject, HashSet<Swimmable> swimSet)
+    public MarineAnimal getTheID(int id, HashSet<Swimmable> swimSet)
     {
         itrAnimals = swimSet.iterator();
         while(itrAnimals.hasNext())
         {
-            Swimmable sw = itrAnimals.next();
-            if(sw.getAnimalID()==idObject)
+            Swimmable s = itrAnimals.next();
+            if(s.getAnimalID() == id)
             {
-                if(sw.getAnimalName()=="Fish")
-                    return (Fish)sw;
-                else if(sw.getAnimalName()=="Jellyfish")
-                    return (Jellyfish)sw;
+                if(s.getAnimalName() == "Fish")
+                    return (Fish)s;
+                else if(s.getAnimalName() == "Jellyfish")
+                    return (Jellyfish)s;
             }
+        }
+        return null;
+    }
+
+    public Color getObjectCol(int id, HashSet<Swimmable> swimSet)
+    {
+        itrAnimals = swimSet.iterator();
+        while(itrAnimals.hasNext())
+        {
+            Swimmable s = itrAnimals.next();
+            if(s.getAnimalID() == id)
+                return s.getCol();
         }
         return null;
     }

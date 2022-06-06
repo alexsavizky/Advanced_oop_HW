@@ -148,8 +148,10 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 			return "Yellow";
 		else if(col == Color.magenta)
 			return "Magneta";
-		else
+		else if(col == Color.pink)
 			return "Pink";
+		else
+			return "Other";
 	}
 	
 	/***

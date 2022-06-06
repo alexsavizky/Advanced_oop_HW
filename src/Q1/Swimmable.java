@@ -82,6 +82,7 @@ public abstract class Swimmable extends Thread implements SeaCreature
 	abstract public void eatInc();
 	abstract public int getEatCount();
 	abstract public String getColor();
+	abstract public Color getCol();
 	abstract public int getAnimalID();
 	abstract public void run();
 	abstract public void iAmHungry();

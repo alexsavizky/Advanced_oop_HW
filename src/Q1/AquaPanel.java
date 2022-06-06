@@ -194,18 +194,7 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 		else if(e.getSource() == b8) 					//CLICK ON "Decorator" - B8
 		{
 			decorator = new JPanelDecorator(this);
-
-
-			decoratorDialog = new JDialog();
-			decoratorDialog.setSize(450, 145);
-			decoratorDialog.setLayout(new BorderLayout());
-			decoratorDialog.setTitle("JPanel Decorator");
-			decoratorDialog.setLocationRelativeTo(null);
-
-			decoratorDialog.add(decorator);
-
-			decoratorDialog.setVisible(true);
-
+			repaint();
 		}
 
 		else if(e.getSource() == b9) 					//CLICK ON "Info" - B9

@@ -143,8 +143,12 @@ public class Fish extends Swimmable implements MarineAnimal{
 			return "Yellow";
 		else if(col == Color.magenta)
 			return "Magneta";
-		else
+		else if(col == Color.pink)
 			return "Pink";
+//		else
+//			return "Other";
+		else
+			return "R:" + col.getRed() + ", G:" + col.getGreen() + ", B:" + col.getBlue();
 	}
 	
 	/***
