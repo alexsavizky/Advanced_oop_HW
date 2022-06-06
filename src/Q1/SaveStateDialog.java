@@ -97,9 +97,13 @@ public class SaveStateDialog extends JDialog implements ActionListener {
                     if(temp.getAnimalName()=="Fish") {
                         originator.setState(new MementoState((Fish)temp));
                         caretaker.addMemento(originator.save());
-                        dispose();
+                    }
+                    else if (temp.getAnimalName()=="Jellyfish"){
+                        originator.setState(new MementoState((Jellyfish)temp));
+                        caretaker.addMemento(originator.save());
                     }
 
+                    dispose();
                 }
             }
         }

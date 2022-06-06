@@ -28,7 +28,6 @@ public class RestoreStateDialog extends JDialog implements ActionListener {
         for (int i =0 ; i <caretaker.getsize();i++){
             states[i] = caretaker.getMemento(i).getState().toString();
         }
-        System.out.println(states[0]);
         setSize(450, 305);
         setLayout(new BorderLayout());
         this.setTitle("Restore State Dialog");
