@@ -77,4 +77,5 @@ public abstract class Swimmable extends Thread implements SeaCreature,Cloneable
 	abstract public int getAnimalID();
 	abstract public void run();
 	abstract  public  Swimmable clone();
+	abstract public boolean SetClone(int size , int horspeed,int verspeed,Color color);
 }

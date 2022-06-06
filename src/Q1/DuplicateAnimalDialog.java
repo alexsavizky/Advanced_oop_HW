@@ -4,10 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Objects;
 
 public class DuplicateAnimalDialog extends JDialog implements ActionListener {
     private AquaPanel ap;
@@ -19,12 +17,13 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
     private JLabel animalLabel;
     private JComboBox<String> animalBox;
     private GridLayout experimentLayout;
+
     private AquaPanel panel;
+
     private HashSet<Swimmable> animalsSet=new HashSet<Swimmable>(); //hash set for swimmable
     private Iterator<Swimmable> itrAnimals;
     private JPanel DialogPanel,buttonsPanel; // create panels to the dialog
     private JButton b1,b2;
-    private Swimmable duplicateSwimmable;
     private final JPanel contentPane = new JPanel();
     public DuplicateAnimalDialog(AquaPanel ap)
     {
@@ -93,26 +92,30 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
         if (e.getSource() == b2)
             dispose();
         else if(e.getSource() ==b1){
-                for(Swimmable temp : ap.getSwimSet()){
-                    if (temp.getAnimalID() == id_of_animal){
-                            ap.addAnimal(temp.clone());
-                            dispose();
-                            //working at !!!
-                            CreateUpdateDialog();
+            {
+                try
+                {
+                    if(ap.getSwimSetSize()>4)
+                        throw new Exception("The maximum number of animals is 5");
 
+                    for(Swimmable temp : ap.getSwimSet()){
+                        if (temp.getAnimalID() == id_of_animal){
+                            ap.addAnimal(temp.clone());
+                            UpdateDuplicateAnimal a = new UpdateDuplicateAnimal(temp);
+                            a.setVisible(true);
+                            dispose();
                         }
+                    }
+
                 }
+                catch(Exception e1){
+                    if (e1.getMessage()!=null)
+                        JOptionPane.showMessageDialog(null, e1.getMessage());
+                }
+            }
+
         }
     }
-    private void CreateUpdateDialog(){
-        JButton confirmButton, cancelButton;
-        confirmButton = new JButton("Confirm");
-        cancelButton = new JButton("Cancel");
-        JDialog update_dialog = new JDialog(this);
-        update_dialog.setLayout(new BorderLayout());
-        update_dialog.setTitle("Update Duplicate Animal");
-        update_dialog.setLocationRelativeTo(null);
 
-    }
 }
 

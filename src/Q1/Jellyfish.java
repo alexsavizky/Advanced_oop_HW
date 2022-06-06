@@ -303,4 +303,11 @@ public class Jellyfish extends Swimmable {
 	public Jellyfish clone(){
 		return new Jellyfish(panel,size,x_front,y_front,horSpeed,verSpeed,col);
 	}
+	public boolean SetClone(int size , int horspeed,int verspeed,Color color){
+		this.size = size;
+		this.horSpeed = horspeed;
+		this.verSpeed = verspeed;
+		this.col = color;
+		return true;
+	}
 }
