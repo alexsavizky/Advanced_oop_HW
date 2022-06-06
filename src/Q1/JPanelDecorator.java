@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
 import java.util.Iterator;
+import javax.swing.JColorChooser;
 
 public class JPanelDecorator extends JPanel implements ActionListener
 {
@@ -52,6 +53,7 @@ public class JPanelDecorator extends JPanel implements ActionListener
         contentPane.add(lbl);
 
         int i = 0;
+        Color currCol;
         swims = new String[ap.getSwimSet().size()];
         for(Swimmable temp : ap.getSwimSet())
         {
@@ -124,7 +126,12 @@ public class JPanelDecorator extends JPanel implements ActionListener
         animalFromBox = animalBox.getItemAt(animalBox.getSelectedIndex());
         int id_of_animal = animalFromBox.charAt(animalFromBox.length()-1)-48;
         MarineAnimal s = getObjectById(id_of_animal, swimSet);
-        s.PaintFish(Color.red);
+        //s.PaintFish(Color.red);
+
+        colorChooser = new JColorChooser();
+        Color col = JColorChooser.showDialog(null, "Choose a color", Color.black);
+        s.PaintFish(col);
+
     }
 
     public MarineAnimal getObjectById(int idObject, HashSet<Swimmable> swimSet)
