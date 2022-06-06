@@ -203,13 +203,13 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 			if (infoFlag == false) 
 			{
 				String name, color;
-				int size, h, v, food, id, all = 0;
+				int size, h, v, food, id, freq, all = 0;
 				itrAnimals = swimSet.iterator();
 				Swimmable s;
 				
 				//Info table columns
 				table = new JTable(new DefaultTableModel(new Object[]{ "ID", "Animal", "Color", "Size", "Hor. Speed",
-						"Ver. Speed", "Eat counter"}, 0));
+						"Ver. Speed", "Hunger Freq","Eat counter"}, 0));
 				table.setAutoCreateRowSorter(true);
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
 				
@@ -222,16 +222,20 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 					size = s.getSize();
 					h = s.getHorSpeed();
 					v = s.getVerSpeed();
+					if (name == "Fish")
+						freq = 20;
+					else
+						freq = 25;
 
 					food = s.getEatCount();
 					
 					all += food;
 					model.addRow(new Object[]{id, name, color, String.valueOf(size), String.valueOf(h),
-							String.valueOf(v), String.valueOf(food)});
+							String.valueOf(v), "Every " + String.valueOf(freq) + " seconds", String.valueOf(food)});
 				}
 				
 				//Adding a 'Total' row to table
-				model.addRow(new Object[]{"", "", "", "", "", "", "Total eat count: " + String.valueOf(all)});
+				model.addRow(new Object[]{"", "", "", "", "", "", "", "Total eat count: " + String.valueOf(all)});
 				
 				jsc = new JScrollPane(table);
 				add(jsc);
@@ -314,8 +318,9 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 		HungerState hs = new Hungry();
 		hs.ChangeState(s);
 
-		JOptionPane.showMessageDialog(null, "Animal: " + s.getAnimalName() + "\nID:" +
-				s.getAnimalID() + "\nFeed it using the 'Food' button", "Your animal is hungry!",
-				JOptionPane.INFORMATION_MESSAGE);
+		if (!is_worm())
+			JOptionPane.showMessageDialog(null, "Animal: " + s.getAnimalName() + "\nID:" +
+					s.getAnimalID() + "\nFeed it using the 'Food' button", "Your animal is hungry!",
+					JOptionPane.INFORMATION_MESSAGE);
 	}
 }

@@ -54,7 +54,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 		this.y_dir = 1;
 
 		myState = new Satiated();
-		startTimer(5000L);
+		startTimer(20000L);
 	}
 
 	/////
@@ -145,8 +145,6 @@ public class Fish extends Swimmable implements MarineAnimal{
 			return "Magneta";
 		else if(col == Color.pink)
 			return "Pink";
-//		else
-//			return "Other";
 		else
 			return "R:" + col.getRed() + ", G:" + col.getGreen() + ", B:" + col.getBlue();
 	}
@@ -332,7 +330,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 			panel.eatworm();
 			this.eatInc();
 			this.setHungryState(new Satiated());
-			this.startTimer(5000L);
+			this.startTimer(20000L);
 		}
 		else 
 		{

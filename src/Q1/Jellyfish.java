@@ -53,7 +53,7 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 		this.y_dir = 1;
 
 		myState = new Satiated();
-		startTimer(5000L);
+		startTimer(25000L);
 	}
 
 
@@ -127,7 +127,7 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 	public int getY_dir() {return this.y_dir;}
 	public Color getCol() {return this.col;}
 	public int getAnimalID() {return this.id;}
-	
+
 	public String getColor()
 	{
 		if(col == Color.black)
@@ -149,7 +149,7 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 		else if(col == Color.pink)
 			return "Pink";
 		else
-			return "Other";
+			return "R:" + col.getRed() + ", G:" + col.getGreen() + ", B:" + col.getBlue();
 	}
 	
 	/***
@@ -296,7 +296,7 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 			panel.eatworm();
 			this.eatInc();
 			this.setHungryState(new Satiated());
-			this.startTimer(5000L);
+			this.startTimer(25000L);
 		}
 		else {
 			if(this.x_front > panel.getWidth()/2&& x_dir ==1 )

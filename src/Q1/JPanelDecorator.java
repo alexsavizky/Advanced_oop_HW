@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.util.HashSet;
 import java.util.Iterator;
 import javax.swing.JColorChooser;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 public class JPanelDecorator extends JPanel implements ActionListener
 {
@@ -37,23 +39,20 @@ public class JPanelDecorator extends JPanel implements ActionListener
 
         setLayout(new BorderLayout());
 
-        //--- Making a Change Color button ---
+        //--- Making a Change Color button --- buttons
         buttons = new JPanel();
         buttons.setLayout(new GridLayout(0,1,0,0));
         changeColorButton = new JButton("Change Color");
         buttons.add(changeColorButton);
-        add(buttons,BorderLayout.SOUTH);
-
         //Adding listener to button
         changeColorButton.addActionListener(this);
 
-        //--- Displaying and choosing a fish to change color ---
+
+        //--- Displaying and choosing a fish to change color --- contentPane
         contentPane = new JPanel();
         contentPane.setLayout(new GridLayout(0,2,0,0));
-
         lbl = new JLabel("  Choose an existing animal:");
         contentPane.add(lbl);
-
         int i = 0;
         swims = new String[ap.getSwimSet().size()];
         for(Swimmable temp : ap.getSwimSet())
@@ -66,31 +65,34 @@ public class JPanelDecorator extends JPanel implements ActionListener
             }
             i++;
         }
-
         animalBox = new JComboBox<>(swims);
-
-
-
         contentPane.add(animalBox);
 
 
+        //--- Titled border header --- matteBorders
+        JPanel matteBorders = new JPanel();
+        TitledBorder titled = BorderFactory.createTitledBorder("Decorate an animal");
+        titled.setTitleFont(getFont());
+        addCompForTitledBorder(titled,
+                "You can change the color of your animals",
+                TitledBorder.CENTER,
+                TitledBorder.DEFAULT_POSITION,
+                matteBorders);
 
+        //Locating content
+        add(buttons,BorderLayout.SOUTH);
         add(contentPane,BorderLayout.CENTER);
-
+        add(matteBorders,BorderLayout.NORTH);
 
         decoratorDialog = new JDialog();
-        decoratorDialog.setSize(500, 105);
+        decoratorDialog.setSize(500, 145);
         decoratorDialog.setLayout(new BorderLayout());
-        decoratorDialog.setTitle("JPanel Decorator");
+        decoratorDialog.setTitle("Decorator");
         decoratorDialog.setLocationRelativeTo(null);
         decoratorDialog.setIconImage(img3.getImage());
         decoratorDialog.add(this);
 
         decoratorDialog.setVisible(true);
-
-//        setLayout(new BorderLayout());
-//        setBackground(Color.white);
-
     }
 
 
@@ -163,5 +165,27 @@ public class JPanelDecorator extends JPanel implements ActionListener
                 return s.getCol();
         }
         return null;
+    }
+
+    //Titled border function
+    void addCompForBorder(Border border,
+                          String description,
+                          Container container) {
+        JPanel comp = new JPanel(new GridLayout(1, 1), false);
+        JLabel label = new JLabel(description, JLabel.CENTER);
+        comp.add(label);
+        comp.setBorder(border);
+        container.add(Box.createRigidArea(new Dimension(0, 10)));
+        container.add(comp);
+    }
+    void addCompForTitledBorder(TitledBorder border,
+                                String description,
+                                int justification,
+                                int position,
+                                Container container) {
+        border.setTitleJustification(justification);
+        border.setTitlePosition(position);
+        addCompForBorder(border, description,
+                container);
     }
 }
