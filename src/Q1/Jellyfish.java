@@ -5,11 +5,16 @@
 
 package Q1;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.CyclicBarrier;
 
-public class Jellyfish extends Swimmable {
+public class Jellyfish extends Swimmable implements MarineAnimal{
 	private int E_DISTANCE;						//Amount of food a jellyfish can eat 
 	private int size;							//Size of jellyfish
 	private Color col;							//Color of jellyfish
@@ -18,6 +23,7 @@ public class Jellyfish extends Swimmable {
 	private AquaPanel panel;
 	private Boolean is_moving = true;
 	private CyclicBarrier barrier=null;
+	private AquariumActionListener listen;
 	/***
 	 * Constructor
 	 * @param size - Size of jellyfish 
@@ -43,7 +49,11 @@ public class Jellyfish extends Swimmable {
 		//Starting position of the jellyfish
 		this.x_dir = 1;
 		this.y_dir = 1;
+
+		startTimer(5000L);
 	}
+
+
 	/***
 	 * copy constructor
 	 * @param other - Jellyfish object
@@ -78,7 +88,34 @@ public class Jellyfish extends Swimmable {
 		this.eatCount = 0;
 		this.x_dir = 1;
 		this.y_dir = 1;
-		
+
+	}
+
+	/////
+	public void startTimer(long time)
+	{
+//		TimerTask task = new TimerTask() {
+//			public void run() {
+////				System.out.println("Task performed on: " + new Date() + "n" +
+////						"Thread's name: " + Thread.currentThread().getName());
+//				iAmHungry();
+//
+//
+//			}
+//		};
+//		Timer timer = new Timer("Timer");
+//
+//		long delay = time;
+//		timer.schedule(task, delay);
+
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			public void run()
+			{
+				iAmHungry();
+			}
+		}, 0, time);
+
 	}
 	
 	//get functions
@@ -310,4 +347,16 @@ public class Jellyfish extends Swimmable {
 		this.col = color;
 		return true;
 	}
+
+	public void iAmHungry()
+	{
+		listen.actionHungryFish(this);
+	}
+
+	public void addActionListener(AquariumActionListener aal)
+	{
+		this.listen = aal;
+	}
+
+	public void PaintFish(Color col){this.col = col;}
 }

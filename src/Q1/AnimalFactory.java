@@ -20,11 +20,17 @@ public class AnimalFactory implements AbstractSeaFactory {
     }
 
     public SeaCreature produceSeaCreature(String type) {
-        if (type.equalsIgnoreCase("Fish")) {
-            return new Fish(panel,size,x_front,y_front,horSpeed,verSpeed,col);
+        if (type.equalsIgnoreCase("Fish"))
+        {
+            Fish f = new Fish(panel,size,x_front,y_front,horSpeed,verSpeed,col);
+            f.addActionListener(panel);
+            return f;
         } else if (type.equalsIgnoreCase("Jellyfish"))
-            return new Jellyfish(panel,size,x_front,y_front,horSpeed,verSpeed,col);
-
+        {
+            Jellyfish j = new Jellyfish(panel, size, x_front, y_front, horSpeed, verSpeed, col);
+            j.addActionListener(panel);
+            return j;
+        }
         return null;
     }
 }

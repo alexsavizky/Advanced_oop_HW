@@ -210,12 +210,14 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 			{
 				asf = new AnimalFactory(ap, size, xx, yy, h, v, color);
 				creature = asf.produceSeaCreature("Fish");
+
 				ap.addAnimal((Swimmable)creature);
 			}
 			else if (fishorjelly == "Jellyfish")
 			{
 				asf = new AnimalFactory(ap, size, xx, yy, h, v, color);
 				creature = asf.produceSeaCreature("Jellyfish");
+
 				ap.addAnimal((Swimmable)creature);
 			}
 			dispose();

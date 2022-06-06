@@ -13,12 +13,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.*;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.CyclicBarrier;
 
 
-public class AquaPanel extends JPanel implements ActionListener
+public class AquaPanel extends JPanel implements AquariumActionListener
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -30,12 +33,17 @@ public class AquaPanel extends JPanel implements ActionListener
 	protected Image background = null;
 	
 	//Buttons, labels, tables for panel
-	private JButton b1, b2, b3, b4, b5, b6, b7, b8, b9;
+	private JButton b1, b2, b3, b4, b5, b6, b7, b8, b9, b10;
 	private JPanel buttons;
 	private JLabel picLabel;
 	private JTable table;
 	private JScrollPane jsc;
+
 	private AddPlantDialog apd;
+
+	private JDialog decoratorDialog;
+	private JPanelDecorator decorator;
+
 	
 	//Swimmable hashset
 	private HashSet<Swimmable> swimSet = new HashSet<Swimmable>();
@@ -63,13 +71,14 @@ public class AquaPanel extends JPanel implements ActionListener
 	//Get function for swimset size
 	public int getSwimSetSize() {return swimSet.size();}
 	public  int getImmobileSetSize() {return  immobileSet.size();}
+	public HashSet<Swimmable> getSwimSet(){return swimSet;}
 
 
 	//Create the buttons for the panel
 	public void MakeButtons() 
 	{
 		buttons = new JPanel();
-		buttons.setLayout(new GridLayout(0,9,0,0));
+		buttons.setLayout(new GridLayout(0,10,0,0));
 		b1 = new JButton("Add Animal");
 		b2 = new JButton("Duplicate Animal");
 		b3 = new JButton("Add Plant");
@@ -77,8 +86,9 @@ public class AquaPanel extends JPanel implements ActionListener
         b5 = new JButton("Wake up");
         b6 = new JButton("Reset");
         b7 = new JButton("Food");
-		b8 = new JButton("Info");
-        b9 = new JButton("Exit");
+		b8 = new JButton("Decorator");
+		b9 = new JButton("Info");
+        b10 = new JButton("Exit");
 
         
         //Adding to buttons
@@ -91,6 +101,7 @@ public class AquaPanel extends JPanel implements ActionListener
 		buttons.add(b7);
 		buttons.add(b8);
 		buttons.add(b9);
+		buttons.add(b10);
 		
 		//Placing in south of the screen
 		add(buttons,BorderLayout.SOUTH);
@@ -105,6 +116,7 @@ public class AquaPanel extends JPanel implements ActionListener
 		b7.addActionListener(this);
 		b8.addActionListener(this);
 		b9.addActionListener(this);
+		b10.addActionListener(this);
 	}
 	
 	//Functionality for buttons
@@ -161,6 +173,7 @@ public class AquaPanel extends JPanel implements ActionListener
 			infoFlag = false;
 
 		}
+
 		else if(e.getSource() == b7) {					//CLICK ON "Food" - B7
 			if (wormsingle == null)
 			{
@@ -179,7 +192,25 @@ public class AquaPanel extends JPanel implements ActionListener
 			}
 
 		}
-		else if(e.getSource() == b8) 					//CLICK ON "Info" - B8
+
+		else if(e.getSource() == b8) 					//CLICK ON "Decorator" - B8
+		{
+			decorator = new JPanelDecorator(this);
+
+
+			decoratorDialog = new JDialog();
+			decoratorDialog.setSize(450, 145);
+			decoratorDialog.setLayout(new BorderLayout());
+			decoratorDialog.setTitle("JPanel Decorator");
+			decoratorDialog.setLocationRelativeTo(null);
+
+			decoratorDialog.add(decorator);
+
+			decoratorDialog.setVisible(true);
+
+		}
+
+		else if(e.getSource() == b9) 					//CLICK ON "Info" - B9
 		{
 			
 			if (infoFlag == false) 
@@ -229,7 +260,7 @@ public class AquaPanel extends JPanel implements ActionListener
 				infoFlag = false;
 			}
 		}
-		else if (e.getSource() == b9)				//CLICK ON "Exit" - B9
+		else if (e.getSource() == b10)				//CLICK ON "Exit" - B10
 			System.exit(0);
 		else if(e.getSource() ==b2)					//CLICK ON "Duplicate Animal" - B8
 		{
@@ -257,6 +288,8 @@ public class AquaPanel extends JPanel implements ActionListener
 	//Add an animal to the swimset
 	public void addAnimal(Swimmable swim) 
 	{
+		//swim.addObserver(this);
+//		swim.addActionListener(this);
 		swimSet.add(swim);
 		repaint();
 		swim.start();
@@ -284,4 +317,16 @@ public class AquaPanel extends JPanel implements ActionListener
 	}
 
 	public Singleton getWormInstance(){return wormsingle;}
+
+/*	public void update(Observable a, Object obj)
+	{
+		JOptionPane.showMessageDialog(null, obj + " is hungry!",
+				"Time to eat", JOptionPane.PLAIN_MESSAGE);
+	}*/
+
+	///////////////////
+	public void actionHungryFish(Swimmable s)
+	{
+		System.out.println("123");
+	}
 }
