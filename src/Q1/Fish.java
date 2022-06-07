@@ -369,8 +369,8 @@ public class Fish extends Swimmable implements MarineAnimal{
 		{
 			y_dir =1;
 		}
-//		this.x_front += this.horSpeed*this.x_dir;
-//		this.y_front += this.verSpeed*this.y_dir;
+		this.x_front += this.horSpeed*this.x_dir;
+		this.y_front += this.verSpeed*this.y_dir;
 	}
 	public Fish clone(){
 		return new Fish(panel,size,x_front,y_front,horSpeed,verSpeed,col);
