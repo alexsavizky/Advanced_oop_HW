@@ -1,6 +1,10 @@
+/*	 Authors:
+ *   Bar Shwartz - 313162265
+ *   Alex Savitzky - 316611409
+ */
 package Q1;
 
 public interface AbstractSeaFactory
 {
-    public SeaCreature produceSeaCreature(String type);
+    SeaCreature produceSeaCreature(String type);
 }

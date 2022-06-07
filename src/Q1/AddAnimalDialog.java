@@ -7,15 +7,12 @@ package Q1;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-
 import java.awt.Container;
 import java.awt.Dimension;
-
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
-
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -161,8 +158,10 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
         experimentLayout.setVgap(10);
 	}
 
-	//Getting information for the dialog after confirm
-	public void GetFromDialog() 
+	/***
+	 * createAnimal with
+	 */
+	public void createAnimal()
 	{
 		Color color = Color.black;
 		int size, h, v;
@@ -210,14 +209,12 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 			{
 				asf = new AnimalFactory(ap, size, xx, yy, h, v, color);
 				creature = asf.produceSeaCreature("Fish");
-
 				ap.addAnimal((Swimmable)creature);
 			}
 			else if (fishorjelly == "Jellyfish")
 			{
 				asf = new AnimalFactory(ap, size, xx, yy, h, v, color);
 				creature = asf.produceSeaCreature("Jellyfish");
-
 				ap.addAnimal((Swimmable)creature);
 			}
 			dispose();
@@ -233,12 +230,13 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 		if (e.getSource() == cancelButton)
 			dispose();
 		else if (e.getSource() == confirmButton)
+		//add animal
 		{
 			try
 			{
 				if(ap.getSwimSetSize()>4)
 					throw new Exception("The maximum number of animals is 5");
-				this.GetFromDialog();
+				createAnimal();
 			}
 			catch(Exception e1){
 				JOptionPane.showMessageDialog(null, e1.getMessage());

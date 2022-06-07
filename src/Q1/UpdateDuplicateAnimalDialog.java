@@ -4,9 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 
-public class UpdateDuplicateAnimal  extends JDialog implements ActionListener {
+public class UpdateDuplicateAnimalDialog extends JDialog implements ActionListener {
     private String[] colors = {"Black","Red","Blue","Green","Cyan","Orange", "Yellow", "Magneta", "Pink"};
     private AquaPanel ap;
     private GridLayout experimentLayout;
@@ -16,7 +15,7 @@ public class UpdateDuplicateAnimal  extends JDialog implements ActionListener {
     private JTextField sizetxt,horSpeedtxt,verSpeedtxt;
     private Swimmable clone;
     private JComboBox<String> colorBox;
-    public UpdateDuplicateAnimal(Swimmable clone){
+    public UpdateDuplicateAnimalDialog(Swimmable clone){
         super();
         this.clone = clone;
         setSize(450, 305);
@@ -115,7 +114,6 @@ public class UpdateDuplicateAnimal  extends JDialog implements ActionListener {
                 color = Color.pink;
 
             clone.SetClone(size,h,v,color);
-
 
             dispose();
         }

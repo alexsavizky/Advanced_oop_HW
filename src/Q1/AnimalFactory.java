@@ -1,10 +1,12 @@
+/*	 Authors:
+ *   Bar Shwartz - 313162265
+ *   Alex Savitzky - 316611409
+ */
 package Q1;
 
 import java.awt.Color;
 
-
 public class AnimalFactory implements AbstractSeaFactory {
-
     private int size, horSpeed, verSpeed, x_front, y_front;
     private Color col;
     private AquaPanel panel;
@@ -18,7 +20,6 @@ public class AnimalFactory implements AbstractSeaFactory {
         this.y_front = y_front;
         this.col = col;
     }
-
 
     public SeaCreature produceSeaCreature(String type) {
         if (type.equalsIgnoreCase("Fish"))

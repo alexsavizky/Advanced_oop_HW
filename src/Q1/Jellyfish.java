@@ -5,11 +5,8 @@
 
 package Q1;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Polygon;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CyclicBarrier;
@@ -278,7 +275,7 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 	public void movetoFood() {
 		if((Math.abs(panel.getWidth()/2-x_front)<=5) && (Math.abs(panel.getHeight()/2-y_front)<=5))
 		{
-			panel.eatworm();
+			panel.eatWorm();
 			this.eatInc();
 			this.setHungryState(new Satiated());
 			this.startTimer(25000L);
