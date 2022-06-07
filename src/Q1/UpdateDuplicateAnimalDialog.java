@@ -130,6 +130,7 @@ public class UpdateDuplicateAnimalDialog extends JDialog implements ActionListen
                 color = Color.pink;
 
             clone.SetClone(size,h,v,color);
+
             dispose();
         }
         catch(Exception e1){

@@ -12,12 +12,10 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
     private JLabel animalLabel;
     private JComboBox<String> animalBox;
     private GridLayout experimentLayout;
-    private AquaPanel panel;
     private JPanel DialogPanel,buttonsPanel; // create panels to the dialog
     private JButton b1,b2;
     private final JPanel contentPane = new JPanel();
-    private AnimalFactory asf;
-    private SeaCreature creature;
+
     public DuplicateAnimalDialog(AquaPanel ap)
     {
         super();
@@ -40,8 +38,6 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
             }
             i++;
         }
-
-        this.panel=panel;
 
         setPanel();
 
@@ -82,7 +78,6 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
             this.dispose();
         else if(e.getSource() ==b1){
             {
-
                 try
                 {
                     if(ap.getSwimSetSize()>4)
@@ -98,16 +93,13 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
                             dispose();
                         }
                     }
-
                 }
                 catch(Exception e1){
                     if (e1.getMessage()!=null)
                         JOptionPane.showMessageDialog(null, e1.getMessage());
                 }
             }
-
         }
     }
-
 }
 

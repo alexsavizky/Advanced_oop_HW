@@ -1,16 +1,12 @@
 package Q1;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-
 import java.awt.Container;
 import java.awt.Dimension;
-
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
-
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -31,7 +27,6 @@ public class AddPlantDialog extends JDialog implements ActionListener
     //Icon for dialog
     private ImageIcon img2 = new ImageIcon("src/seaweed.png");
 
-
     //Adding buttons, labels and boxes
     private final JPanel contentPane = new JPanel();
     private final JPanel controls = new JPanel();
@@ -40,18 +35,13 @@ public class AddPlantDialog extends JDialog implements ActionListener
     private JButton confirmButton, cancelButton;
     private JLabel plantLabel, sizeLabel;
     private JTextField sizetxt;
-
     //Gridlayouts for dialog
     private GridLayout experimentLayout, experimentLayout2, experimentLayout3;
-
     //List of choices for ComboBoxes
     private String[] plants = {"Laminaria","Zostera"};
-
     private AquaPanel ap;
-
     private AbstractSeaFactory asf;
     private SeaCreature creature;
-
     protected Random rand;
 
     //Constructor
@@ -137,7 +127,7 @@ public class AddPlantDialog extends JDialog implements ActionListener
     }
 
     //Getting information for the dialog after confirm
-    public void GetFromDialog()
+    public void createPlant()
     {
         int size;
         String plantname;
@@ -151,13 +141,8 @@ public class AddPlantDialog extends JDialog implements ActionListener
                 throw new Exception("Size must be between 100-400");
 
             //Random spawn for plants
-//            Random rand = new Random();
-//            int xx = rand.nextInt(ap.getWidth());
-//            int yy = rand.nextInt(ap.getHeight());
             rand = new Random();
             int xx = rand.nextInt(ap.getWidth());
-//            rand = new Random();
-//            int yy = rand.nextInt(ap.getHeight());
 
             //Adding a plant
             if (plantname == "Laminaria")
@@ -190,7 +175,7 @@ public class AddPlantDialog extends JDialog implements ActionListener
             {
                 if(ap.getImmobileSetSize()>4)
                     throw new Exception("The maximum number of plants is 5");
-                this.GetFromDialog();
+                this.createPlant();
             }
             catch(Exception e1){
                 JOptionPane.showMessageDialog(null, e1.getMessage());
@@ -201,7 +186,8 @@ public class AddPlantDialog extends JDialog implements ActionListener
     //Titled border function
     void addCompForBorder(Border border,
                           String description,
-                          Container container) {
+                          Container container)
+    {
         JPanel comp = new JPanel(new GridLayout(1, 1), false);
         JLabel label = new JLabel(description, JLabel.CENTER);
         comp.add(label);
@@ -213,7 +199,8 @@ public class AddPlantDialog extends JDialog implements ActionListener
                                 String description,
                                 int justification,
                                 int position,
-                                Container container) {
+                                Container container)
+    {
         border.setTitleJustification(justification);
         border.setTitlePosition(position);
         addCompForBorder(border, description,

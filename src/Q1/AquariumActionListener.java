@@ -2,7 +2,6 @@ package Q1;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.EventListener;
 
 public interface AquariumActionListener extends ActionListener
 {

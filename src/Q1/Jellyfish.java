@@ -275,7 +275,7 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 	public void movetoFood() {
 		if((Math.abs(panel.getWidth()/2-x_front)<=5) && (Math.abs(panel.getHeight()/2-y_front)<=5))
 		{
-			panel.eatworm();
+			panel.eatWorm();
 			this.eatInc();
 			this.setHungryState(new Satiated());
 			this.startTimer(foodFreq);

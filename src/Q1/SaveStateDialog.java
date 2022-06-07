@@ -23,7 +23,7 @@ public class SaveStateDialog extends JDialog implements ActionListener {
         this.ap = ap;
         this.caretaker =caretaker;
         this.originator = originator;
-        setSize(450, 305);
+        setSize(450, 105);
         setLayout(new BorderLayout());
         this.setTitle("Save State Dialog");
         this.setLocationRelativeTo(null);

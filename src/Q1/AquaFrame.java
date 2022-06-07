@@ -12,20 +12,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 
 public class AquaFrame extends JFrame implements ActionListener 
 {
 	private ImageIcon img = new ImageIcon("src/aquarium.png");
 	private static final long serialVersionUID = 1L;
-
 	Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-
-	//Icon for frame
-//	private ImageIcon img = new ImageIcon("src/aquarium.png");
 	
 	//Panel for use
 	private AquaPanel ap;
@@ -38,7 +30,6 @@ public class AquaFrame extends JFrame implements ActionListener
 	private JMenuItem exit, image, blue, none, helpz,save,restore;
 	private Caretaker caretaker = new Caretaker();
 	private Originator originator = new Originator();
-
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -59,7 +50,6 @@ public class AquaFrame extends JFrame implements ActionListener
 		
 		//Starting the frame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		setSize(850, 600);
 		setSize((int)size.getWidth() - 20, 600);
 		this.setTitle("Alex & Bar's Aquarium");
 		this.setIconImage(img.getImage());
@@ -89,8 +79,9 @@ public class AquaFrame extends JFrame implements ActionListener
 		ElMenu = new JMenuBar();
 		file = new JMenu("File");
 		background = new JMenu("Background");
-		help = new JMenu("Help");
 		memento = new JMenu("Memento");
+		help = new JMenu("Help");
+
 		
 		exit = new JMenuItem("Exit");
 		image = new JMenuItem("Image");
@@ -109,8 +100,8 @@ public class AquaFrame extends JFrame implements ActionListener
 		//Adding choices to menu
 		ElMenu.add(file);
 		ElMenu.add(background);
-		ElMenu.add(help);
 		ElMenu.add(memento);
+		ElMenu.add(help);
 		setJMenuBar(ElMenu);
 	}
 
@@ -147,41 +138,43 @@ public class AquaFrame extends JFrame implements ActionListener
 			LoadImage();
 		
 		//CLICK "None"
-		else if (e.getSource() == none) 
-		{
-			if (ap.background != null)
-			{
-				ap.background = null;
-				ap.repaint();
-			}
-			ap.setBackground(Color.white);
-		}
+		else if (e.getSource() == none)
+			none();
+		//CLICK "save"
 		else if(e.getSource() == save){
-
 			save_dialog = new SaveStateDialog(ap,caretaker,originator);
 			save_dialog.setVisible(true);
 		}
+		//CLICK "restore"
 		else if(e.getSource() == restore){
-
 			restore_dialog = new RestoreStateDialog(ap,caretaker,originator);
 			restore_dialog.setVisible(true);
 		}
 		
 		//CLICK "Blue"
-		else if (e.getSource() == blue) 
-		{
-			if (ap.background != null)
-			{
-				ap.background = null;
-				ap.repaint();
-			}
-			ap.setBackground(Color.blue);
-		}
+		else if (e.getSource() == blue)
+			blue();
 
 		//CLICK "Help"
 		else if (e.getSource() == helpz)
 			JOptionPane.showMessageDialog(null, "Home Work 3\n GUI @ Threads");
 
 
+	}
+	private void none(){
+		if (ap.background != null)
+		{
+			ap.background = null;
+			ap.repaint();
+		}
+		ap.setBackground(Color.white);
+	}
+	private void blue(){
+		if (ap.background != null)
+		{
+			ap.background = null;
+			ap.repaint();
+		}
+		ap.setBackground(Color.blue);
 	}
 }
