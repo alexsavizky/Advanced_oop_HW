@@ -29,7 +29,5 @@ public class Originator {
      * restore to the last state
      * @param m - memento token
      */
-    public void restore(Memento m) {
-        state = m.getState();
-    }
+
 }

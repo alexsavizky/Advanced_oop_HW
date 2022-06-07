@@ -22,7 +22,6 @@ public class JPanelDecorator extends JPanel implements ActionListener
     private Color currCol;                                              //Current color
     private HashSet<Swimmable> swimSet;                                 //HashSet of Swimmables
 
-    private Iterator<Swimmable> itrAnimals;
 
     private String[] swims;                                             //List of strings
     private AquaPanel ap;                                               //AquaPanel object
@@ -158,16 +157,14 @@ public class JPanelDecorator extends JPanel implements ActionListener
      */
     public MarineAnimal getFromID(int id, HashSet<Swimmable> swimSet)
     {
-        itrAnimals = swimSet.iterator();
-        while(itrAnimals.hasNext())
+        for(Swimmable i: swimSet)
         {
-            Swimmable s = itrAnimals.next();
-            if(s.getAnimalID() == id)
+            if(i.getAnimalID() == id)
             {
-                if(s.getAnimalName() == "Fish")
-                    return (Fish)s;
-                else if(s.getAnimalName() == "Jellyfish")
-                    return (Jellyfish)s;
+                if(i.getAnimalName() == "Fish")
+                    return (Fish)i;
+                else if(i.getAnimalName() == "Jellyfish")
+                    return (Jellyfish)i;
             }
         }
         return null;
@@ -181,10 +178,8 @@ public class JPanelDecorator extends JPanel implements ActionListener
      */
     public Color getObjectCol(int id, HashSet<Swimmable> swimSet)
     {
-        itrAnimals = swimSet.iterator();
-        while(itrAnimals.hasNext())
+        for(Swimmable s : swimSet)
         {
-            Swimmable s = itrAnimals.next();
             if(s.getAnimalID() == id)
                 return s.getCol();
         }

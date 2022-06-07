@@ -33,8 +33,8 @@ public class RestoreStateDialog extends JDialog implements ActionListener {
         this.originator = originator;
 
         //Create states list
-        states = new String[caretaker.getsize()];
-        for (int i =0 ; i <caretaker.getsize();i++){
+        states = new String[caretaker.getSize()];
+        for (int i =0 ; i <caretaker.getSize();i++){
             for(Swimmable j :ap.getSwimSet()){
                 if(caretaker.getMemento(i).getState().id == j.getAnimalID() )
                     states[i] = caretaker.getMemento(i).getState().toString();
@@ -109,21 +109,24 @@ public class RestoreStateDialog extends JDialog implements ActionListener {
     public void RestoreState(){
         String animal= animalBox.getItemAt(animalBox.getSelectedIndex());
         if (animal != null) {
-            int id_of_animal = animal.charAt(animal.length() - 10) - 48;
-            String date = animal.substring(animal.length() - 8);
-            animal = animal.substring(0, animal.length() - 10);
+            int id_of_animal = animal.charAt(animal.length() - 10) - 48;//slice id
+            String time = animal.substring(animal.length() - 8);//slice save time
+            animal = animal.substring(0, animal.length() - 10);//slice animal name
+
+            //look for the right animal
             for (Swimmable temp : ap.getSwimSet()) {
                 if (temp.getAnimalID() == id_of_animal && Objects.equals(animal, temp.getAnimalName())) {
-                    temp.SetMementoState(caretaker.getMemento(date).getState());
-                    dispose();
+                    temp.SetMementoState(caretaker.getMemento(time).getState());
+
                 }
             }
+            //if we want to restore immobile object
             for (Immobile plant : ap.getImmobileSet()) {
                 if (plant.getPlantId() == id_of_animal && Objects.equals(animal, plant.name)) {
-                    plant.SetMementoState(caretaker.getMemento(date).getState());
-                    dispose();
+                    plant.SetMementoState(caretaker.getMemento(time).getState());
                 }
             }
+            dispose();
         }
         else{
             JOptionPane.showMessageDialog(null,"there is no sates to restore");

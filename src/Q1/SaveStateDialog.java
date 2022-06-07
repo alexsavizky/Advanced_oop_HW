@@ -113,13 +113,17 @@ public class SaveStateDialog extends JDialog implements ActionListener {
         }
     }
 
+    /***
+     * help function for save state button
+     */
     private void saveState(){
         String animal= animalBox.getItemAt(animalBox.getSelectedIndex());
 
         if(animal!= null) {
-            int id_of_animal = animal.charAt(animal.length() - 1) - 48;
-            animal = animal.substring(0, animal.length() - 2);
+            int id_of_animal = animal.charAt(animal.length() - 1) - 48;//slice id
+            animal = animal.substring(0, animal.length() - 2);//slice animal name
 
+            //look for the right animal
             for (Swimmable temp : ap.getSwimSet()) {
                 if (temp.getAnimalID() == id_of_animal) {
 
@@ -138,6 +142,7 @@ public class SaveStateDialog extends JDialog implements ActionListener {
                 }
             }
 
+            //if we want to save immobile object
             for (Immobile temp : ap.getImmobileSet()) {
                 if (temp.getPlantId() == id_of_animal) {
                     if (Objects.equals(temp.name, animal) && Objects.equals(temp.name, "Laminaria")) {
