@@ -1,11 +1,6 @@
 package Q1;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Polygon;
-import java.util.concurrent.CyclicBarrier;
 
 public abstract class Immobile implements SeaCreature
 {

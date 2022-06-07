@@ -6,9 +6,6 @@
 package Q1;
 
 import java.awt.*;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.CyclicBarrier;
 
 public abstract class Swimmable extends Thread implements SeaCreature,Cloneable
@@ -41,16 +38,11 @@ public abstract class Swimmable extends Thread implements SeaCreature,Cloneable
 		this.id = counter;
 		this.horSpeed = a;
 		this.verSpeed = b;
-
-		//this.startTimer(5000L);
-
 	}
 	
 	//get functions
 	public int getHorSpeed() {return this.horSpeed;}
 	public int getVerSpeed() {return this.verSpeed;}
-
-
 	
 	//set functions for horSpeed & verSpeed
 	public boolean setHorSpeed(int a) 
@@ -93,6 +85,5 @@ public abstract class Swimmable extends Thread implements SeaCreature,Cloneable
 	abstract public void iAmHungry();
 	abstract void startTimer(long time);
 	abstract void setHungryState(HungerState state);
-	abstract HungerState getHungryState();
 	abstract void RemoveListen();
 }

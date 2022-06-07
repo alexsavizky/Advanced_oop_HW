@@ -93,7 +93,7 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
                         if (temp.getAnimalID() == id_of_animal){
                             Swimmable s = temp.clone();
                             ap.addAnimal(s);
-                            UpdateDuplicateAnimal a = new UpdateDuplicateAnimal(s);
+                            UpdateDuplicateAnimalDialog a = new UpdateDuplicateAnimalDialog(s);
                             a.setVisible(true);
                             dispose();
                         }

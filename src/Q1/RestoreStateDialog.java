@@ -12,7 +12,6 @@ public class RestoreStateDialog extends JDialog implements ActionListener {
     private JLabel animalLabel;
     private JComboBox<String> animalBox;
     private GridLayout experimentLayout;
-    private AquaPanel panel;
     private JPanel DialogPanel,buttonsPanel; // create panels to the dialog
     private JButton b1,b2;
     private Caretaker caretaker;
@@ -36,9 +35,6 @@ public class RestoreStateDialog extends JDialog implements ActionListener {
         setLayout(new BorderLayout());
         this.setTitle("Restore State Dialog");
         this.setLocationRelativeTo(null);
-
-
-        this.panel=panel;
 
         setPanel();
 
@@ -80,7 +76,6 @@ public class RestoreStateDialog extends JDialog implements ActionListener {
                 int id_of_animal = animal.charAt(animal.length() - 10) - 48;
                 String date = animal.substring(animal.length() - 8);
                 animal = animal.substring(0, animal.length() - 10);
-//            System.out.println(animal);
                 for (Swimmable temp : ap.getSwimSet()) {
                     if (temp.getAnimalID() == id_of_animal && Objects.equals(animal, temp.getAnimalName())) {
                         temp.SetMementoState(caretaker.getMemento(date).getState());

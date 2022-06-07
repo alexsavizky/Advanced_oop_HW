@@ -15,6 +15,4 @@ public class MarineAnimalDecorator implements MarineAnimal
     {
         myAnimal.PaintFish(col);
     }
-
-
 }

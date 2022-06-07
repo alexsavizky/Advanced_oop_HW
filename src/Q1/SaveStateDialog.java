@@ -12,7 +12,6 @@ public class SaveStateDialog extends JDialog implements ActionListener {
     private JLabel animalLabel;
     private JComboBox<String> animalBox;
     private GridLayout experimentLayout;
-    private AquaPanel panel;
     private JPanel DialogPanel,buttonsPanel; // create panels to the dialog
     private JButton b1,b2;
     private Caretaker caretaker;
@@ -51,9 +50,6 @@ public class SaveStateDialog extends JDialog implements ActionListener {
             }
             i++;
         }
-
-        this.panel=panel;
-
         setPanel();
 
         add(DialogPanel); // add the panel to the JDialog dialogTable
@@ -83,7 +79,6 @@ public class SaveStateDialog extends JDialog implements ActionListener {
         DialogPanel.add(buttonsPanel,BorderLayout.SOUTH);
         b1.addActionListener(this);
         b2.addActionListener(this);
-
     }
 
     @Override
