@@ -1,7 +1,6 @@
 package Q1;
 
 import java.awt.Color;
-
 public abstract class Immobile implements SeaCreature
 {
     protected static int counter = 0;

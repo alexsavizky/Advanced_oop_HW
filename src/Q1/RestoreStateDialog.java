@@ -24,8 +24,8 @@ public class RestoreStateDialog extends JDialog implements ActionListener {
         this.ap = ap;
         this.caretaker =caretaker;
         this.originator = originator;
-        states = new String[caretaker.getsize()];
-        for (int i =0 ; i <caretaker.getsize();i++){
+        states = new String[caretaker.getSize()];
+        for (int i = 0; i <caretaker.getSize(); i++){
             for(Swimmable j :ap.getSwimSet()){
                 if(caretaker.getMemento(i).getState().id == j.getAnimalID() )
                     states[i] = caretaker.getMemento(i).getState().toString();

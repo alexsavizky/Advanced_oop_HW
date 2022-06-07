@@ -39,12 +39,17 @@ public class AddPlantDialog extends JDialog implements ActionListener
     private GridLayout experimentLayout, experimentLayout2, experimentLayout3;
     //List of choices for ComboBoxes
     private String[] plants = {"Laminaria","Zostera"};
+
+    // AquaPanel (the main panel get by reference)
     private AquaPanel ap;
     private AbstractSeaFactory asf;
     private SeaCreature creature;
     protected Random rand;
 
-    //Constructor
+    /***
+     * Constructor
+     * @param ap - main panel passed by reference
+     */
     public AddPlantDialog(AquaPanel ap)
     {
         //Starting the dialog
@@ -68,6 +73,9 @@ public class AddPlantDialog extends JDialog implements ActionListener
         add(controls, BorderLayout.SOUTH);
     }
 
+    /***
+     *Make the buttons on the panel
+     */
     public void MakeButtons()
     {
         experimentLayout = new GridLayout(0,2);
@@ -126,13 +134,16 @@ public class AddPlantDialog extends JDialog implements ActionListener
 
     }
 
-    //Getting information for the dialog after confirm
+    /***
+     * create plant in the aqua panel according to the info in this dialog
+     */
     public void createPlant()
     {
         int size;
         String plantname;
         try
         {
+            //initialize the info from this dialog
             plantname = plantBox.getItemAt(plantBox.getSelectedIndex());
             size = Integer.parseInt(sizetxt.getText());
 
@@ -164,7 +175,10 @@ public class AddPlantDialog extends JDialog implements ActionListener
         }
     }
 
-    //Confirm and cancel buttons actions
+    /***
+     * preform the buttons functionality
+     * @param e the event to be processed
+     */
     public void actionPerformed(ActionEvent e)
     {
         if (e.getSource() == cancelButton)
@@ -183,7 +197,9 @@ public class AddPlantDialog extends JDialog implements ActionListener
         }
     }
 
-    //Titled border function
+    /***
+     *addCompForBorder - styling header
+     */
     void addCompForBorder(Border border,
                           String description,
                           Container container)
@@ -195,6 +211,10 @@ public class AddPlantDialog extends JDialog implements ActionListener
         container.add(Box.createRigidArea(new Dimension(0, 10)));
         container.add(comp);
     }
+
+    /***
+     *addCompForTitledBorder - styling header
+     */
     void addCompForTitledBorder(TitledBorder border,
                                 String description,
                                 int justification,

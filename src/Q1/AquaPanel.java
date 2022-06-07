@@ -21,6 +21,9 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 	
 	//AddAnimalDialog for use
 	private AddAnimalDialog aad;
+	//AddPlantDialog for use
+	private AddPlantDialog apd;
+	//DuplicateAnimalDialog for use
 	private DuplicateAnimalDialog dad;
 	
 	//Background image for panel
@@ -33,24 +36,24 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 	private JTable table;
 	private JScrollPane jsc;
 
-	private AddPlantDialog apd;
-
-
 	private JPanelDecorator decorator;
 
 	
 	//Swimmable hashset
 	private HashSet<Swimmable> swimSet = new HashSet<Swimmable>();
-
+	//Immobile hashset
 	private HashSet<Immobile> immobileSet = new HashSet<Immobile>();
 
-	//Flags for worm and info
-	private Singleton wormsingle = null;
+	//Singleton for the worm
+	private Singleton worm_single = null;
 	private Boolean infoFlag = false;
+	//memento management
 	private Caretaker caretaker;
 
 
-	//default constructor
+	/***
+	 * Constructor
+	 */
 	public AquaPanel()
 	{
 		super();
@@ -60,15 +63,10 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 		//Make buttons for panel function
 		MakeButtons();
 	}
-	
-	//Get function for swimset size
-	public int getSwimSetSize() {return swimSet.size();}
-	public HashSet<Immobile> getImmobileSet() {return immobileSet;}
-	public  int getImmobileSetSize() {return  immobileSet.size();}
-	public HashSet<Swimmable> getSwimSet(){return swimSet;}
 
-
-	//Create the buttons for the panel
+	/***
+	 * make buttons
+	 */
 	public void MakeButtons() 
 	{
 		buttons = new JPanel();
@@ -112,60 +110,77 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 		b9.addActionListener(this);
 		b10.addActionListener(this);
 	}
-	
-	//Functionality for buttons
+
+	/***
+	 * preform the buttons functionality
+	 * @param e the event to be processed
+	 */
 	public void actionPerformed(ActionEvent e) 
 	{
-
-		if (e.getSource() == b1) 						//CLICK ON "Add Animal" - B1
+		//CLICK ON "Add Animal" - B1
+		if (e.getSource() == b1)
 		{
 			addAnimalBtn();
 		}
-		else if(e.getSource() ==b2)					    //CLICK ON "Duplicate Animal" - B2
+
+		//CLICK ON "Duplicate Animal" - B2
+		else if(e.getSource() ==b2)
 		{
 			dad = new DuplicateAnimalDialog(this);
 			dad.setVisible(true);
 		}
-		if (e.getSource() == b3) 						//CLICK ON "Add Plant" - B3
+
+		//CLICK ON "Add Plant" - B3
+		if (e.getSource() == b3)
 		{
 			apd = new AddPlantDialog(this);
 			apd.setVisible(true);
 		}
 
-		else if(e.getSource()== b4) {					//CLICK ON "Sleep" - B4
+		//CLICK ON "Sleep" - B4
+		else if(e.getSource()== b4) {
 		 	for(Swimmable i : swimSet)
 		 		i.setSuspend();
 		}
 
-		else if(e.getSource()== b5) {					//CLICK ON "Wake up" - B5
+		//CLICK ON "Wake up" - B5
+		else if(e.getSource()== b5) {
 			for(Swimmable i : swimSet)
 				i.setResume();
 		}
 
-		else if(e.getSource() == b6) {					//CLICK ON "Reset" - B6
+		//CLICK ON "Reset" - B6
+		else if(e.getSource() == b6) {
 			resetBtn();
 		}
 
-		else if(e.getSource() == b7) {					//CLICK ON "Food" - B7
+		//CLICK ON "Food" - B7
+		else if(e.getSource() == b7) {
 			foodBtn();
 		}
 
-		else if(e.getSource() == b8) 					//CLICK ON "Decorator" - B8
+		//CLICK ON "Decorator" - B8
+		else if(e.getSource() == b8)
 		{
 			decorator = new JPanelDecorator(this);
 			repaint();
 		}
 
-		else if(e.getSource() == b9) 					//CLICK ON "Info" - B9
+		//CLICK ON "Info" - B9
+		else if(e.getSource() == b9)
 			infoBtn();
 
-		else if (e.getSource() == b10)				    //CLICK ON "Exit" - B10
+		//CLICK ON "Exit" - B10
+		else if (e.getSource() == b10)
 			System.exit(0);
 
 
 	}
 
-	//Paint component function
+	/***
+	 * paint the objects of the panel
+	 * @param g the <code>Graphics</code> object to protect
+	 */
 	public void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);
@@ -176,8 +191,11 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 		for(Immobile i: immobileSet)
 			i.drawCreature(g);
 	}
-	
-	//Add an animal to the swimset
+
+	/***
+	 * Add swim a Swimmable object to the swim set
+	 * @param swim - the swimmable you want to add to the hash set
+	 */
 	public void addAnimal(Swimmable swim) 
 	{
 		swimSet.add(swim);
@@ -185,35 +203,51 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 		swim.start();
 	}
 
+	/***
+	 * Add imm an Immobile object to the immobile set
+	 * @param imm - the Immobile you want to add to the hash set
+	 */
 	public void addPlant(Immobile imm){
 		immobileSet.add(imm);
 		repaint();
 	}
 
-	//Eat a worm function
+	/***
+	 * eat the worm on the screen
+	 */
 	public void eatWorm()
 	{
-		wormsingle = null;
+		worm_single = null;
 		this.remove(picLabel);
 		this.revalidate();
 		this.repaint();
 	}
 
-	//Get function for flag of worm
-	public Boolean is_worm() {return wormsingle!=null;}
+	/***
+	 * check in there is a singleton instance
+	 * @return true if there is a worm else false
+	 */
+	public Boolean is_worm() {return worm_single !=null;}
 
+	/***
+	 * help function for info button
+	 */
 	private void infoBtn(){
 		if (infoFlag == false)
 		{
-			if (wormsingle!=null)
+			if (worm_single !=null)
 				this.remove(picLabel);
+
 			String name, color;
 			int size, h, v, food, id, freq, all = 0;
+
 			//Info table columns
 			table = new JTable(new DefaultTableModel(new Object[]{ "ID", "Animal", "Color", "Size", "Hor. Speed",
 					"Ver. Speed", "Hunger Freq","Eat counter"}, 0));
 			table.setAutoCreateRowSorter(true);
 			DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+			//insert values into the table
 			for(Swimmable i : swimSet)
 			{
 				id = i.getAnimalID();
@@ -245,7 +279,7 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 		//Hiding info
 		else
 		{
-			if (wormsingle!=null)
+			if (worm_single !=null)
 				this.add(picLabel);
 			remove(jsc);
 			validate();
@@ -255,9 +289,11 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 
 	}
 
-
+	/***
+	 * help function for food button
+	 */
 	private void foodBtn(){
-		if (wormsingle == null)
+		if (worm_single == null)
 		{
 			try {
 				//Adding a picture of a worm
@@ -270,29 +306,34 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 				e1.printStackTrace();
 			}
 			Singleton.set();
-			wormsingle = Singleton.getInstance();
+			worm_single = Singleton.getInstance();
 		}
 	}
 
-
+	/***
+	 * help function for reset button
+	 */
 	private void resetBtn(){
+		//delete the swim set
 		for(Swimmable i: swimSet){
 			i.RemoveListen();
 			i = null;
 		}
-
 		swimSet.removeAll(swimSet);
-		System.out.println(swimSet.size());
+		//delete the immobile set
 		immobileSet = new HashSet<Immobile>();
 		swimSet = new HashSet<Swimmable>();
 		repaint();
 
-		if(wormsingle != null)
+		if(worm_single != null)
 			eatWorm();
 
 		infoFlag = false;
 	}
 
+	/***
+	 * help function for add animal button
+	 */
 	private void addAnimalBtn(){
 		if (infoFlag == true)
 		{
@@ -304,9 +345,13 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 		aad = new AddAnimalDialog(this);
 		aad.setVisible(true);
 	}
+
+	/***
+	 * preform action when there is hungry fish
+	 * @param s - hungry fish
+	 */
 	public void actionHungryFish(Swimmable s)
 	{
-		//s.setHungryState(new Hungry());
 		HungerState hs = new Hungry();
 		hs.ChangeState(s);
 
@@ -315,4 +360,10 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 					s.getAnimalID() + "\nFeed it using the 'Food' button", "Your animal is hungry!",
 					JOptionPane.INFORMATION_MESSAGE);
 	}
+
+	//Get function for swim set and immobile Set
+	public int getSwimSetSize() {return swimSet.size();}
+	public HashSet<Immobile> getImmobileSet() {return immobileSet;}
+	public  int getImmobileSetSize() {return  immobileSet.size();}
+	public HashSet<Swimmable> getSwimSet(){return swimSet;}
 }

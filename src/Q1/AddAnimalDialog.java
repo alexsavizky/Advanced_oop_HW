@@ -26,7 +26,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
-
+//Dialog for adding animals to the AquaPanel
 public class AddAnimalDialog extends JDialog implements ActionListener {
 	
 	private static final long serialVersionUID = 1L;
@@ -34,7 +34,6 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 	//Icon for dialog
 	private ImageIcon img2 = new ImageIcon("src/whale.png");
 
-	
 	//Adding buttons, labels and boxes
 	private final JPanel contentPane = new JPanel();
 	private final JPanel controls = new JPanel();
@@ -51,14 +50,17 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 	//List of choices for ComboBoxes
 	private String[] swims = {"Fish","Jellyfish"};  
 	private String[] colors = {"Black","Red","Blue","Green","Cyan","Orange", "Yellow", "Magneta", "Pink"};
-	
-	private AquaPanel ap;
 
+	// AquaPanel (the main panel get by reference)
+	private AquaPanel ap;
 	private AbstractSeaFactory asf;
 	private SeaCreature creature;
-	
-	
-	//Constructor
+
+
+	/***
+	 *Constructor
+	 * @param ap - main panel passed by reference
+	 */
 	public AddAnimalDialog(AquaPanel ap) 
 	{
 		//Starting the dialog
@@ -81,9 +83,11 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
         add(contentPane, BorderLayout.CENTER);
         add(controls, BorderLayout.SOUTH);
 	}
-	
-	//Create buttons and details of add animal dialog
-	public void MakeButtons() 
+
+	/***
+	 *Make the buttons on the panel
+	 */
+	private void MakeButtons()
 	{
 		experimentLayout = new GridLayout(0,2);
 		contentPane.setLayout(experimentLayout);
@@ -159,7 +163,7 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 	}
 
 	/***
-	 * createAnimal with
+	 * create animal in the aqua panel according to the info in this dialog
 	 */
 	public void createAnimal()
 	{
@@ -168,6 +172,7 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 		String fishorjelly, colorname;
 		try 
 		{
+			//initialize the info from this dialog
 			fishorjelly = animalBox.getItemAt(animalBox.getSelectedIndex());
 			colorname = colorBox.getItemAt(colorBox.getSelectedIndex());
 			size = Integer.parseInt(sizetxt.getText());
@@ -223,8 +228,11 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 			JOptionPane.showMessageDialog(null, e1.getMessage());
 			}
 	}
-	
-	//Confirm and cancel buttons actions
+
+	/***
+	 * preform the buttons functionality
+	 * @param e the event to be processed
+	 */
 	public void actionPerformed(ActionEvent e) 
 	{
 		if (e.getSource() == cancelButton)
@@ -243,11 +251,14 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 				}
 		}
 	}
-    
-	//Titled border function
+
+	/***
+	 *addCompForBorder - styling header
+	 */
     void addCompForBorder(Border border,
             String description,
-            Container container) {
+            Container container)
+	{
 		JPanel comp = new JPanel(new GridLayout(1, 1), false);
 		JLabel label = new JLabel(description, JLabel.CENTER);
 		comp.add(label);
@@ -255,11 +266,16 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 		container.add(Box.createRigidArea(new Dimension(0, 10)));
 		container.add(comp);
     }
+
+	/***
+	 *addCompForTitledBorder - styling header
+	 */
     void addCompForTitledBorder(TitledBorder border,
             String description,
             int justification,
             int position,
-            Container container) {
+            Container container)
+	{
 				border.setTitleJustification(justification);
 				border.setTitlePosition(position);
 				addCompForBorder(border, description,

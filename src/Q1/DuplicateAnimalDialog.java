@@ -7,15 +7,21 @@ import java.awt.event.ActionListener;
 
 
 public class DuplicateAnimalDialog extends JDialog implements ActionListener {
-    private AquaPanel ap;
-    private String[] swims;
+    private AquaPanel ap;// AquaPanel (the main panel get by reference)
+    private String[] swims; //List of choices for ComboBoxes
+
+    //Adding buttons, labels and boxes
     private JLabel animalLabel;
     private JComboBox<String> animalBox;
+    private JButton b1,b2;
     private GridLayout experimentLayout;
     private JPanel DialogPanel,buttonsPanel; // create panels to the dialog
-    private JButton b1,b2;
     private final JPanel contentPane = new JPanel();
 
+    /***
+     * Constructor
+     * @param ap - main panel passed by reference
+     */
     public DuplicateAnimalDialog(AquaPanel ap)
     {
         super();
@@ -25,7 +31,9 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
         setLayout(new BorderLayout());
         this.setTitle("Duplicate Animal Dialog");
         this.setLocationRelativeTo(null);
-        //init swims
+
+
+        //init swims list in format animal name + id
         int i =0;
         swims = new String[ap.getSwimSet().size()];
         for(Swimmable temp : ap.getSwimSet()){
@@ -45,6 +53,9 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
         setVisible(true);// show the dialog
     }
 
+    /***
+     * makes the buttons and the sub menus
+     */
     private void setPanel() {
         experimentLayout = new GridLayout(0,2);
         contentPane.setLayout(experimentLayout);
@@ -72,32 +83,46 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
 
     }
 
-    @Override
+    /***
+     * preform the buttons functionality
+     * @param e the event to be processed
+     */
     public void actionPerformed(ActionEvent e) {
+        //CLICK "Cancel" - b2
         if (e.getSource() == b2)
             this.dispose();
-        else if(e.getSource() ==b1){
+        //CLICK "Duplicate" - b1
+        else if(e.getSource() ==b1)
+            duplicate();
+    }
+
+    /***
+     * help function for duplicate button
+     */
+    private void duplicate(){
+        {
+            try
             {
-                try
-                {
-                    if(ap.getSwimSetSize()>4)
-                        throw new Exception("The maximum number of animals is 5");
-                    String animal= animalBox.getItemAt(animalBox.getSelectedIndex());
-                    int id_of_animal = animal.charAt(animal.length()-1)-48;
-                    for(Swimmable temp : ap.getSwimSet()){
-                        if (temp.getAnimalID() == id_of_animal){
-                            Swimmable s = temp.clone();
-                            ap.addAnimal(s);
-                            UpdateDuplicateAnimalDialog a = new UpdateDuplicateAnimalDialog(s);
-                            a.setVisible(true);
-                            dispose();
-                        }
+                if(ap.getSwimSetSize()>4)
+                    throw new Exception("The maximum number of animals is 5");
+                String animal= animalBox.getItemAt(animalBox.getSelectedIndex());
+                int id_of_animal = animal.charAt(animal.length()-1)-48;
+
+                //look for the right animal
+                for(Swimmable temp : ap.getSwimSet()){
+                    if (temp.getAnimalID() == id_of_animal){
+                        //clone the animal
+                        Swimmable s = temp.clone();
+                        ap.addAnimal(s);
+                        UpdateDuplicateAnimalDialog a = new UpdateDuplicateAnimalDialog(s);
+                        a.setVisible(true);
+                        dispose();
                     }
                 }
-                catch(Exception e1){
-                    if (e1.getMessage()!=null)
-                        JOptionPane.showMessageDialog(null, e1.getMessage());
-                }
+            }
+            catch(Exception e1){
+                if (e1.getMessage()!=null)
+                    JOptionPane.showMessageDialog(null, e1.getMessage());
             }
         }
     }
