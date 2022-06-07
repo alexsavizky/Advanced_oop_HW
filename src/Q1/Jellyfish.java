@@ -17,15 +17,16 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 	private Color col;							//Color of jellyfish
 	private int eatCount;						//Eat count of jellyfish
 	private int x_front, y_front, x_dir, y_dir;	//Position of jellyfish
-	private AquaPanel panel;
-	private Boolean is_moving = true;
-	private CyclicBarrier barrier=null;
-	private AquariumActionListener listen;
-	private HungerState myState;
-	private long foodFreq = 25000;
-	private Timer timer;
+	private AquaPanel panel;					//AquaPanel object
+	private Boolean is_moving = true;			//Flag for movement of jellyfish
+	private CyclicBarrier barrier = null;		//CyclicBarrier object
+	private AquariumActionListener listen;		//Custom ActionListener
+	private HungerState myState;				//State of hunger
+	private long foodFreq = 25000;				//Jellyfish is hungry every 25 seconds
+	private Timer timer;						//Timer for hunger
 	/***
 	 * Constructor
+	 * @param panel - Main panel passed by reference
 	 * @param size - Size of jellyfish 
 	 * @param x_front - Position parameter
 	 * @param y_front - Position parameter
@@ -49,8 +50,12 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 		//Starting position of the jellyfish
 		this.x_dir = 1;
 		this.y_dir = 1;
-		addActionListener(this.panel);
+
+		//Default state
 		myState = new Satiated();
+		//Adding a listener
+		addActionListener(this.panel);
+		//Start hunger timer
 		startTimer(foodFreq);
 	}
 
@@ -91,6 +96,10 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 
 	}
 
+	/***
+	 * Starts one round of the timer
+	 * @param time - how many milliseconds to execute
+	 */
 	public void startTimer(long time)
 	{
 		TimerTask task = new TimerTask() {public void run() {iAmHungry();}};
@@ -109,7 +118,6 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 	public int getY_dir() {return this.y_dir;}
 	public Color getCol() {return this.col;}
 	public int getAnimalID() {return this.id;}
-
 	public String getColor()
 	{
 		if(col == Color.black)
@@ -130,13 +138,14 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 			return "Magneta";
 		else if(col == Color.pink)
 			return "Pink";
+		//If the object changed it's color using a JColorChooser
 		else
 			return "(" + col.getRed() + ", " + col.getGreen() + ", " + col.getBlue() + ")";
 	}
 	
 	/***
 	 * Feeding jellyfish func
-	 * if the fish is full -> jellyfish's eatCount = 0 & jellyfish's size = size+1 
+	 * if the jellyfish is full -> jellyfish's eatCount = 0 & jellyfish's size = size+1
 	 */
 	public void eatInc() 
 	{
@@ -176,7 +185,7 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 		return String.format("Jellyfish \n E_DISTANCE :%d \n size :%d \n col :%d \n eatCoun :%d \n x_front :%d \n y_front :%d \n x_dir :%d \n y_dir :%d \n ", E_DISTANCE,size,col,eatCount,x_front,y_front,x_dir,y_dir);
 	}
 	//override to equals
-	public  boolean equals(Object other) {
+	public boolean equals(Object other) {
 		if (other != null && other instanceof Jellyfish){
 			return (this.size==((Jellyfish)other).getSize() && this.x_front==((Jellyfish)other).getX_front() && this.y_front==((Jellyfish)other).getY_front()
 					&& this.col==((Jellyfish)other).getCol()&& this.E_DISTANCE==((Jellyfish)other).getE_DISTANCE()
@@ -184,7 +193,11 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 		}
 		return false;
 	}
+
 	@Override
+	/***
+	 * Draw the jellyfish
+	 */
 	public void drawCreature(Graphics g)
 	{
 	   int numLegs;
@@ -202,44 +215,42 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 		g.drawLine(x_front - size/2 + size/numLegs + size*i/(numLegs+1), y_front, x_front - size/2 + size/numLegs + size*i/(numLegs+1), y_front+size/3);
 	}
 
-	
 	/***
-	 * stop the moving of the jellyfish
+	 * Stop the moving of the jellyfish
 	 */
 	public void setSuspend() {
 		this.is_moving = false;
 	}
 	
 	/***
-	 * restart the move of the jellyfish
+	 * Restart the move of the jellyfish
 	 */
 	public void setResume() {
 		synchronized(this){
 			this.is_moving = true;
-		
 			notify();
 		}
 	}
 
 	/***
-	 * set cyclic barrier
+	 * Set cyclic barrier
 	 */
 	public void setBarrier(CyclicBarrier b) {
 		this.barrier=b;
-		
 	}
 
 	/***
-	 * run overide function 
+	 * run override function
 	 */
 	public void run() {
 		while(true) {
-			//System.out.println(this.x_front);
 			try
 			{
 				sleep(10);
+				//If worm isn't on screen
 				if(!panel.is_worm())
 				{
+					//If the jellyfish is moving
 					if(this.is_moving == true) {
 						moveRandom();
 					}
@@ -250,16 +261,19 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 					}
 				}
 				else {
+					//If the jellyfish sleeps
 					if (this.is_moving == false)
 					{
 						synchronized(this){
 							wait();
 						}
 					}
+					//If the jellyfish is moving and hungry -> swim to food
 					else if((this.is_moving == true) && (myState instanceof Hungry))
 					{
 						movetoFood();
 					}
+					//The jellyfish isn't hungry -> normal swim
 					else
 					{
 						moveRandom();
@@ -273,6 +287,7 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 	 * move to the center to eat the worm
 	 */
 	public void movetoFood() {
+		//If the jellyfish is close to the worm
 		if((Math.abs(panel.getWidth()/2-x_front)<=5) && (Math.abs(panel.getHeight()/2-y_front)<=5))
 		{
 			panel.eatWorm();
@@ -280,6 +295,7 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 			this.setHungryState(new Satiated());
 			this.startTimer(foodFreq);
 		}
+		//Swim to the worm
 		else {
 			if(this.x_front > panel.getWidth()/2&& x_dir ==1 )
 			{
@@ -307,7 +323,7 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 		}
 	}
 	/***
-	 * moving of the jellyfish without a food 
+	 * Movement of the jellyfish without food
 	 */
 	public void moveRandom() {
 		if(this.x_front > panel.getWidth()-this.size/4&& x_dir ==1 )
@@ -329,6 +345,8 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 		this.x_front += this.horSpeed*this.x_dir;
 		this.y_front += this.verSpeed*this.y_dir;
 	}
+
+	//Clone functions for jellyfish
 	public Jellyfish clone(){
 		return new Jellyfish(panel,size,x_front,y_front,horSpeed,verSpeed,col);
 	}
@@ -341,6 +359,9 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 	}
 
 	@Override
+	/***
+	 * Re-create the jellyfish using previous parameters
+	 */
 	public boolean SetMementoState(MementoState state) {
 		this.col = state.color;
 		this.x_front = state.x;
@@ -351,20 +372,34 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 		return true;
 	}
 
+	/***
+	 * The jellyfish informs she's hungry
+	 */
 	public void iAmHungry()
 	{
 		listen.actionHungryFish(this);
 	}
 
+	//Add a listener
 	public void addActionListener(AquariumActionListener aal)
 	{
 		this.listen = aal;
 	}
+	//Remove a listener
 	public void RemoveListen(){
 		this.timer.cancel();
 		this.listen = null;
 	}
+
+	/***
+	 * Change the color of the jellyfish
+	 * @param col - Desired color
+	 */
 	public void PaintFish(Color col){this.col = col;}
 
+	/***
+	 * Change the hunger state of the jellyfish
+	 * @param state - Desired state
+	 */
 	public void setHungryState(HungerState state) {this.myState = state;}
 }

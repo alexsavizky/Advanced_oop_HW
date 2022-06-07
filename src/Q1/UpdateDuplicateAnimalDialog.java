@@ -19,7 +19,7 @@ public class UpdateDuplicateAnimalDialog extends JDialog implements ActionListen
 
     /***
      * Creating the dialog
-     * @param clone - Saving the clone for later use
+     * @param clone - Saving the clone for later use and creating a clone
      */
     public UpdateDuplicateAnimalDialog(Swimmable clone){
         //Basic dialog settings
@@ -87,11 +87,17 @@ public class UpdateDuplicateAnimalDialog extends JDialog implements ActionListen
      * Functionality for buttons
      */
     public void actionPerformed(ActionEvent e) {
+        //CLICK "Cancel"
         if (e.getSource() == cancelButton)
             dispose();
+        //CLICK "Confirm"
         else if (e.getSource() == confirmButton)
             changeDuplicate();
     }
+
+    /***
+     * Giving the new clone new parameters
+     */
     public void changeDuplicate()
     {
         Color color = Color.black;
@@ -99,6 +105,7 @@ public class UpdateDuplicateAnimalDialog extends JDialog implements ActionListen
         String colorname;
         try
         {
+            //Getting info from dialog
             colorname = colorBox.getItemAt(colorBox.getSelectedIndex());
             size = Integer.parseInt(sizetxt.getText());
             h = Integer.parseInt(horSpeedtxt.getText());
@@ -129,8 +136,10 @@ public class UpdateDuplicateAnimalDialog extends JDialog implements ActionListen
             else if(colorname == "Pink")
                 color = Color.pink;
 
+            //Create the clone
             clone.SetClone(size,h,v,color);
 
+            //Close dialog
             dispose();
         }
         catch(Exception e1){
