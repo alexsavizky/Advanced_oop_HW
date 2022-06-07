@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class SaveStateDialog extends JDialog implements ActionListener {
     private AquaPanel ap;
@@ -92,20 +93,32 @@ public class SaveStateDialog extends JDialog implements ActionListener {
         else if(e.getSource() ==b1){
             String animal= animalBox.getItemAt(animalBox.getSelectedIndex());
             int id_of_animal = animal.charAt(animal.length()-1)-48;
+            animal = animal.substring(0,animal.length()-2);
             for(Swimmable temp : ap.getSwimSet()){
                 if (temp.getAnimalID() == id_of_animal){
-                    if(temp.getAnimalName()=="Fish") {
+                    if(Objects.equals(temp.getAnimalName(), animal) && Objects.equals(temp.getAnimalName(), "Fish") ) {
                         originator.setState(new MementoState((Fish)temp));
                         caretaker.addMemento(originator.save());
                     }
-                    else if (temp.getAnimalName()=="Jellyfish"){
+                    else if (Objects.equals(temp.getAnimalName(), animal) && Objects.equals(temp.getAnimalName(), "Jellyfish")){
                         originator.setState(new MementoState((Jellyfish)temp));
                         caretaker.addMemento(originator.save());
                     }
-
-                    dispose();
                 }
             }
+            for(Immobile temp : ap.getImmobileSet()){
+                if (temp.getPlantId() == id_of_animal){
+                    if(Objects.equals(temp.name, animal) && Objects.equals(temp.name, "Laminaria") ) {
+                        originator.setState(new MementoState((Laminaria)temp));
+                        caretaker.addMemento(originator.save());
+                    }
+                    else if (Objects.equals(temp.name, animal) && Objects.equals(temp.name, "Zostera")){
+                        originator.setState(new MementoState((Zostera)temp));
+                        caretaker.addMemento(originator.save());
+                    }
+                }
+            }
+            dispose();
         }
     }
 }

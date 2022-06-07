@@ -55,6 +55,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 
 		myState = new Satiated();
 		startTimer(20000L);
+
 	}
 
 	public void startTimer(long time)

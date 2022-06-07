@@ -81,6 +81,8 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
             this.dispose();
         else if(e.getSource() ==b1){
             {
+                String animal= animalBox.getItemAt(animalBox.getSelectedIndex());
+                int id_of_animal = animal.charAt(animal.length()-1)-48;
                 try
                 {
                     if(ap.getSwimSetSize()>4)
@@ -89,8 +91,11 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
                     int id_of_animal = animal.charAt(animal.length()-1)-48;
                     for(Swimmable temp : ap.getSwimSet()){
                         if (temp.getAnimalID() == id_of_animal){
-                            ap.addAnimal(temp.clone());
-                            UpdateDuplicateAnimal a = new UpdateDuplicateAnimal(temp);
+//                            Aasf = new AnimalFactory(ap, size, xx, yy, h, v, color);
+//                            creature = asf.produceSeaCreature("Fish");
+                            Swimmable s = temp.clone();
+                            ap.addAnimal(s);
+                            UpdateDuplicateAnimal a = new UpdateDuplicateAnimal(s);
                             a.setVisible(true);
                             dispose();
                         }

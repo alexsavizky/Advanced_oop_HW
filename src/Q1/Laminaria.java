@@ -29,4 +29,12 @@ public class Laminaria extends Immobile
     public int getPlantId() {
         return this.id;
     }
+
+    @Override
+    public boolean SetMementoState(MementoState state) {
+        this.x = state.x;
+        this.y = state.y;
+        this.colorr = state.color;
+        return true;
+    }
 }

@@ -29,4 +29,5 @@ public abstract class Immobile implements SeaCreature
         this.colorr=Color.green;
     }
     abstract public int getPlantId();
+    abstract public boolean SetMementoState(MementoState state);
 }
