@@ -205,6 +205,8 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 			
 			if (infoFlag == false) 
 			{
+				if (wormsingle!=null)
+					this.remove(picLabel);
 				String name, color;
 				int size, h, v, food, id, freq, all = 0;
 				itrAnimals = swimSet.iterator();
@@ -248,6 +250,8 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 			//Hiding info
 			else 
 			{
+				if (wormsingle!=null)
+					this.add(picLabel);
 				remove(jsc);
 				validate();
 				repaint();
