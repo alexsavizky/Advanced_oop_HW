@@ -22,6 +22,7 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 	private CyclicBarrier barrier=null;
 	private AquariumActionListener listen;
 	private HungerState myState;
+	private long foodFreq = 25000;
 	private Timer timer;
 	/***
 	 * Constructor
@@ -50,9 +51,8 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 		this.y_dir = 1;
 		addActionListener(this.panel);
 		myState = new Satiated();
-		startTimer(25000L);
+		startTimer(foodFreq);
 	}
-
 
 	/***
 	 * copy constructor
@@ -278,7 +278,7 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 			panel.eatWorm();
 			this.eatInc();
 			this.setHungryState(new Satiated());
-			this.startTimer(25000L);
+			this.startTimer(foodFreq);
 		}
 		else {
 			if(this.x_front > panel.getWidth()/2&& x_dir ==1 )
@@ -367,5 +367,4 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 	public void PaintFish(Color col){this.col = col;}
 
 	public void setHungryState(HungerState state) {this.myState = state;}
-	public HungerState getHungryState() {return this.myState;}
 }

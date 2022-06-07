@@ -25,6 +25,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 	private CyclicBarrier barrier=null;
 	private AquariumActionListener listen;
 	private HungerState myState;
+	private long foodFreq = 20000;
 	private Timer timer;
 	
 	/***
@@ -55,7 +56,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 
 		myState = new Satiated();
 		addActionListener(this.panel);
-		startTimer(20000L);
+		startTimer(foodFreq);
 
 	}
 
@@ -316,7 +317,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 			panel.eatWorm();
 			this.eatInc();
 			this.setHungryState(new Satiated());
-			this.startTimer(20000L);
+			this.startTimer(foodFreq);
 		}
 		else 
 		{
@@ -411,5 +412,4 @@ public class Fish extends Swimmable implements MarineAnimal{
 	public void PaintFish(Color col){this.col = col;}
 
 	public void setHungryState(HungerState state) {this.myState = state;}
-	public HungerState getHungryState() {return this.myState;}
 }

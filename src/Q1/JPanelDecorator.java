@@ -26,10 +26,9 @@ public class JPanelDecorator extends JPanel implements ActionListener
     private Iterator<Swimmable> itrAnimals;
 
     private String[] swims;
-
     private AquaPanel ap;
-
     private ImageIcon img3 = new ImageIcon("src/nicefish.png");
+    private MarineAnimalDecorator mad;
 
     public JPanelDecorator(AquaPanel ap)
     {
@@ -95,8 +94,6 @@ public class JPanelDecorator extends JPanel implements ActionListener
         decoratorDialog.setVisible(true);
     }
 
-
-
     public void actionPerformed(ActionEvent e)
     {
 
@@ -127,13 +124,14 @@ public class JPanelDecorator extends JPanel implements ActionListener
         {
             colorChooser = new JColorChooser();
             Color col = JColorChooser.showDialog(null, "Choose a color", currCol);
-            if (col!=null)
-                s.PaintFish(col);
+            if (col!=null){
+                mad = new MarineAnimalDecorator(s);
+                mad.PaintFish(col);
+            }
         }
         catch(Exception e1){
             JOptionPane.showMessageDialog(null, e1.getMessage());
         }
-
     }
 
     public MarineAnimal getTheID(int id, HashSet<Swimmable> swimSet)

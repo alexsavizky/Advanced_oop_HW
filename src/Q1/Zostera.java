@@ -1,19 +1,25 @@
 package Q1;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Polygon;
-import java.util.concurrent.CyclicBarrier;
 
 public class Zostera extends Immobile
 {
+    /***
+     * @param panel - AquaPanel object
+     * @param size - The Zostera size
+     * @param x - X spawn location
+     * @param y - Y spawn location
+     */
     public Zostera(AquaPanel panel,int size,int x,int y)
     {
         super(panel,size,"Zostera",x,y);
     }
 
+    /***
+     * Drawing a Zostera func
+     */
     public void drawCreature(Graphics g)
     {
         Graphics2D g2 = (Graphics2D) g;
@@ -32,11 +38,18 @@ public class Zostera extends Immobile
     }
 
     @Override
+    /***
+     * Get Zostera ID number
+     */
     public int getPlantId() {
         return this.id;
     }
 
     @Override
+    /***
+     * @param state
+     * @return True if the state has changed
+     */
     public boolean SetMementoState(MementoState state) {
         this.x = state.x;
         this.y = state.y;
