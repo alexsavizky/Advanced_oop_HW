@@ -35,7 +35,7 @@ public class AddAnimalDialog extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	
 	//Icon for dialog
-	private ImageIcon img2 = new ImageIcon("whale.png");
+	private ImageIcon img2 = new ImageIcon("src/whale.png");
 
 	
 	//Adding buttons, labels and boxes

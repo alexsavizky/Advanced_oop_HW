@@ -25,7 +25,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 	private CyclicBarrier barrier=null;
 	private AquariumActionListener listen;
 	private HungerState myState;
-	protected Timer timer;
+	private Timer timer;
 	
 	/***
 	 * Constructor
@@ -57,26 +57,11 @@ public class Fish extends Swimmable implements MarineAnimal{
 		startTimer(20000L);
 	}
 
-	/////
 	public void startTimer(long time)
 	{
-		TimerTask task = new TimerTask() {
-			public void run() {
-//				System.out.println("Task performed on: " + new Date() + "n" +
-//						"Thread's name: " + Thread.currentThread().getName());
-				iAmHungry();
-			}
-		};
+		TimerTask task = new TimerTask() {public void run() {iAmHungry();}};
 		timer = new Timer("Timer");
 		timer.schedule(task, time);
-
-//		timer = new Timer();
-//		timer.schedule(new TimerTask() {
-//			public void run()
-//			{
-//				iAmHungry();
-//			}
-//		}, 0, time);
 	}
 	
 
@@ -146,7 +131,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 		else if(col == Color.pink)
 			return "Pink";
 		else
-			return "R:" + col.getRed() + ", G:" + col.getGreen() + ", B:" + col.getBlue();
+			return "(" + col.getRed() + ", " + col.getGreen() + ", " + col.getBlue() + ")";
 	}
 	
 	/***
@@ -270,7 +255,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 				sleep(10);
 				if(!panel.is_worm())
 				{
-					if(this.is_moving == true) {	
+					if(this.is_moving == true) {
 						moveRandom();
 					}
 					else {
@@ -365,6 +350,10 @@ public class Fish extends Swimmable implements MarineAnimal{
 	 * moving of the fish without a food 
 	 */
 	public void moveRandom() {
+
+		this.x_front += this.horSpeed*this.x_dir;
+		this.y_front += this.verSpeed*this.y_dir;
+
 		if(this.x_front > panel.getWidth() - this.size/2 && x_dir ==1 )
 		{
 			x_dir =-1;
@@ -381,8 +370,8 @@ public class Fish extends Swimmable implements MarineAnimal{
 		{
 			y_dir =1;
 		}
-		this.x_front += this.horSpeed*this.x_dir;
-		this.y_front += this.verSpeed*this.y_dir;
+//		this.x_front += this.horSpeed*this.x_dir;
+//		this.y_front += this.verSpeed*this.y_dir;
 	}
 	public Fish clone(){
 		return new Fish(panel,size,x_front,y_front,horSpeed,verSpeed,col);

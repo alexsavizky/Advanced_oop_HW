@@ -156,19 +156,19 @@ public class AddPlantDialog extends JDialog implements ActionListener
 //            int yy = rand.nextInt(ap.getHeight());
             rand = new Random();
             int xx = rand.nextInt(ap.getWidth());
-            rand = new Random();
-            int yy = rand.nextInt(ap.getHeight());
+//            rand = new Random();
+//            int yy = rand.nextInt(ap.getHeight());
 
             //Adding a plant
             if (plantname == "Laminaria")
             {
-                asf = new PlantFactory(ap, size, xx, yy);
+                asf = new PlantFactory(ap, size, xx, ap.getHeight() - 30);
                 creature = asf.produceSeaCreature("Laminaria");
                 ap.addPlant((Immobile)creature);
             }
             else if (plantname == "Zostera")
             {
-                asf = new PlantFactory(ap, size, xx, yy);
+                asf = new PlantFactory(ap, size, xx, ap.getHeight() - 30);
                 creature = asf.produceSeaCreature("Zostera");
                 ap.addPlant((Immobile)creature);
             }

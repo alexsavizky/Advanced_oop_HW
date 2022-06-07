@@ -180,7 +180,7 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 			{
 				try {
 					//Adding a picture of a worm
-					picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("Caterpie-icon.png"))));
+					picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("src/Caterpie-icon.png"))));
 					add(picLabel,BorderLayout.CENTER);
 					this.validate();
 					//repaint();

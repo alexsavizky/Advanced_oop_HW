@@ -22,7 +22,7 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
         super();
         //Starting the dialog
         this.ap = ap;
-        setSize(450, 305);
+        setSize(450, 105);
         setLayout(new BorderLayout());
         this.setTitle("Duplicate Animal Dialog");
         this.setLocationRelativeTo(null);
@@ -54,7 +54,7 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
 
         DialogPanel=new JPanel(new BorderLayout());
         buttonsPanel = new JPanel(new FlowLayout());
-        animalLabel = new JLabel("Choose an animal:");
+        animalLabel = new JLabel("  Choose an animal:");
         animalBox = new JComboBox<String>(swims);
 
 
@@ -77,17 +77,16 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String animal= animalBox.getItemAt(animalBox.getSelectedIndex());
-        int id_of_animal = animal.charAt(animal.length()-1)-48;
         if (e.getSource() == b2)
-            dispose();
+            this.dispose();
         else if(e.getSource() ==b1){
             {
                 try
                 {
                     if(ap.getSwimSetSize()>4)
                         throw new Exception("The maximum number of animals is 5");
-
+                    String animal= animalBox.getItemAt(animalBox.getSelectedIndex());
+                    int id_of_animal = animal.charAt(animal.length()-1)-48;
                     for(Swimmable temp : ap.getSwimSet()){
                         if (temp.getAnimalID() == id_of_animal){
                             ap.addAnimal(temp.clone());
