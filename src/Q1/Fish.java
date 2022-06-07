@@ -59,16 +59,11 @@ public class Fish extends Swimmable implements MarineAnimal{
 
 	}
 
-	/////
-	public void startTimer(long time) {
-		TimerTask task = new TimerTask() {
-			public void run() {
-				iAmHungry();
-			}
-		};
+	public void startTimer(long time)
+	{
+		TimerTask task = new TimerTask() {public void run() {iAmHungry();}};
 		timer = new Timer("Timer");
 		timer.schedule(task, time);
-
 	}
 	
 
@@ -138,7 +133,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 		else if(col == Color.pink)
 			return "Pink";
 		else
-			return "R:" + col.getRed() + ", G:" + col.getGreen() + ", B:" + col.getBlue();
+			return "(" + col.getRed() + ", " + col.getGreen() + ", " + col.getBlue() + ")";
 	}
 	
 	/***
@@ -261,7 +256,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 				sleep(10);
 				if(!panel.is_worm())
 				{
-					if(this.is_moving == true) {	
+					if(this.is_moving == true) {
 						moveRandom();
 					}
 					else {
@@ -374,8 +369,8 @@ public class Fish extends Swimmable implements MarineAnimal{
 		{
 			y_dir =1;
 		}
-		this.x_front += this.horSpeed*this.x_dir;
-		this.y_front += this.verSpeed*this.y_dir;
+//		this.x_front += this.horSpeed*this.x_dir;
+//		this.y_front += this.verSpeed*this.y_dir;
 	}
 	public Fish clone(){
 		return new Fish(panel,size,x_front,y_front,horSpeed,verSpeed,col);

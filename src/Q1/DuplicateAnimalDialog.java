@@ -23,7 +23,7 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
         super();
         //Starting the dialog
         this.ap = ap;
-        setSize(450, 305);
+        setSize(450, 105);
         setLayout(new BorderLayout());
         this.setTitle("Duplicate Animal Dialog");
         this.setLocationRelativeTo(null);
@@ -55,7 +55,7 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
 
         DialogPanel=new JPanel(new BorderLayout());
         buttonsPanel = new JPanel(new FlowLayout());
-        animalLabel = new JLabel("Choose an animal:");
+        animalLabel = new JLabel("  Choose an animal:");
         animalBox = new JComboBox<String>(swims);
 
 
@@ -78,9 +78,8 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         if (e.getSource() == b2)
-            dispose();
+            this.dispose();
         else if(e.getSource() ==b1){
             {
 

@@ -12,7 +12,7 @@ public class PlantFactory implements AbstractSeaFactory
         this.panel=panel;
         this.size=size;
         this.x=x;
-        this.y=x;
+        this.y=y;
         this.col=Color.green;
     }
     public SeaCreature produceSeaCreature(String type)

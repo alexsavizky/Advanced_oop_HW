@@ -123,8 +123,6 @@ public class JPanelDecorator extends JPanel implements ActionListener
 
         currCol = getObjectCol(id_of_animal, swimSet);
 
-        System.out.println(currCol.toString());
-
         try
         {
             colorChooser = new JColorChooser();

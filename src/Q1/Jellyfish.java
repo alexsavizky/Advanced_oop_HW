@@ -94,26 +94,11 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 
 	}
 
-	/////
 	public void startTimer(long time)
 	{
-		TimerTask task = new TimerTask() {
-			public void run() {
-//				System.out.println("Task performed on: " + new Date() + "n" +
-//						"Thread's name: " + Thread.currentThread().getName());
-				iAmHungry();
-			}
-		};
+		TimerTask task = new TimerTask() {public void run() {iAmHungry();}};
 		timer = new Timer("Timer");
 		timer.schedule(task, time);
-
-//		timer = new Timer();
-//		timer.schedule(new TimerTask() {
-//			public void run()
-//			{
-//				iAmHungry();
-//			}
-//		}, 0, time);
 	}
 	
 	//get functions
@@ -149,7 +134,7 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 		else if(col == Color.pink)
 			return "Pink";
 		else
-			return "R:" + col.getRed() + ", G:" + col.getGreen() + ", B:" + col.getBlue();
+			return "(" + col.getRed() + ", " + col.getGreen() + ", " + col.getBlue() + ")";
 	}
 	
 	/***
