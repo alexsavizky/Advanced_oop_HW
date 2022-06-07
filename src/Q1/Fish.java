@@ -20,16 +20,17 @@ public class Fish extends Swimmable implements MarineAnimal{
 	private Color col;							//Color of fish
 	private int eatCount;						//Eat count of fish
 	private int x_front, y_front, x_dir, y_dir;	//Position of fish
-	private AquaPanel panel;
-	private Boolean is_moving = true;
-	private CyclicBarrier barrier=null;
-	private AquariumActionListener listen;
-	private HungerState myState;
-	private long foodFreq = 20000;
-	private Timer timer;
+	private AquaPanel panel;					//AquaPanel object
+	private Boolean is_moving = true;			//Flag for movement of fish
+	private CyclicBarrier barrier=null;			//CyclicBarrier object
+	private AquariumActionListener listen;		//Custom ActionListener
+	private HungerState myState;				//State of hunger
+	private long foodFreq = 20000;				//fish is hungry every 20 seconds
+	private Timer timer;						//Timer for hunger
 	
 	/***
 	 * Constructor
+	 * @param panel - Main panel passed by reference
 	 * @param size - Size of fish 
 	 * @param x_front - Position parameter
 	 * @param y_front - Position parameter
@@ -54,20 +55,29 @@ public class Fish extends Swimmable implements MarineAnimal{
 		this.x_dir = 1;
 		this.y_dir = 1;
 
+		//Default state
 		myState = new Satiated();
+		//Adding a listener
 		addActionListener(this.panel);
+		//Start hunger timer
 		startTimer(foodFreq);
-
 	}
 
+	/***
+	 * Starts one round of the timer
+	 * @param time - how many milliseconds to execute
+	 */
 	public void startTimer(long time)
 	{
 		TimerTask task = new TimerTask() {public void run() {iAmHungry();}};
 		timer = new Timer("Timer");
 		timer.schedule(task, time);
 	}
-	
 
+	/***
+	 * default constructor
+	 * @return default Fish object
+	 */
 	public Fish()
 	{
 		super();
@@ -133,6 +143,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 			return "Magneta";
 		else if(col == Color.pink)
 			return "Pink";
+		//If the object changed it's color using a JColorChooser
 		else
 			return "(" + col.getRed() + ", " + col.getGreen() + ", " + col.getBlue() + ")";
 	}
@@ -189,7 +200,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 	}
 
 	/***
-	 * drawing the fish
+	 * Draw the fish
 	 */
 	public void drawCreature(Graphics g)
 	{
@@ -248,15 +259,17 @@ public class Fish extends Swimmable implements MarineAnimal{
 	   }
 	}
 	/***
-	 * run overide function
+	 * run override function
 	 */
 	public void run() {
 		while(true) {
 			try
 			{
 				sleep(10);
+				//If worm isn't on screen
 				if(!panel.is_worm())
 				{
+					//If the fish is moving
 					if(this.is_moving == true) {
 						moveRandom();
 					}
@@ -267,16 +280,19 @@ public class Fish extends Swimmable implements MarineAnimal{
 					}
 				}
 				else {
+					//If the fish sleeps
 					if (this.is_moving == false)
 					{
 						synchronized(this){
 							wait();
 						}
 					}
+					//If the fish is moving and hungry -> swim to food
 					else if((this.is_moving == true) && (myState instanceof Hungry))
 					{
 						movetoFood();
 					}
+					//The fish isn't hungry -> normal swim
 					else
 					{
 						moveRandom();
@@ -286,15 +302,17 @@ public class Fish extends Swimmable implements MarineAnimal{
 			panel.repaint();
 		}
 	}
+
 	/***
-	 * stop the moving of the fish
+	 * Stop the moving of the fish
 	 */
 	public void setSuspend() {
 		this.is_moving = false;
 		
 	}
+
 	/***
-	 * restart the move of the fish
+	 * Restart the move of the fish
 	 */
 	public void setResume() {
 		synchronized(this){
@@ -302,16 +320,19 @@ public class Fish extends Swimmable implements MarineAnimal{
 			notify();
 		}
 	}
+
 	/***
-	 * set cyclic barrier
+	 * Set cyclic barrier
 	 */
 	public void setBarrier(CyclicBarrier b) {
 		this.barrier=b;
 	}
+
 	/***
-	 * move to the center to eat the worm
+	 * Move to the center to eat the worm
 	 */
 	public void movetoFood() {
+		//If the fish is close to the worm
 		if((Math.abs(panel.getWidth()/2-x_front)<=5) && (Math.abs(panel.getHeight()/2-y_front)<=5))
 		{
 			panel.eatWorm();
@@ -319,6 +340,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 			this.setHungryState(new Satiated());
 			this.startTimer(foodFreq);
 		}
+		//Swim to the worm
 		else 
 		{
 			if(this.x_front > panel.getWidth()/2&& x_dir ==1 )
@@ -349,7 +371,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 	}
 	
 	/***
-	 * moving of the fish without a food 
+	 * Movement of the fish without a food
 	 */
 	public void moveRandom() {
 		if(this.x_front > panel.getWidth() - this.size/4 && x_dir ==1 )
@@ -373,6 +395,8 @@ public class Fish extends Swimmable implements MarineAnimal{
 		this.x_front += this.horSpeed*this.x_dir;
 		this.y_front += this.verSpeed*this.y_dir;
 	}
+
+	//Clone functions for fish
 	public Fish clone(){
 		return new Fish(panel,size,x_front,y_front,horSpeed,verSpeed,col);
 	}
@@ -385,6 +409,9 @@ public class Fish extends Swimmable implements MarineAnimal{
 	}
 
 	@Override
+	/***
+	 * Re-create the fish using previous parameters
+	 */
 	public boolean SetMementoState(MementoState state) {
 		this.col = state.color;
 		this.x_front = state.x;
@@ -395,21 +422,34 @@ public class Fish extends Swimmable implements MarineAnimal{
 		return true;
 	}
 
+	/***
+	 * The fish informs he's hungry
+	 */
 	public void iAmHungry()
 	{
 		listen.actionHungryFish(this);
 	}
 
+	//Add a listener
 	public void addActionListener(AquariumActionListener aal)
 	{
 		this.listen = aal;
 	}
+	//Remove a listener
 	public void RemoveListen(){
 		this.timer.cancel();
 		this.listen = null;
 	}
 
+	/***
+	 * Change the color of the fish
+	 * @param col - Desired color
+	 */
 	public void PaintFish(Color col){this.col = col;}
 
+	/***
+	 * Change the hunger state of the fish
+	 * @param state - Desired state
+	 */
 	public void setHungryState(HungerState state) {this.myState = state;}
 }

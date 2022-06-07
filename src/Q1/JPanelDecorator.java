@@ -12,24 +12,27 @@ import javax.swing.border.TitledBorder;
 
 public class JPanelDecorator extends JPanel implements ActionListener
 {
-    private JColorChooser colorChooser;
-    private JPanel contentPane;
-    private JPanel buttons;
-    private JButton changeColorButton;
-    private JLabel lbl;
-    private JDialog decoratorDialog;
-    private JComboBox<String> animalBox;
-    private String animalFromBox;
-    private Color currCol;
+    private JColorChooser colorChooser;                                 //JColorChooser for desired color
+    private JPanel contentPane, buttons;                                //Panels for buttons and content
+    private JButton changeColorButton;                                  //Button
+    private JLabel lbl;                                                 //Label
+    private JDialog decoratorDialog;                                    //Dialog
+    private JComboBox<String> animalBox;                                //ComboBox
+    private String animalFromBox;                                       //Chosen animal from ComboBox
+    private Color currCol;                                              //Current color
+    private HashSet<Swimmable> swimSet;                                 //HashSet of Swimmables
 
-    private HashSet<Swimmable> swimSet;
     private Iterator<Swimmable> itrAnimals;
 
-    private String[] swims;
-    private AquaPanel ap;
-    private ImageIcon img3 = new ImageIcon("src/nicefish.png");
-    private MarineAnimalDecorator mad;
+    private String[] swims;                                             //List of strings
+    private AquaPanel ap;                                               //AquaPanel object
+    private ImageIcon img3 = new ImageIcon("src/nicefish.png"); //Icon for panel
+    private MarineAnimalDecorator mad;                                  //MarineAnimalDecorator object
 
+    /***
+     * Constructor
+     * @param ap - Main panel passed by reference
+     */
     public JPanelDecorator(AquaPanel ap)
     {
         super();
@@ -38,7 +41,7 @@ public class JPanelDecorator extends JPanel implements ActionListener
 
         setLayout(new BorderLayout());
 
-        //--- Making a Change Color button --- buttons
+        //Making a Change Color button ---> buttons
         buttons = new JPanel();
         buttons.setLayout(new GridLayout(0,1,0,0));
         changeColorButton = new JButton("Change Color");
@@ -47,12 +50,15 @@ public class JPanelDecorator extends JPanel implements ActionListener
         changeColorButton.addActionListener(this);
 
 
-        //--- Displaying and choosing a fish to change color --- contentPane
+        //Displaying and choosing a fish to change color ---> contentPane
         contentPane = new JPanel();
         contentPane.setLayout(new GridLayout(0,2,0,0));
         lbl = new JLabel("  Choose an existing animal:");
         contentPane.add(lbl);
+
         int i = 0;
+
+        //Info about swimmables for contentPane
         swims = new String[ap.getSwimSet().size()];
         for(Swimmable temp : this.ap.getSwimSet())
         {
@@ -68,7 +74,7 @@ public class JPanelDecorator extends JPanel implements ActionListener
         contentPane.add(animalBox);
 
 
-        //--- Titled border header --- matteBorders
+        //Titled border header ---> matteBorders
         JPanel matteBorders = new JPanel();
         TitledBorder titled = BorderFactory.createTitledBorder("Decorate an animal");
         titled.setTitleFont(getFont());
@@ -83,12 +89,15 @@ public class JPanelDecorator extends JPanel implements ActionListener
         add(contentPane,BorderLayout.CENTER);
         add(matteBorders,BorderLayout.NORTH);
 
+        //Creating a dialog
         decoratorDialog = new JDialog();
         decoratorDialog.setSize(500, 145);
         decoratorDialog.setLayout(new BorderLayout());
         decoratorDialog.setTitle("Decorator");
         decoratorDialog.setLocationRelativeTo(null);
         decoratorDialog.setIconImage(img3.getImage());
+
+        //Adding the panel to the new dialog
         decoratorDialog.add(this);
 
         decoratorDialog.setVisible(true);
@@ -96,7 +105,7 @@ public class JPanelDecorator extends JPanel implements ActionListener
 
     public void actionPerformed(ActionEvent e)
     {
-
+        //CLICK "Change Color"
         if (e.getSource() == changeColorButton)
         {
             try
@@ -112,18 +121,25 @@ public class JPanelDecorator extends JPanel implements ActionListener
         }
     }
 
+    /***
+     * Get info from dialog
+     */
     public void GetFromBox()
     {
+        //Getting the desired animal from the dialog
         animalFromBox = animalBox.getItemAt(animalBox.getSelectedIndex());
         int id_of_animal = animalFromBox.charAt(animalFromBox.length()-1)-48;
-        MarineAnimal s = getTheID(id_of_animal, swimSet);
+        MarineAnimal s = getFromID(id_of_animal, swimSet);
 
+        //Saving the current color
         currCol = getObjectCol(id_of_animal, swimSet);
 
         try
         {
             colorChooser = new JColorChooser();
             Color col = JColorChooser.showDialog(null, "Choose a color", currCol);
+
+            //If a color was chosen
             if (col!=null){
                 mad = new MarineAnimalDecorator(s);
                 mad.PaintFish(col);
@@ -134,7 +150,13 @@ public class JPanelDecorator extends JPanel implements ActionListener
         }
     }
 
-    public MarineAnimal getTheID(int id, HashSet<Swimmable> swimSet)
+    /***
+     * Get an animal from a swimset using an ID
+     * @param id - ID of desired animal
+     * @param swimSet - HashSet of swimmables
+     * @return Desired animal
+     */
+    public MarineAnimal getFromID(int id, HashSet<Swimmable> swimSet)
     {
         itrAnimals = swimSet.iterator();
         while(itrAnimals.hasNext())
@@ -151,6 +173,12 @@ public class JPanelDecorator extends JPanel implements ActionListener
         return null;
     }
 
+    /***
+     * Get color of an animal from a swimset using an ID
+     * @param id - ID of desired animal
+     * @param swimSet - HashSet of swimmables
+     * @return The desired animal color
+     */
     public Color getObjectCol(int id, HashSet<Swimmable> swimSet)
     {
         itrAnimals = swimSet.iterator();
@@ -163,7 +191,9 @@ public class JPanelDecorator extends JPanel implements ActionListener
         return null;
     }
 
-    //Titled border function
+    /***
+     * Styling the header
+     */
     void addCompForBorder(Border border,
                           String description,
                           Container container) {
@@ -174,6 +204,9 @@ public class JPanelDecorator extends JPanel implements ActionListener
         container.add(Box.createRigidArea(new Dimension(0, 10)));
         container.add(comp);
     }
+    /***
+     * Styling the header
+     */
     void addCompForTitledBorder(TitledBorder border,
                                 String description,
                                 int justification,
