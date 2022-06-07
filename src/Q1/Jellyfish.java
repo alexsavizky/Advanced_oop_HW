@@ -347,6 +347,27 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 		this.x_front += this.horSpeed*this.x_dir;
 		this.y_front += this.verSpeed*this.y_dir;
 	}
+	public Jellyfish clone(){
+		return new Jellyfish(panel,size,x_front,y_front,horSpeed,verSpeed,col);
+	}
+	public boolean SetClone(int size , int horspeed,int verspeed,Color color){
+		this.size = size;
+		this.horSpeed = horspeed;
+		this.verSpeed = verspeed;
+		this.col = color;
+		return true;
+	}
+
+	@Override
+	public boolean SetMementoState(MementoState state) {
+		this.col = state.color;
+		this.x_front = state.x;
+		this.y_front = state.y;
+		this.horSpeed =state.hor_speed;
+		this.verSpeed = state.ver_speed;
+		this.size = state.size;
+		return true;
+	}
 
 	public void iAmHungry()
 	{

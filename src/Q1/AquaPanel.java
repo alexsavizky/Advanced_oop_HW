@@ -27,7 +27,7 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 	
 	//AddAnimalDialog for use
 	private AddAnimalDialog aad;
-	private AddPlantDialog apd;
+	private DuplicateAnimalDialog dad;
 	
 	//Background image for panel
 	protected Image background = null;
@@ -38,8 +38,12 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 	private JLabel picLabel;
 	private JTable table;
 	private JScrollPane jsc;
+
+	private AddPlantDialog apd;
+
 	private JDialog decoratorDialog;
 	private JPanelDecorator decorator;
+
 	
 	//Swimmable hashset
 	private HashSet<Swimmable> swimSet = new HashSet<Swimmable>();
@@ -51,7 +55,7 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 	//Flags for worm and info
 	private Singleton wormsingle = null;
 	private Boolean infoFlag = false;
-	
+
 
 	//default constructor
 	public AquaPanel() 
@@ -66,6 +70,7 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 	
 	//Get function for swimset size
 	public int getSwimSetSize() {return swimSet.size();}
+	public HashSet<Immobile> getImmobileSet() {return immobileSet;}
 	public  int getImmobileSetSize() {return  immobileSet.size();}
 	public HashSet<Swimmable> getSwimSet(){return swimSet;}
 
@@ -154,9 +159,7 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 
 		else if(e.getSource() == b6) {					//CLICK ON "Reset" - B6
 			Iterator<Swimmable> iterator = swimSet.iterator();
-
-			if (iterator.hasNext())
-			{
+			while (iterator.hasNext()){
 				iterator.next().setSuspend();
 				iterator.remove();
 			}
@@ -177,7 +180,7 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 			{
 				try {
 					//Adding a picture of a worm
-					picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("src/Caterpie-icon.png"))));
+					picLabel = new JLabel(new ImageIcon(ImageIO.read(new File("Caterpie-icon.png"))));
 					add(picLabel,BorderLayout.CENTER);
 					this.validate();
 					//repaint();
@@ -253,6 +256,13 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 		}
 		else if (e.getSource() == b10)				//CLICK ON "Exit" - B10
 			System.exit(0);
+		else if(e.getSource() ==b2)					//CLICK ON "Duplicate Animal" - B8
+		{
+			dad = new DuplicateAnimalDialog(this);
+			dad.setVisible(true);
+			//choose animal to duplicate
+			//set size speed
+		}
 	}
 
 	//Paint component function
@@ -292,17 +302,14 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 		this.revalidate();
 		this.repaint();
 	}
+
 	
 	//Get function for flag of worm
 	public Boolean is_worm() 
 	{
 		return wormsingle!=null;
 	}
-	public void setWormInstance()
-	{
-		Singleton.set();
-		wormsingle=null;
-	}
+
 	public Singleton getWormInstance(){return wormsingle;}
 
 /*	public void update(Observable a, Object obj)

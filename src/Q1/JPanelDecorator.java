@@ -55,7 +55,7 @@ public class JPanelDecorator extends JPanel implements ActionListener
         contentPane.add(lbl);
         int i = 0;
         swims = new String[ap.getSwimSet().size()];
-        for(Swimmable temp : ap.getSwimSet())
+        for(Swimmable temp : this.ap.getSwimSet())
         {
             if(temp.getClass() == Fish.class){
                 swims[i] = "Fish  |  Color: " + temp.getColor() + "  |  ID: " + temp.getAnimalID();

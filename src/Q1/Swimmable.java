@@ -11,7 +11,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CyclicBarrier;
 
-public abstract class Swimmable extends Thread implements SeaCreature
+public abstract class Swimmable extends Thread implements SeaCreature,Cloneable
 {
 	protected static int counter = 0;
 	protected int id;
@@ -85,6 +85,9 @@ public abstract class Swimmable extends Thread implements SeaCreature
 	abstract public Color getCol();
 	abstract public int getAnimalID();
 	abstract public void run();
+	abstract  public  Swimmable clone();
+	abstract public boolean SetClone(int size , int horspeed,int verspeed,Color color);
+	abstract public boolean SetMementoState(MementoState state);
 	abstract public void iAmHungry();
 	abstract void startTimer(long time);
 	abstract void setHungryState(HungerState state);

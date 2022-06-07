@@ -26,11 +26,16 @@ public class AquaFrame extends JFrame implements ActionListener
 	
 	//Panel for use
 	private AquaPanel ap;
+	private SaveStateDialog save_dialog;
+	private  RestoreStateDialog restore_dialog;
 	
 	//Parts of menu
 	private JMenuBar ElMenu;
-	private JMenu file ,background ,help;
-	private JMenuItem exit, image, blue, none, helpz;
+	private JMenu file ,background ,help,memento;
+	private JMenuItem exit, image, blue, none, helpz,save,restore;
+	private Caretaker caretaker = new Caretaker();
+	private Originator originator = new Originator();
+
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -70,6 +75,8 @@ public class AquaFrame extends JFrame implements ActionListener
 		blue.addActionListener(this);
 		helpz.addActionListener(this);
 		none.addActionListener(this);
+		save.addActionListener(this);
+		restore.addActionListener(this);
 	}
 	
 	//Make the menu function
@@ -80,24 +87,27 @@ public class AquaFrame extends JFrame implements ActionListener
 		file = new JMenu("File");
 		background = new JMenu("Background");
 		help = new JMenu("Help");
+		memento = new JMenu("Memento");
 		
 		exit = new JMenuItem("Exit");
 		image = new JMenuItem("Image");
 		blue = new JMenuItem("Blue");
 		none = new JMenuItem("None");
 		helpz = new JMenuItem("Help");
-		
+		save = new JMenuItem("Save Object State");
+		restore = new JMenuItem("Restore Object State");
 		file.add(exit);
 		background.add(image);
 		background.add(blue);
 		background.add(none);
 		help.add(helpz);
-		
+		memento.add(save);
+		memento.add(restore);
 		//Adding choices to menu
 		ElMenu.add(file);
 		ElMenu.add(background);
 		ElMenu.add(help);
-		
+		ElMenu.add(memento);
 		setJMenuBar(ElMenu);
 	}
 
@@ -142,6 +152,15 @@ public class AquaFrame extends JFrame implements ActionListener
 			}
 			ap.setBackground(Color.white);
 		}
+		else if(e.getSource() == save){
+			save_dialog = new SaveStateDialog(ap,caretaker,originator);
+			save_dialog.setVisible(true);
+		}
+		else if(e.getSource() == restore){
+
+			restore_dialog = new RestoreStateDialog(ap,caretaker,originator);
+			restore_dialog.setVisible(true);
+		}
 		
 		//CLICK "Blue"
 		else if (e.getSource() == blue) 
@@ -157,5 +176,7 @@ public class AquaFrame extends JFrame implements ActionListener
 		//CLICK "Help"
 		else if (e.getSource() == helpz)
 			JOptionPane.showMessageDialog(null, "Home Work 3\n GUI @ Threads");
+
+
 	}
 }
