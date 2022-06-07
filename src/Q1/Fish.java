@@ -54,6 +54,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 		this.y_dir = 1;
 
 		myState = new Satiated();
+		addActionListener(this.panel);
 		startTimer(20000L);
 
 	}
@@ -246,11 +247,10 @@ public class Fish extends Swimmable implements MarineAnimal{
 	   }
 	}
 	/***
-	 * run overide function 
+	 * run overide function
 	 */
 	public void run() {
 		while(true) {
-			//System.out.println(this.x_front);
 			try
 			{
 				sleep(10);
@@ -351,19 +351,17 @@ public class Fish extends Swimmable implements MarineAnimal{
 	 * moving of the fish without a food 
 	 */
 	public void moveRandom() {
-
-		this.x_front += this.horSpeed*this.x_dir;
-		this.y_front += this.verSpeed*this.y_dir;
-
-		if(this.x_front > panel.getWidth() - this.size/2 && x_dir ==1 )
+		if(this.x_front > panel.getWidth() - this.size/4 && x_dir ==1 )
 		{
 			x_dir =-1;
+			this.x_front -=(size/2 + size/4);
 		}
 		else if (this.x_front < this.size/4 && x_dir ==-1 )
 		{
 			x_dir =1;
+			this.x_front +=(size/2 + size/4);
 		}
-		if(this.y_front > panel.getHeight() - this.size/2 && y_dir ==1 )
+		if(this.y_front > panel.getHeight() - this.size/4 -30 && y_dir ==1 )
 		{
 			y_dir =-1;
 		}
@@ -371,8 +369,8 @@ public class Fish extends Swimmable implements MarineAnimal{
 		{
 			y_dir =1;
 		}
-//		this.x_front += this.horSpeed*this.x_dir;
-//		this.y_front += this.verSpeed*this.y_dir;
+		this.x_front += this.horSpeed*this.x_dir;
+		this.y_front += this.verSpeed*this.y_dir;
 	}
 	public Fish clone(){
 		return new Fish(panel,size,x_front,y_front,horSpeed,verSpeed,col);
@@ -398,13 +396,16 @@ public class Fish extends Swimmable implements MarineAnimal{
 
 	public void iAmHungry()
 	{
-		//panel.actionHungryFish(null);
 		listen.actionHungryFish(this);
 	}
 
 	public void addActionListener(AquariumActionListener aal)
 	{
 		this.listen = aal;
+	}
+	public void RemoveListen(){
+		this.timer.cancel();
+		this.listen = null;
 	}
 
 	public void PaintFish(Color col){this.col = col;}

@@ -4,8 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashSet;
-import java.util.Iterator;
+
 
 public class DuplicateAnimalDialog extends JDialog implements ActionListener {
     private AquaPanel ap;
@@ -17,6 +16,8 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
     private JPanel DialogPanel,buttonsPanel; // create panels to the dialog
     private JButton b1,b2;
     private final JPanel contentPane = new JPanel();
+    private AnimalFactory asf;
+    private SeaCreature creature;
     public DuplicateAnimalDialog(AquaPanel ap)
     {
         super();
@@ -81,8 +82,7 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
             this.dispose();
         else if(e.getSource() ==b1){
             {
-                String animal= animalBox.getItemAt(animalBox.getSelectedIndex());
-                int id_of_animal = animal.charAt(animal.length()-1)-48;
+
                 try
                 {
                     if(ap.getSwimSetSize()>4)
@@ -91,8 +91,6 @@ public class DuplicateAnimalDialog extends JDialog implements ActionListener {
                     int id_of_animal = animal.charAt(animal.length()-1)-48;
                     for(Swimmable temp : ap.getSwimSet()){
                         if (temp.getAnimalID() == id_of_animal){
-//                            Aasf = new AnimalFactory(ap, size, xx, yy, h, v, color);
-//                            creature = asf.produceSeaCreature("Fish");
                             Swimmable s = temp.clone();
                             ap.addAnimal(s);
                             UpdateDuplicateAnimal a = new UpdateDuplicateAnimal(s);

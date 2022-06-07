@@ -51,7 +51,7 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 		//Starting position of the jellyfish
 		this.x_dir = 1;
 		this.y_dir = 1;
-
+		addActionListener(this.panel);
 		myState = new Satiated();
 		startTimer(25000L);
 	}
@@ -313,19 +313,19 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 	 * moving of the jellyfish without a food 
 	 */
 	public void moveRandom() {
-		if(this.x_front > panel.getWidth()-this.size/2&& x_dir ==1 )
+		if(this.x_front > panel.getWidth()-this.size/4&& x_dir ==1 )
 		{
 			x_dir =-1;
 		}
-		else if (this.x_front < this.size/2 && x_dir ==-1 )
+		else if (this.x_front < this.size/4 && x_dir ==-1 )
 		{
 			x_dir =1;
 		}
-		if(this.y_front > panel.getHeight() && y_dir ==1 )
+		if(this.y_front > panel.getHeight()- this.size/4 -30 && y_dir ==1 )
 		{
 			y_dir =-1;
 		}
-		else if (this.y_front < 0 && y_dir ==-1 )
+		else if (this.y_front < this.size/4  && y_dir ==-1 )
 		{
 			y_dir =1;
 		}
@@ -363,7 +363,10 @@ public class Jellyfish extends Swimmable implements MarineAnimal{
 	{
 		this.listen = aal;
 	}
-
+	public void RemoveListen(){
+		this.timer.cancel();
+		this.listen = null;
+	}
 	public void PaintFish(Color col){this.col = col;}
 
 	public void setHungryState(HungerState state) {this.myState = state;}

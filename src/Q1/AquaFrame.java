@@ -135,6 +135,7 @@ public class AquaFrame extends JFrame implements ActionListener
     }
 	
 	//Frame menu functionality
+
 	public void actionPerformed(ActionEvent e) 
 	{
 		//CLICK "Exit"
