@@ -58,4 +58,7 @@ public class MementoState {
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("HH:mm:ss");
         return  myDateObj.format(myFormatObj);
     }
+    public String getNameAndID(){
+        return this.kind_of_animal + this.id;
+    }
 }

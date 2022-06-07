@@ -92,33 +92,36 @@ public class SaveStateDialog extends JDialog implements ActionListener {
             dispose();
         else if(e.getSource() ==b1){
             String animal= animalBox.getItemAt(animalBox.getSelectedIndex());
-            int id_of_animal = animal.charAt(animal.length()-1)-48;
-            animal = animal.substring(0,animal.length()-2);
-            for(Swimmable temp : ap.getSwimSet()){
-                if (temp.getAnimalID() == id_of_animal){
-                    if(Objects.equals(temp.getAnimalName(), animal) && Objects.equals(temp.getAnimalName(), "Fish") ) {
-                        originator.setState(new MementoState((Fish)temp));
-                        caretaker.addMemento(originator.save());
-                    }
-                    else if (Objects.equals(temp.getAnimalName(), animal) && Objects.equals(temp.getAnimalName(), "Jellyfish")){
-                        originator.setState(new MementoState((Jellyfish)temp));
-                        caretaker.addMemento(originator.save());
-                    }
-                }
-            }
-            for(Immobile temp : ap.getImmobileSet()){
-                if (temp.getPlantId() == id_of_animal){
-                    if(Objects.equals(temp.name, animal) && Objects.equals(temp.name, "Laminaria") ) {
-                        originator.setState(new MementoState((Laminaria)temp));
-                        caretaker.addMemento(originator.save());
-                    }
-                    else if (Objects.equals(temp.name, animal) && Objects.equals(temp.name, "Zostera")){
-                        originator.setState(new MementoState((Zostera)temp));
-                        caretaker.addMemento(originator.save());
+            if(animal!= null) {
+                int id_of_animal = animal.charAt(animal.length() - 1) - 48;
+                animal = animal.substring(0, animal.length() - 2);
+                for (Swimmable temp : ap.getSwimSet()) {
+                    if (temp.getAnimalID() == id_of_animal) {
+                        if (Objects.equals(temp.getAnimalName(), animal) && Objects.equals(temp.getAnimalName(), "Fish")) {
+                            originator.setState(new MementoState((Fish) temp));
+                            caretaker.addMemento(originator.save());
+                        } else if (Objects.equals(temp.getAnimalName(), animal) && Objects.equals(temp.getAnimalName(), "Jellyfish")) {
+                            originator.setState(new MementoState((Jellyfish) temp));
+                            caretaker.addMemento(originator.save());
+                        }
                     }
                 }
+                for (Immobile temp : ap.getImmobileSet()) {
+                    if (temp.getPlantId() == id_of_animal) {
+                        if (Objects.equals(temp.name, animal) && Objects.equals(temp.name, "Laminaria")) {
+                            originator.setState(new MementoState((Laminaria) temp));
+                            caretaker.addMemento(originator.save());
+                        } else if (Objects.equals(temp.name, animal) && Objects.equals(temp.name, "Zostera")) {
+                            originator.setState(new MementoState((Zostera) temp));
+                            caretaker.addMemento(originator.save());
+                        }
+                    }
+                }
+                dispose();
             }
-            dispose();
+            else{
+                JOptionPane.showMessageDialog(null,"there is no animals to save");
+            }
         }
     }
 }

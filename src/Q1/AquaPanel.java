@@ -55,15 +55,16 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 	//Flags for worm and info
 	private Singleton wormsingle = null;
 	private Boolean infoFlag = false;
+	private Caretaker caretaker;
 
 
 	//default constructor
-	public AquaPanel() 
+	public AquaPanel()
 	{
 		super();
 		setLayout(new BorderLayout());
 		setBackground(Color.white);
-		
+		this.caretaker = caretaker;
 		//Make buttons for panel function
 		MakeButtons();
 	}
@@ -155,15 +156,14 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 		 	}
 		}
 
-
-
 		else if(e.getSource() == b6) {					//CLICK ON "Reset" - B6
-			Iterator<Swimmable> iterator = swimSet.iterator();
-			while (iterator.hasNext()){
-				iterator.next().setSuspend();
-				iterator.remove();
-			}
+			for(Swimmable i: swimSet){
+					i.RemoveListen();
+					i = null;
+				}
 
+			swimSet.removeAll(swimSet);
+			System.out.println(swimSet.size());
 			immobileSet = new HashSet<Immobile>();
 			swimSet = new HashSet<Swimmable>();
 			repaint();
@@ -321,12 +321,11 @@ public class AquaPanel extends JPanel implements AquariumActionListener
 	/////////////////////OBSERVER SHIT//////////////////////
 	public void actionHungryFish(Swimmable s)
 	{
-		System.out.println(s.getAnimalName()+s.getAnimalID());
 		//s.setHungryState(new Hungry());
 		HungerState hs = new Hungry();
 		hs.ChangeState(s);
 
-		if (!is_worm())
+		if (!is_worm()&&s!=null)
 			JOptionPane.showMessageDialog(null, "Animal: " + s.getAnimalName() + "\nID:" +
 					s.getAnimalID() + "\nFeed it using the 'Food' button", "Your animal is hungry!",
 					JOptionPane.INFORMATION_MESSAGE);

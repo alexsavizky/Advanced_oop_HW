@@ -27,7 +27,10 @@ public class RestoreStateDialog extends JDialog implements ActionListener {
         this.originator = originator;
         states = new String[caretaker.getsize()];
         for (int i =0 ; i <caretaker.getsize();i++){
-            states[i] = caretaker.getMemento(i).getState().toString();
+            for(Swimmable j :ap.getSwimSet()){
+                if(caretaker.getMemento(i).getState().id == j.getAnimalID() )
+                    states[i] = caretaker.getMemento(i).getState().toString();
+            }
         }
         setSize(450, 305);
         setLayout(new BorderLayout());
@@ -73,21 +76,26 @@ public class RestoreStateDialog extends JDialog implements ActionListener {
             dispose();
         else if(e.getSource() ==b1){
             String animal= animalBox.getItemAt(animalBox.getSelectedIndex());
-            int id_of_animal = animal.charAt(animal.length()-10)-48;
-            String date = animal.substring(animal.length()-8);
-            animal = animal.substring(0,animal.length()-10);
+            if (animal != null) {
+                int id_of_animal = animal.charAt(animal.length() - 10) - 48;
+                String date = animal.substring(animal.length() - 8);
+                animal = animal.substring(0, animal.length() - 10);
 //            System.out.println(animal);
-            for(Swimmable temp : ap.getSwimSet()){
-                if (temp.getAnimalID() == id_of_animal && Objects.equals(animal, temp.getAnimalName())) {
-                    temp.SetMementoState(caretaker.getMemento(date).getState());
-                    dispose();
+                for (Swimmable temp : ap.getSwimSet()) {
+                    if (temp.getAnimalID() == id_of_animal && Objects.equals(animal, temp.getAnimalName())) {
+                        temp.SetMementoState(caretaker.getMemento(date).getState());
+                        dispose();
+                    }
+                }
+                for (Immobile plant : ap.getImmobileSet()) {
+                    if (plant.getPlantId() == id_of_animal && Objects.equals(animal, plant.name)) {
+                        plant.SetMementoState(caretaker.getMemento(date).getState());
+                        dispose();
+                    }
                 }
             }
-            for(Immobile plant : ap.getImmobileSet()){
-                if (plant.getPlantId() == id_of_animal && Objects.equals(animal, plant.name)) {
-                    plant.SetMementoState(caretaker.getMemento(date).getState());
-                    dispose();
-                }
+            else{
+                JOptionPane.showMessageDialog(null,"there is no sates to restore");
             }
         }
     }

@@ -79,6 +79,8 @@ public abstract class Swimmable extends Thread implements SeaCreature,Cloneable
 	abstract public void setResume();
 	abstract public void setBarrier(CyclicBarrier b);
 	abstract public int getSize();
+	abstract public int getX_front();
+	abstract public int getY_front();
 	abstract public void eatInc();
 	abstract public int getEatCount();
 	abstract public String getColor();
@@ -92,4 +94,5 @@ public abstract class Swimmable extends Thread implements SeaCreature,Cloneable
 	abstract void startTimer(long time);
 	abstract void setHungryState(HungerState state);
 	abstract HungerState getHungryState();
+	abstract void RemoveListen();
 }
