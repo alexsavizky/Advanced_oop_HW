@@ -25,7 +25,7 @@ public class JPanelDecorator extends JPanel implements ActionListener
 
     private String[] swims;                                             //List of strings
     private AquaPanel ap;                                               //AquaPanel object
-    private ImageIcon img3 = new ImageIcon("src/nicefish.png"); //Icon for panel
+    private ImageIcon img3 = new ImageIcon("nicefish.png"); //Icon for panel
     private MarineAnimalDecorator mad;                                  //MarineAnimalDecorator object
 
     /***

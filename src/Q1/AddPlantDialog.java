@@ -25,7 +25,7 @@ public class AddPlantDialog extends JDialog implements ActionListener
     private static final long serialVersionUID = 1L;
 
     //Icon for dialog
-    private ImageIcon img2 = new ImageIcon("src/seaweed.png");
+    private ImageIcon img2 = new ImageIcon("seaweed.png");
 
     //Adding buttons, labels and boxes
     private final JPanel contentPane = new JPanel();

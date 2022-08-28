@@ -63,6 +63,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 		startTimer(foodFreq);
 	}
 
+
 	/***
 	 * Starts one round of the timer
 	 * @param time - how many milliseconds to execute
@@ -118,7 +119,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 	public int getSize() {return this.size;}
 	public int getE_DISTANCE() {return this.E_DISTANCE;}
 	public int getX_front() {return this.x_front;}
-	public int getY_front() {return this.y_front;}
+	final public int getY_front() {return this.y_front;}
 	public int getX_dir() {return this.x_dir;}
 	public int getY_dir() {return this.y_dir;}
 	public Color getCol() {return this.col;}
@@ -189,7 +190,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 	public String toString() {
 		return String.format("Fish \n E_DISTANCE :%d \n size :%d \n col :%d \n eatCoun :%d \n x_front :%d \n y_front :%d \n x_dir :%d \n y_dir :%d \n ", E_DISTANCE,size,col,eatCount,x_front,y_front,x_dir,y_dir);
 	}
-	//override to equals
+
 	public  boolean equals(Object other) {
 		if (other != null && other instanceof Jellyfish){
 			return (this.size==((Fish)other).getSize() && this.x_front==((Fish)other).getX_front() && this.y_front==((Fish)other).getY_front()
@@ -265,7 +266,7 @@ public class Fish extends Swimmable implements MarineAnimal{
 		while(true) {
 			try
 			{
-				sleep(10);
+				sleep(1000);
 				//If worm isn't on screen
 				if(!panel.is_worm())
 				{
@@ -274,18 +275,14 @@ public class Fish extends Swimmable implements MarineAnimal{
 						moveRandom();
 					}
 					else {
-						synchronized(this){
-							wait();
-						}
+						wait();
 					}
 				}
 				else {
 					//If the fish sleeps
 					if (this.is_moving == false)
 					{
-						synchronized(this){
-							wait();
-						}
+						wait();
 					}
 					//If the fish is moving and hungry -> swim to food
 					else if((this.is_moving == true) && (myState instanceof Hungry))
@@ -374,26 +371,22 @@ public class Fish extends Swimmable implements MarineAnimal{
 	 * Movement of the fish without a food
 	 */
 	public void moveRandom() {
-		if(this.x_front > panel.getWidth() - this.size/4 && x_dir ==1 )
-		{
-			x_dir =-1;
-			this.x_front -=(size/2 + size/4);
+		synchronized(Fish.class) {
+			if (this.x_front > panel.getWidth() - this.size / 4 && x_dir == 1) {
+				x_dir = -1;
+				this.x_front -= (size / 2 + size / 4);
+			} else if (this.x_front < this.size / 4 && x_dir == -1) {
+				x_dir = 1;
+				this.x_front += (size / 2 + size / 4);
+			}
+			if (this.y_front > panel.getHeight() - this.size / 4 - 30 && y_dir == 1) {
+				y_dir = -1;
+			} else if (this.y_front < this.size / 4 && y_dir == -1) {
+				y_dir = 1;
+			}
+			this.x_front += this.horSpeed * this.x_dir * 10;
+			this.y_front += this.verSpeed * this.y_dir *10;
 		}
-		else if (this.x_front < this.size/4 && x_dir ==-1 )
-		{
-			x_dir =1;
-			this.x_front +=(size/2 + size/4);
-		}
-		if(this.y_front > panel.getHeight() - this.size/4 -30 && y_dir ==1 )
-		{
-			y_dir =-1;
-		}
-		else if (this.y_front < this.size/4 && y_dir ==-1 )
-		{
-			y_dir =1;
-		}
-		this.x_front += this.horSpeed*this.x_dir;
-		this.y_front += this.verSpeed*this.y_dir;
 	}
 
 	//Clone functions for fish

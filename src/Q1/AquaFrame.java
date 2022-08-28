@@ -18,7 +18,7 @@ public class AquaFrame extends JFrame implements ActionListener
 
 	private static final long serialVersionUID = 1L;
 
-	private ImageIcon img = new ImageIcon("src/aquarium.png");	//Icon for aqua frame
+	private ImageIcon img = new ImageIcon("aquarium.png");	//Icon for aqua frame
 
 	private Dimension size = Toolkit.getDefaultToolkit().getScreenSize();	//size for frame
 	
@@ -49,8 +49,13 @@ public class AquaFrame extends JFrame implements ActionListener
 				}
 			}
 		});
-	}
 
+			//shpih();
+
+	}
+	public static void shpih(){
+		throw new RuntimeException("Alex & Bar's Aquarium");
+	}
 	/***
 	 * Constructor
 	 */
