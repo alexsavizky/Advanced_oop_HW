@@ -1,15 +1,20 @@
+/*	 Authors:
+ *   Bar Shwartz - 313162265
+ *   Alex Savitzky - 316611409
+ */
+
 package Q1;
 
 import java.awt.*;
-//import java.util.Observable;
 import java.util.concurrent.CyclicBarrier;
 
-public abstract class Swimmable extends Thread{
-	private static int counter = 0; 
-	private int id;
-	protected int horSpeed; //Horizontal speed
-	protected int verSpeed; //Vertical speed
-	
+public abstract class Swimmable extends Thread implements SeaCreature,Cloneable
+{
+	protected static int counter = 0;		//Counter object
+	protected int id;						//ID of the Swimmable object
+	protected int horSpeed; 				//Horizontal speed
+	protected int verSpeed; 				//Vertical speed
+
 	/***
 	 * Default constructor
 	 */
@@ -20,7 +25,7 @@ public abstract class Swimmable extends Thread{
 		this.horSpeed = 0;
 		this.verSpeed = 0;
 	}
-	
+
 	/***
 	 * Constructor
 	 * @param a - Horizontal speed
@@ -37,7 +42,6 @@ public abstract class Swimmable extends Thread{
 	//get functions
 	public int getHorSpeed() {return this.horSpeed;}
 	public int getVerSpeed() {return this.verSpeed;}
-	
 	
 	//set functions for horSpeed & verSpeed
 	public boolean setHorSpeed(int a) 
@@ -59,16 +63,26 @@ public abstract class Swimmable extends Thread{
 			return false;
 	}
 	
-	
 	//Functions for Fish & Jellyfish classes
 	abstract public String getAnimalName();
-	abstract public void drawAnimal(Graphics g);
+	abstract public void drawCreature(Graphics g);
 	abstract public void setSuspend();
 	abstract public void setResume();
 	abstract public void setBarrier(CyclicBarrier b);
 	abstract public int getSize();
+	abstract public int getX_front();
+	abstract public int getY_front();
 	abstract public void eatInc();
 	abstract public int getEatCount();
 	abstract public String getColor();
-
+	abstract public Color getCol();
+	abstract public int getAnimalID();
+	abstract public void run();
+	abstract  public  Swimmable clone();
+	abstract public boolean SetClone(int size, int horspeed, int verspeed, Color color);
+	abstract public boolean SetMementoState(MementoState state);
+	abstract public void iAmHungry();
+	abstract void startTimer(long time);
+	abstract void setHungryState(HungerState state);
+	abstract void RemoveListen();
 }
